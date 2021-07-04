@@ -1,0 +1,416 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath, amssymb, amsthm, mathrsfs}
+\usepackage[hmargin = 1.25in, vmargin = 1in]{geometry}
+\title{Homework-4}
+\author{Haocheng Wang \and 2019011994}
+
+\newtheorem{ex}{Exercise}[subsection]
+\stepcounter{section}
+\stepcounter{subsection}
+\renewcommand{\proofname}{\noindent\bf Proof}
+
+\begin{document}
+\maketitle
+(1)\begin{proof}
+To construct non-Lebesgue measurable subset, we prove a lemma first. The difference set of a Lebesgue 
+measurable set $A$ is $A - A := \{x - y \mid x, y \in A\}$,
+and we show that if $m(A) > 0$, then $A - A$ contains an open neighbourhood of the origin.
+
+Since $A$ is measurable, for every $\varepsilon > 0$ there exists a compact set $K \subset A$ and an open set 
+$U \supset A$ such that $m(U) - \varepsilon < m(A) < m(K) + \varepsilon$, and we can always choose $K$ and $U$
+such that $m(U) < 2m(K)$. Since $K \subset U$, for each $k \in K$, there exists a neighbourhood $W_k$ of 0 such
+that $k + W_k \subset U$ and further there exists a neighbourhood $V_k$ of origin such that $2V_k \subset W_k$.
+The family $\{k + V_k\}$ is an open cover of the compact set $K$, so one can choose a finite subcover 
+$\{k_1 + V_{k_1}, \dots, k_n + V_{k_n}\}$. Let $V := \bigcap_{i = 1}^n V_{k_i}$, then$$
+K + V \subset \bigcup_{i = 1}^n (k_i + V_{k_i}) \subset \bigcup_{i = 1}^n (k_i + 2V_{k_i}) \subset 
+\bigcup_{i = 1}^n (k_i + W_{k_i}) \subset U.
+$$Let $v \in V$, if $(K + v) \cap K = \emptyset$, then $$
+2m(K) = m(K + v) + m(K) = m((K + v) \cup K) < m(U),
+$$and this contradicting our choice of $K$ and $U$. Hence for all $v \in V$ there exists $k_1, k_2 \in K \subset A$
+such that $v + k_1 = k_2$, which means that $V \subset A - A$. The lemma follows.
+
+Define an equivalence relation on $\mathbb{R}$ by$$
+x \sim y \leftrightarrow x - y \in \mathbb{Q}.
+$$By the Axiom of Choice, one can let set $\Gamma$ contains exactly one element of each equivalence class, thus we 
+can express real line as the following disjoint union $$
+\mathbb{R} = \bigcup_{q \in \mathbb{Q}} (\Gamma + q).
+$$If $E \cap (\Gamma + q)$ were not Lebesgue measurable for some $q \in \mathbb{Q}$, then we would be finish since
+$E \cap (\Gamma + q)$ is a non-Lebesgue measurable subset of $E$ with positive measure. However, if 
+$P \cap (\Gamma + q) =: P_q$ are measurable for all $q \in \mathbb{Q}$, an observation is that$$
+P_q - P_q \subset (\Gamma + q) - (\Gamma - q) = \Gamma - \Gamma.
+$$Let $q \in \mathbb{Q} \cap \Gamma$, then there exists $\gamma_1, \gamma_2 \in \Gamma$ such that 
+$\gamma_1 - \gamma_2 = q \Leftrightarrow \gamma_1 \sim \gamma_2$, which implies that $\gamma_1 = \gamma_2$ by the 
+definition of $\Gamma$, hence $\mathbb{Q} \cap \Gamma = \{0\}$. Thus $P_q - P_q$ contains no open interval around
+origin, which implies that $m(P_q) = 0$, then $m(E) \leq \sum_{q \in \mathbb{Q}} m^*(P_q) = 0$, 
+which contradicts the hypothesis that $m(E) > 0$.
+\end{proof}
+
+(2)\begin{proof}
+Let $\{r_n\}$ be an enumeration of the rationals, and put$$
+V_n = (r_n - 3^{-n - 1}, r_n + 3^{n + 1}), \ \ \ \ \ W_n = V_n \setminus \bigcup_{k = 1}^\infty V_{n + k},
+$$observe that $$
+m(W_n)>m(V_n)-\sum_{k=1}^{\infty}m(V_{n+k})=m(V_n)-m(V_n)\sum_{k=1}^{\infty}3^{-k}=\frac{m(V_n)}{2}.
+$$The inequality can be strict since there exists $r_i (i > n)$ such that $V_i \subset V_n^c$. 
+
+For each $n$, let $K_n = (r_n - \frac{1}{2}3^{-n - 1}, r_n + \frac{1}{2}3^{n + 1}) \subset V_n$ with 
+$m(K_n) = \frac{m(V_n)}{2}$. Finally, we put $$
+A_n= W_n\cap K_n,\qquad A=\bigcup_{n=1}^{\infty}A_n.
+$$Now we show that $E$ has the desired properties. It suffices to show that for each $n$ \[
+0 < m(A \cap V_n) < m(V_n), \tag{*}\label{*}
+\]since every open interval $I = (a, b) \subset [0, 1]$ in contains at least one $V_n$. 
+For the left inequality, it is enough to prove that $m(A_n\cap V_n)=m(A_n)=m(W_n\cap K_n)>0$, and this follows
+from $$
+m(W_n\cup K_n)\leq m(V_n)<m(W_n)+m(K_n)=m(W_n\cup K_n)+m(W_n\cap K_n),
+$$
+For the right inequality in \eqref{*}, observe that $V_n \subset W_i^c, \forall 0 < i < n$, therefore \begin{align*}
+m(A\cap V_n)&=m\left(\bigcup_{k=0}^{\infty}A_{n+k}\cap V_n\right)\leq\sum_{k=0}^{\infty}m(K_{n+k}\cap V_n)\\
+&<\sum_{k=0}^{\infty}m(K_{n+k})=\sum_{k=0}^{\infty}\frac{m(V_{n+k})}{2}=
+\frac{m(V_n)}{2}(1 + \sum_{n = 1}^n 3^{-n})=m(V_n).
+\end{align*}
+Let $E = A \cap [0, 1]$, its obvious that $E$ is Lebesgue measurable and has positive measure, thus $E$ is the 
+set desired.
+
+\end{proof}
+
+(3) By (1) the difference set $K$ contains no open interval centered origin for $m(C) = 0$.
+
+(4) (Venn diagram) \begin{proof}
+For each $x \in \mathbb{R}^d$, either $x \in E_n$ or $x \in E_n^c$, for all $1 \leq n \leq k$. Let 
+$D_{\mathcal{I}} := \{x \in \mathbb{R}^d \mid x \in E_i, i \in \mathcal{I}\}$, one can verify that 
+$\mathcal{I} \in 2^{\{1,\dots, k\}}$ where $|2^{\{1,\dots, n\}}| = 2^k$. It's obvious that $D_\mathcal{I}$ are
+pairwisely disjoint, and for each $x \in \mathbb{R}^d$, $x$ definitely belongs to exactly one $D_\mathcal{I}$. 
+Hence $\mathbb{R}^d = \bigcup_{\mathcal{I} \in 2^{\{1,\dots, n\}}} D_\mathcal{I}$.
+\end{proof}
+
+(5)\begin{proof}
+For each $n$ we define $$
+\varphi_n(x) := \sum_{k = 0}^{n2^n} 2^{-n}k1_{A_{n, k}} + n1_{E_n},A_{n, k} := f^{-1}([k2^{-n}, (k + 1)2^{-n})),
+E_n := f^{-1}([(n2^n + 1)2^{-n}, +\infty]).
+$$The unsigned simple function $\varphi_n(x)$ is well-defined, since $A_{n, k} = f^{-1}([k2^{-n}, +\infty]) \setminus
+f^{-1}([(k + 1)2^{-n}, +\infty])$ is measurable. Now we show that $\varphi_n(x)$ is monotonically non-decreasing, 
+in fact one can write $\varphi_n(x)$ as $\varphi_n = \min(n, 2^{-n}[2^nf])$ where $[\cdot]$ is the least integer
+function. Note that $2[r] \leq [2r], \forall r \geq 0$, thus $$
+\varphi_n = \min(n, 2^{-n}[2^nf]) \leq \min(n + 1, 2^{-n}[2^nf]) \leq \min(n + 1, 2^{-n}\frac{1}{2}[2\cdot 2^nf])
+= \varphi_{n + 1}.
+$$Now we verify that $\varphi_n(x)$ converges to $f(x)$ indeed. For each $x \in \mathbb{R}^d$, if $f(x) = +\infty$,
+then it's obvious that $\varphi_n(x) \uparrow f(x)$; if $f(x) < +\infty$, then for large enough $n > f(x)$ such that 
+$\varphi_n(x) = 2^{-n}[2^nf]$, thus $f(x) - \varphi_n(x) = \frac{2^nf(x) - 2^{-n}[2^nf(x)]}{2^n} \leq 2^{-n}$,
+hence $\lim_{n \to \infty} \varphi_n(x) = f(x)$.
+\end{proof}
+
+(6) {\bfseries Exercise 1.3.1} (Basic properties of the simple unsigned integral)\begin{proof}
+(i) (Unsigned linearity) Express $f = \sum_{i = 1}^n c_i1_{E_i}, g = \sum_{j = 1}^m d_j1_{F_j}$, \\thus 
+$f + g = \sum_{i = 1}^n c_i1_{E_i} + \sum_{j = 1}^m d_j1_{F_j}$ is also simple unsigned function. By the 
+well-definedness of simple integral, \begin{align*}
+\mathrm{Simp}\int_{\mathbb{R}^d} f(x) + g(x) dx = \sum_{i = 1}^n c_i m(E_i) + \sum_{j = 1}^m d_jm(F_j) =
+\mathrm{Simp}\int_{\mathbb{R}^d} f(x) dx + \mathrm{Simp}\int_{\mathbb{R}^d} g(x) dx.
+\end{align*}
+Similarly $$
+\mathrm{Simp}\int_{\mathbb{R}^d} cf(x) dx = \sum_{i = 1}^n cc_im(E_i) = c\sum_{i = 1}^n c_im(E_i) =
+c\times \mathrm{Simp}\int_{\mathbb{R}^d} f(x) dx.
+$$
+
+(ii) (Finiteness) Express $f = \sum_{i = 1}^n c_i1_{E_i}$ and we assume that $c_i > 0$.
+
+
+Suppose that $\mathrm{Simp}\int_{\mathbb{R}^d} f(x) dx< +\infty$, we assume that $f$ is not bounded, then
+there exists some $\{c_i\}_{i \in \mathcal{I}}$ such that $c_i = +\infty, \forall i \in \mathcal{I}$. Thus one has
+$m(E_i) = 0, \forall i \in \mathcal{I}$. That is $f$ is finite almost everywhere. Since $$
+\mathrm{Simp}\int_{\mathbb{R}^d} f(x) dx = \sum_{i = 1}^n c_im(E_i) = \sum_{i \not\in \mathcal{I}} c_im(E_i) \geq 
+\min\{c_i\} \cdot m(\mathrm{supp} f),
+$$one has that its support has finite measure.
+
+Now we assume that $f$ is finite almost everywhere and has finite support, if $f$ is bounded the conclusion 
+is trivial. So we suppose that there exists $x \in \mathbb{R}^d$ such that $f(x) = +\infty$, then there exists
+some $c_i$ satisfying $c_i = +\infty$. By assumption, we have $m(E_i) = 0$. Hence $\mathrm{Simp}\int_{\mathbb{R}^d}
+f(x) dx < \infty$.
+
+(iii) (Vanishing) If $f$ is zero almost everywhere, then $f$ can be expressed as $f = \sum_{i = 1}^n c_i1_{E_i}$,
+$c_i > 0$
+where $E_i$ are Lebesgue measurable sets and the union $\bigcup_{i = 1}^n E_i$ has measure zero. Then by the 
+definition of the simple integral we have $\mathrm{Simp}\int_{\mathbb{R}^d} f(x) dx = 0$.  Now we assume that
+$\mathrm{Simp}\int_{\mathbb{R}^d} f(x) dx = 0$, by definition $\sum_{i = 1}^n c_im(E_i) = 0$, if there exists 
+an $i$ such that $c_i > 0$ and $m(E_i) > 0$, then $\mathrm{Simp}\int_{\mathbb{R}^d} f(x) dx \geq c_im(E_i) > 0$,
+this contradiction finish the proof.
+
+(iv) (Equivalence) Since $f$ and $g$ agree almost everywhere, the set $A := \{x \in \mathbb{R}^d \mid f(x) \ne g(x)\}$
+has measure zero. Let $$
+\tilde{f} := \sum_{i = 1}^n c_i1_{E_i \setminus A},\ \ \ \tilde{g}:= \sum_{j = 1}^m  d_j1_{F_j \setminus A},
+$$then one has that $\tilde{f} = \tilde{g}, \forall x \in \mathbb{R}^d$. And we note that $m(E_i \setminus A) = m(E_i)$,
+$m(F_j \setminus A) = m(F_j)$, we have that $\mathrm{Simp}\int_{\mathbb{R}^d} f(x) dx = \mathrm{Simp}\int_{\mathbb{R}^d} g(x) dx$.
+
+(v) (Monotonicity) We decompose $g$ as $g = (g - f) + f$, since one can always express $E_i, F_j$ as the union of 
+$A_1, \dots, A_m, 0 \leq m \leq 2^{m + n}$, where $\{A_i\}$ are pairwisely disjoint and are the intersections of some 
+of the $E_1, \dots, E_n, F_1, \dots, F_m$, the function $f - g$ is also an unsigned simple function. 
+then by linearity we establish that $\mathrm{Simp}\int_{\mathbb{R}^d} f(x)dx \leq \mathrm{Simp}\int_{\mathbb{R}^d} g(x) dx$.
+
+(vi) (Compatibility with Lebesgue measure) It's obvious from the definition of simple integral.
+\end{proof}
+
+(7) {\bfseries Exercise 1.3.2.} (Basic properties of the complex-valued simple integral)\begin{proof}
+(i) (*-linearity) We work out the real-valued counterpart of the linearity property first, i.e., assume that $f, g$
+are real-valued simple functions.
+By the triangle inequality and the monotonicity of unsigned simple integral\begin{multline*}
+    \mathrm{Simp}\int_{\mathbb{R}^d} |f(x) + g(x)| dx \leq \mathrm{Simp}\int_{\mathbb{R}^d} (|f(x)| + |g(x)|) dx \\
+    = \mathrm{Simp}\int_{\mathbb{R}^d} |f(x)| dx + \mathrm{Simp}\int_{\mathbb{R}^d} |g(x)| dx \leq +\infty,
+\end{multline*}
+$f(x) + g(x)$ is also absolutely integrable. Denote that $h = f + g$. So $h_+ - h_- = f_+ - f_- + g_+ -  g_-$, which 
+inplies that $h_+ + f_- + g_- = h_- + f_+ + g_+$. Since all of these functions are unsigned simple, one has that \begin{multline*}
+    \mathrm{Simp}\int_{\mathbb{R}^d} h_+(x) dx + \mathrm{Simp}\int_{\mathbb{R}^d} f_-(x) dx + \mathrm{Simp}\int_{\mathbb{R}^d}g_-(x) dx\\
+    = \mathrm{Simp}\int_{\mathbb{R}^d} h_-(x) dx + \mathrm{Simp}\int_{\mathbb{R}^d} f_+(x) dx +  \mathrm{Simp}\int_{\mathbb{R}^d} g_+(x) dx.
+\end{multline*}
+We rearrange this equality and finally obtain that \begin{multline*}
+    \mathrm{Simp}\int_{\mathbb{R}^d} h_+(x) dx - \mathrm{Simp}\int_{\mathbb{R}^d} h_-(x) dx \\
+    = \mathrm{Simp}\int_{\mathbb{R}^d}  f_+(x) dx - \mathrm{Simp}\int_{\mathbb{R}^d} f_-(x) dx + 
+    \mathrm{Simp}\int_{\mathbb{R}^d} g_+(x) dx - \mathrm{Simp}\int_{\mathbb{R}^d} g_-(x) dx
+\end{multline*}
+By definition, that is$$
+\mathrm{Simp}\int_{\mathbb{R}^d} f(x) + g(x) dx = \mathrm{Simp}\int_{\mathbb{R}^d} f(x) dx + 
+\mathrm{Simp}\int_{\mathbb{R}^d} g(x) dx.
+$$
+Now we establish (1.11). If $c = 0$, the case is trivial. One has that $(cf)_+ = cf_+, (cf)_- = cf_-$ for $c > 0$
+and $(cf)_+ = -cf_-, (cf)_- = -cf_+$. That is \begin{gather*}
+    \mathrm{Simp}\int_{\mathbb{R}^d} cf(x)dx = \mathrm{Simp}\int_{\mathbb{R}^d} cf_+(x)dx - 
+    \mathrm{Simp}\int_{\mathbb{R}^d} cf_-(x)dx = c \times \mathrm{Simp}\int_{\mathbb{R}^d} f(x) dx, c > 0;\\
+    \mathrm{Simp}\int_{\mathbb{R}^d} cf(x)dx = \mathrm{Simp}\int_{\mathbb{R}^d} -cf_-(x)dx - 
+    \mathrm{Simp}\int_{\mathbb{R}^d} -cf_+(x)dx = c \times \mathrm{Simp}\int_{\mathbb{R}^d} f(x) dx, c < 0.
+\end{gather*}
+To establish the complex case we just need to note that every complex-valued function can be decompose as its
+real part and its imaginary part which are both simple real-valued functions. Also, we have \begin{multline*}
+    \mathrm{Simp}\int_{\mathbb{R}^d} \overline{f}(x) dx \\= \mathrm{Simp}\int_{\mathbb{R}^d} \Re  f(x) dx + i
+    \mathrm{Simp}\int_{\mathbb{R}^d} -\Im f(x) dx = \mathrm{Simp}\int_{\mathbb{R}^d} \Re  f(x) dx - i
+    \mathrm{Simp}\int_{\mathbb{R}^d} \Im f(x) dx\\
+    =\overline{\mathrm{Simp}\int_{\mathbb{R}^d} \Re  f(x) dx + i\mathrm{Simp}\int_{\mathbb{R}^d} \Im f(x) dx}
+    = \overline{\mathrm{Simp}\int_{\mathbb{R}^d} f(x) dx}.
+\end{multline*}
+
+(ii) (Equivalence) First we show that 
+$|\mathrm{Simp}\int_{\mathbb{R}^d} f(x) dx| \leq \mathrm{Simp}\int_{\mathbb{R}^d} |f(x)|dx$. 
+
+First we establish the inequality for real-valued function. Note that $|f| = f_+ + f_-$, then \begin{multline*}
+    |\mathrm{Simp}\int_{\mathbb{R}^d} f(x) dx| = |\mathrm{Simp}\int_{\mathbb{R}^d} f_+(x) dx - 
+\mathrm{Simp}\int_{\mathbb{R}^d} f_-(x) dx| \\
+\leq \mathrm{Simp}\int_{\mathbb{R}^d} f_+(x) dx + 
+\mathrm{Simp}\int_{\mathbb{R}^d} f_-(x) dx = \mathrm{Simp}\int_{\mathbb{R}^d} |f(x)| dx.
+\end{multline*}
+If $\mathrm{Simp}\int_{\mathbb{R}^d} f(x) dx = 0$, then the inequality is trivial for any unsigned integral are
+non-less than zero.If $\mathrm{Simp}\int_{\mathbb{R}^d} f(x) \ne 0$, set $c = \frac{|\int f|}{\int f} \in \mathbb{C}$,
+then\begin{multline*}
+    |\mathrm{Simp}\int_{\mathbb{R}^d} f(x) dx| = c\mathrm{Simp}\int_{\mathbb{R}^d} f(x) dx = 
+    \Re \mathrm{Simp}\int_{\mathbb{R}^d} cf(x) dx \leq \mathrm{Simp}\int_{\mathbb{R}^d} \Re cf(x) dx 
+    \\\leq \mathrm{Simp}\int_{\mathbb{R}^d} |\Re cf(x)| dx \leq \mathrm{Simp}\int_{\mathbb{R}^d} |c||f(x)|dx 
+    = \mathrm{Simp}\int_{\mathbb{R}^d} |f(x)|dx.
+\end{multline*}
+Suppose that $f = g$ almost everywhere i.e. $|f - g| = 0$ almost everywhere, then one has that $$
+|\mathrm{Simp}\int_{\mathbb{R}^d}f(x) dx - \mathrm{Simp}\int_{\mathbb{R}^d} g(x) dx|  \leq 
+\mathrm{Simp}\int_{\mathbb{R}^d} |f(x) - g(x)| dx = 0.
+$$
+Now suppose that $\mathrm{Simp}\int_{\mathbb{R}^d} f(x) dx = \mathrm{Simp}\int_{\mathbb{R}^d} g(x) dx$, it suffices
+to show the real-valued case. Let $A := \{x \mid f(x) > g(x)\}, B := \{x \mid f(x) \leq g(x)\}$, then$$
+\mathrm{Simp}\int_{\mathbb{R}^d} |f(x) - g(x)| dx = \mathrm{Simp}\int_A (f(x) - g(x)) dx + 
+\mathrm{Simp}\int_B (g(x) - f(x))dx = 0.
+$$Hence $|f - g| = 0$ almost everywhere, i.e., $f$ and $g$ agree almost everywhere.
+
+(iii) (Compatibility with Lebesgue measure) This derives from the definition of simple integral.
+\end{proof}
+
+(8) {\bfseries Exercise 1.3.4}\begin{proof}
+The sufficiency is obvious. Now we suppose that $f$ is a bounded unsigned measurable function, denote that
+$M := \sup_{x \in \mathbb{R}^d} f(x)$, by (5) there exists a non-decreasing sequence of unsigned simple functions
+$\{\varphi_n(x)\}$ converges to $f(x)$. By argument in (5), one has that $$
+f(x) - \varphi_n(x) < \frac{1}{2^n},\ \ \ \forall n > [M] + 1, \forall x \in \mathbb{R}^d.
+$$Hence $\{\varphi_n(x)\}$ converge to $f(x)$ uniformly.
+\end{proof}
+
+(9) {\bfseries Exercise 1.3.6}\begin{proof}
+First we assume that $f$ is bounded. Let $f_n := f\cdot 1_{B(0, n) \setminus B(0, n - 1)}, n \geq 1$, by {\bfseries Exercise 1.3.4}, 
+for each of $f_n$, there exists a sequence of simple function $\{g_{n, k}\}_{k \geq 1}$ such that $g_{n, k} \uparrow f_n$.
+Hence for every $\varepsilon > 0$ there exists $K \in \mathbb{N}$ such that 
+$f_n(x) - g_{n, k}(x) \leq \frac{\varepsilon}{2^n m(B(0, n)\setminus B(0, n -1))}$ for all $k > K$. Set $k_0 > K$, 
+note that $F_n = \{(x, t): 0 \leq t \leq g_{n, k_0}(x), x \in B(0, n) \setminus B(0, n - 1)\}$ is a closed set 
+contained in set $E_n = \{(x, t) : 0 \leq t \leq f_n(x), x \in B(0, n) \setminus B(0, n - 1)\}$.
+And we also let $D_n := \{(x, t) : 0  \leq t \leq g_{n, k_0}(x) + \frac{\varepsilon}{2^n m(B(0, n)\setminus B(0, n -1))}, 
+x \in B(0, n) \setminus B(0, n - 1)\}$, then we have $$
+m^*(E_n \setminus F_n) \leq m^*(D_n \setminus F_n) \leq \frac{\varepsilon}{2^n m(B(0, n)\setminus B(0, n -1))}
+\cdot m(B(0, n) \setminus B(0, n - 1)) = \frac{\varepsilon}{2^n}.
+$$Note that $$
+E := \{(x, t) \in \mathbb{R}^d \times \mathbb{R} : 0 \leq t \leq f(x)\} = \bigcup_{n = 1}^\infty E_n,
+$$and we set $F := \bigcup_{n = 1}^\infty F_n$ is still a measurable set. Then $$
+m^*(E \setminus F) = m^*(\bigcup_{n = 1}^\infty (E_n \setminus F_n)) \leq \sum_{n = 1}^\infty m^*(E_n \setminus F_n)
+\leq \sum_{n = 1}^\infty \frac{\varepsilon}{2^n} = \varepsilon.
+$$Hence $E$ is measurable.
+
+Now we take the claim in general case, let $E_n := \{(x, t) \in \mathbb{R}^d \times \mathbb{R} : 0 \leq t \leq \min\{n, f(x)\}\}$.
+Thus for each $n \in \mathbb{N}$ set $E_n$ is measurable, thus $E = \bigcup_{n = 1}^\infty E_n$ is measurable.
+\end{proof}
+
+(10) {\bfseries Exercise 1.3.7}\begin{proof}
+(i) $\Leftrightarrow$ (ii) is the definition of complex measurability. Now we establish (iii). By (ii), there
+exists a sequence of simple function $\{f_n\}$ such that $\lim_{n \to \infty} f_n(x) = f(x), \forall x \in \mathbb{R}^d$.
+That is, $\lim_{n \to \infty} f(x) - f_n(x) = 0, \forall x \in \mathbb{R}^d$, note that $$
+f(x) -  f_n(x) = \Re f(x) + i\Im f(x) - (\Re f_n(x) + i\Im f_n(x)) = (\Re f(x) - \Re f_n(x)) + i(\Im f(x) -  \Im f_n(x)),
+$$hence the $\Re f_n(x)$ and $\Im f_n(x)$ converge to $\Re f(x)$ and $\Im f(x)$ respectively. As a result, we can 
+only take the real-valued case, i.e., $f, \{f_n\}$ are real-valued functions. An obvious observation is that 
+$\lim_{n \to \infty} |f_n(x)| = |f(x)|$ by the triangle inequality. And the positive and negative parts of $f$
+are bounded by \begin{gather*}
+|f_+(x) - (f_n)_+(x)| = |\frac{f + |f|}{2} - \frac{f_n + |f_n|}{2}| \leq \frac{1}{2}(||f(x)| - |f_n(x)||
++ |f(x) - f_n(x)|),\\
+|f_-(x) - (f_n)_-(x)| = |\frac{|f| - f}{2} - \frac{|f_n| - f_n}{2}| \leq \frac{1}{2}(||f(x)| - |f_n(x)||
++ |f(x) - f_n(x)|).
+\end{gather*}
+Thus we have that $\lim_{n \to \infty} (f_n)_+(x) = f_+(x), \lim_{n \to \infty} (f_n)_-(x) = f_-(x)$. The (iii) follows.
+
+(iii) $\Rightarrow$ (ii). for the same reason we only consider the real-valued case, by assumption there exists two
+sequences of unsigned simple functions $\{g_n\}, \{h_n\}$ such that $\lim_{n \to \infty} g_n(x) = f_+(x), 
+\lim_{n \to \infty} h_n(x) = f_-(x), \forall x \in \mathbb{R}^d$. Let $f_n(x) = g_n(x) - h_n(x)$ be simple functions,
+then $$
+|f(x) - f_n(x)| = |f_+(x) - f_-(x) - g_n(x) + h_n(x)| \leq |f_+(x) - g_n(x)| + |f_-(x) - h_n(x)|, \forall x \in \mathbb{R}^d.
+$$Hence $\lim_{n \to \infty} f_n(x) = f(x) ,\forall  x \in \mathbb{R}^d$, (iii) implies (ii).
+
+We show that (iv) and (v) are equivalent. To show that (iv) implies (v), suppose that $K \subset \mathbb{C}$ is a
+closed set and thus its complement $K^c$ is open. And we note that $f^{-1}(K) \cup f^{-1}(K^c) = \mathbb{R}^d$.
+By (iv), $f^{-1}(K^c)$ is measurable, hence $f^{-1}(K)$ is also measurable, the claims follows. A similar argument 
+show that (v) implies (iv) by taking complement.
+
+The only remaining task is to show that (iii) and (iv) are equivalent. (iii) $\Rightarrow$ (iv)Suppose that $f = u + iv$.
+Let $R = I_1 \times iI_2$ be a rectangle in $\mathbb{C}$ where $I_1, I_2$ are both closed interval in $\mathbb{R}$, 
+then $f^{-1}(R) = u^{-1}(I_1) \cap v^{-1}(iI_2)$. Both $u^{-1}(I_1)$ and $v^{-1}(iI_2)$ are measurable
+by the similar argument in {\bfseries Lemma 1.3.9} and it suffices to note that 
+$\{ x \in \mathbb{R}^d : f_n(x) > \lambda + \frac{1}{M}\}$ is measurable for any simple functions which need not 
+to be simple. Now every open set $U \subset \mathbb{C}$ can be written as countable union of such rectangles, the 
+claim follows.
+
+(iv) $\Rightarrow$ (iii): Let $pr_i: \mathbb{C} \to \mathbb{R}$ be the projections such that $pr_1(x) = \Re x, pr_2(x)
+= \Im x, \forall x \in \mathbb{C}$. Then one has that $u = pr_1 \circ f, v = pr_2  \circ f$. Therefore give any 
+open subset $O \subset \mathbb{R}$, $u^{-1}(O) = f^{-1}(pr_1^{-1}(O))$ is Lebesgue measurable for $pr_1^{-1}(O)$
+is open in $\mathbb{C}$. And $v^{-1}(O)$ is also measurable. The claim follows.
+\end{proof}
+
+(11) {\bfseries Exercise 1.3.10.} (Basic properties of the lower Lebesgue integral) \begin{proof}
+(i) (Compatibility with the simple integral) Since $0 \leq f \leq f$, then $\mathrm{Simp}\int_{\mathbb{R}^d} f(x) dx\leq
+\underline{\int_{\mathbb{R}^d}}f(x)dx$. Conversely, by the monotonicity of simple integral, one has that 
+$\mathrm{Simp}\int_{\mathbb{R}^d} g(x)dx \leq \mathrm{Simp}\int_{\mathbb{R}^d} f(x) dx, \forall 0 \leq g \leq f$.
+Hence $ \underline{\int_{\mathbb{R}^d}}f(x)dx \leq \mathrm{Simp}\int_{\mathbb{R}^d} f(x) dx$. Thus
+$\mathrm{Simp}\int_{\mathbb{R}^d} f(x) dx = \underline{\int_{\mathbb{R}^d}}f(x)dx$. By similar argument 
+$\mathrm{Simp}\int_{\mathbb{R}^d} f(x) dx = \overline{\int_{\mathbb{R}^d}}f(x)dx$.
+
+(ii) (Monotonicity) Since for every unsigned simple function satisfying $0 \leq h \leq f$, it also satisfies that
+$0 \leq h \leq g$, hence $\underline{\int_{\mathbb{R}^d}}f(x) dx \leq \underline{\int_{\mathbb{R}^d}}g(x) dx$.
+By similar argument one has that $\overline{\int_{\mathbb{R}^d}}f(x) dx \leq \overline{\int_{\mathbb{R}^d}}g(x) dx$.
+
+(iii) (Homogeneity) Note that $$
+c\underline{\int_{\mathbb{R}^d}}f(x) dx = c\sup_{0 \leq g \leq f} \mathrm{Simp}\int_{\mathbb{R}^d} g(x) dx
+= \sup_{0 \leq g \leq f} \mathrm{Simp}\int_{\mathbb{R}^d} cg(x) dx,
+$$Since $0 \leq c\cdot g(x) \leq c\cdot f(x)$, one has that $c\underline{\int_{\mathbb{R}^d}} f(x) dx \leq 
+\underline{\int_{\mathbb{R}^d}} cf(x) dx$. Now we prove the reverse inequality, if $c = 0$, the case is trivial;
+we assume that $c > 0$, then for any $g \leq cf$, one has that $\frac{1}{c}g \leq f$, hence \begin{multline*}
+\underline{\int_{\mathbb{R}^d}} cf(x) dx = \sup_{0 \leq g \leq cf} \mathrm{Simp}\int_{\mathbb{R}^d}g(x) dx
+= c \sup_{0 \leq g \leq cf} \mathrm{Simp}\int_{\mathbb{R}^d} \frac{1}{c} g(x) dx \\\leq
+c \sup_{0 \leq h \leq f} \mathrm{Simp}\int_{\mathbb{R}^d} h(x) dx = c\underline{\int_{\mathbb{R}^d}} f(x)dx.
+\end{multline*}
+Thus we have that $\underline{\int_{\mathbb{R}^d}} cf(x)dx = c\underline{\int_{\mathbb{R}^d}} f(x)dx$.
+
+(iv) (Equivalence) The claim implies that $f \leq g$ and $g \leq f$ holds almost everywhere, thus by monotonicity
+one has that $\underline{\int_{\mathbb{R}^d}}f(x) dx = \underline{\int_{\mathbb{R}^d}}g(x) dx$ and
+$\overline{\int_{\mathbb{R}^d}}f(x) dx = \overline{\int_{\mathbb{R}^d}}g(x) dx$.
+
+(v) (Superadditivity) For every $\varepsilon > 0$, there exists two unsigned simple function $f', g'$ such that 
+$0 \leq f' \leq f, 0 \leq g' \leq g$ a.e., and satisfies that $$
+\mathrm{Simp}\int_{\mathbb{R}^d} f'(x)dx > \underline{\int_{\mathbb{R}^d}} f(x)dx - \frac{\varepsilon}{2},\ \ 
+\mathrm{Simp}\int_{\mathbb{R}^d} g'(x)dx > \underline{\int_{\mathbb{R}^d}} g(x)dx - \frac{\varepsilon}{2}
+$$It's clear that $0 \leq f' + g' \leq f + g$ a.e., thus $$
+\underline{\int_{\mathbb{R}^d}} f(x) + g(x) dx \geq \mathrm{Simp}\int_{\mathbb{R}^d} f'(x) + g'(x) dx\geq
+\underline{\int_{\mathbb{R}^d}} f(x)dx + \underline{\int_{\mathbb{R}^d}} g(x)dx - \varepsilon.
+$$Let $\varepsilon \to 0$ and the claim follows.
+
+(vi) (Subadditivity of upper integral) The claim follows the similar argument of (v).
+
+(vii) (Divisibility) From the superadditivity $\underline{\int_{\mathbb{R}^d}}f(x) dx \geq 
+\underline{\int_{\mathbb{R}^d}}f(x)1_{E}(x) dx + \underline{\int_{\mathbb{R}^d}}f(x)$ \\
+$1_{\mathbb{R}^d \setminus E}(x) dx$. Conversely, for every $\varepsilon > 0$, there exists an unsigned simple function $g$
+such that $\underline{\int_{\mathbb{R}^d}} f(x) dx - \mathrm{Simp}\int_{\mathbb{R}^d} g(x) dx < \varepsilon$.
+Note that $g(x)1_E(x) \leq f(x)1_E(x), g(x)1_{\mathbb{R}^d \setminus E}(x) \leq f(x)1_{\mathbb{R}^d \setminus E}(x)$,
+we have \begin{multline*}
+    \underline{\int_{\mathbb{R}^d}}f(x)1_E(x) dx + \underline{\int_{\mathbb{R}^d}}f(x)1_{\mathbb{R}^d\setminus E} dx
+    \geq \mathrm{Simp}\int_{\mathbb{R}^d} g(x)1_E(x) dx + \mathrm{Simp}\int_{\mathbb{R}^d}g(x)1_{\mathbb{R}^d \setminus E}(x)\\
+    = \mathrm{Simp}\int_{\mathbb{R}^d} g(x) dx \geq \underline{\int_{\mathbb{R}^d}}f(x) dx - \varepsilon.
+\end{multline*}
+Let $\varepsilon \to 0$ and we finally obtain that $\underline{\int_{\mathbb{R}^d}}f(x)1_E(x) dx + 
+\underline{\int_{\mathbb{R}^d}}f(x)1_{\mathbb{R}^d\setminus E} dx = \underline{\int_{\mathbb{R}^d}}f(x) dx$.
+
+(viii) (Horizontal truncation) Since $\min(f(x), n) \leq  f(x), \forall n \in \mathbb{N}$, by monotonicity we have
+$\underline{\int_{\mathbb{R}^d}} \min(f(x),n) dx \leq \underline{\int_{\mathbb{R}^d}}f(x) dx$. Note that 
+$\underline{\int_{\mathbb{R}^d}} \min(f(x),n) dx \leq \underline{\int_{\mathbb{R}^d}} \min(f(x),n + 1) dx$, the limit
+$\lim_{n\to \infty}\underline{\int_{\mathbb{R}^d}} \min(f(x),n) dx$ exists. Hence $$
+\lim_{n \to \infty} \underline{\int_{\mathbb{R}^d}} \min(f(x),n) dx \leq 
+\underline{\int_{\mathbb{R}^d}} f(x) dx.
+$$ We establish the reverse inequality, for every $\varepsilon > 0$ there exists an unsigned simple function $g$
+such that $\mathrm{Simp}\int_{\mathbb{R}^d} g(x) dx \geq \underline{\int_{\mathbb{R}^d}}f(x) dx - \varepsilon$.
+Now we split the proof into two following parts:
+
+\emph{Case 1}: $\mathrm{Simp}\int_{\mathbb{R}^d} g(x) dx = +\infty$. Since $g$ is unsigned simple, there exists an 
+measurable subset $E \subset \mathbb{R}$ with $m(E) > 0$ such that $g(x) = +\infty$ for all $x \in E$. Since $g \leq f$, 
+in particular we have $f(x) = +\infty, \forall x \in E$.
+Thus by (vii) $$
+\underline{\int_{\mathbb{R}^d}}\min(f(x), n) dx \geq \underline{\int_{\mathbb{R}^d}} \min(f(x),n)1_E(x) dx \geq 
+n \cdot m(E),
+$$which implies$$
+\lim_{n \to \infty} \underline{\int_{\mathbb{R}^d}} \min(f(x),n) dx = +\infty \geq \underline{\int_{\mathbb{R}^d}} f(x) dx
+$$
+
+\emph{Case 2}: $\mathrm{Simp}\int_{\mathbb{R}^d} g(x) dx < +\infty$. Since $g$ is unsigned simple, by Venn Diagram
+one can write $g(x) = +\infty \cdot 1_E(x) + \sum_{i = 1}^n c_i 1_{E_i}(x)$ where each $c_i \in [0, +\infty)$ and 
+$E, \{E_i\}$ are pairwisely disjoint with $m(E) = 0$. Thus for large enough $n$ one has that $\sum_{i = 1}^n c_i 1_{E_i}(x)
+\leq \min(f(x), n), \forall x \in \mathbb{R}^d$. Hence $$
+\lim_{n \to \infty} \underline{\int_{\mathbb{R}^d}} \min(f(x),n) dx \geq \mathrm{Simp}\int_{\mathbb{R}^d} g(x) dx
+\geq \underline{\int_{\mathbb{R}^d}} f(x) dx - \varepsilon,
+$$let $\varepsilon \to 0$ to finish the proof.
+
+(ix) (Vertical truncation) Note that the sequence $\{f(x)1_{|x| \leq n}\}_{n \geq 1}$ is non-decreasing and is bounded
+by $f$, thus by monotonicity the limit $\lim_{n \to \infty} \underline{\int_{\mathbb{R}^d}} f(x)1_{|x| \leq n} dx$ exists
+and is not greater than $\underline{\int_{\mathbb{R}^d}}f(x) dx$. Let $h$ be unsigned simple function with $0 \leq h \leq f$
+and satisfies that $\mathrm{Simp}\int_{\mathbb{R}^d} h(x) dx > \underline{\int_{\mathbb{R}^d}}f(x) dx - \varepsilon / 2$.
+Note that $h(x)1_{|x| \leq n}$ is also unsigned simple function and by {\bfseries Exercise 1.2.11} $$
+\mathrm{Simp}\int_{\mathbb{R}^d} h(x)1_{|x| \leq n} dx = \sum_{k = 1}^m c_km(E_k \cap \{x : |x| \leq n\}) \to
+\sum_{k = 1}^m c_km(E_k) = \mathrm{Simp}\int_{\mathbb{R}^d} h(x) dx
+$$as $n \to \infty$. Thus for large enough $n$ one has that $\mathrm{Simp}\int_{\mathbb{R}^d} h(x)1_{|x| \leq n} dx
+\geq \mathrm{Simp}\int_{\mathbb{R}^d} h(x) dx - \varepsilon / 2$. Hence \begin{align*}
+\underline{\int_{\mathbb{R}^d}}f(x)1_{|x| \leq n} dx \geq \mathrm{Simp}\int_{\mathbb{R}^d} h(x)1_{|x| \leq n} dx 
+\geq \mathrm{Simp}\int_{\mathbb{R}^d} h(x) dx - \frac{\varepsilon}{2} \geq \underline{\int_{\mathbb{R}^d}}f(x) dx - \varepsilon.
+\end{align*}
+Let $\varepsilon$ tends to zero we obtain that $\underline{\int_{\mathbb{R}^d}}f(x)1_{|x| \leq n} dx \geq 
+\underline{\int_{\mathbb{R}^d}}f(x) dx$ and the claim follows.
+
+(x) (Reflection) For every $\varepsilon > 0$ there exists an unsigned simple function $f' \leq f$ such that 
+$\mathrm{Simp}\int_{\mathbb{R}^d} f'(x) dx \geq \underline{\int_{\mathbb{R}^d}}f(x) dx - \varepsilon$. Note that 
+$g' := f + g -  f'$ is also an unsigned simple function and satisfies that $g' \geq g$. Thus \begin{align*}
+\mathrm{Simp}\int_{\mathbb{R}^d} f(x) + g(x) dx &= \mathrm{Simp}\int_{\mathbb{R}^d} f'(x) + g'(x) dx 
+\geq \mathrm{Simp}\int_{\mathbb{R}^d} f'(x) dx + \overline{\int_{\mathbb{R}^d}} g(x) dx\\
+&\geq \underline{\int_{\mathbb{R}^d}}f(x) dx + \overline{\int_{\mathbb{R}^d}} g(x) dx - \varepsilon,
+\end{align*}
+let $\varepsilon \to 0$ we obtain one direction $\mathrm{Simp}\int_{\mathbb{R}^d} f(x) + g(x) dx \geq \underline
+{\int_{\mathbb{R}^d}}f(x) dx + \overline{\int_{\mathbb{R}^d}} g(x) dx$. Conversely, we choose an unsigned simple
+function $g'' \geq g$ such that $\mathrm{Simp}\int_{\mathbb{R}^d} g''(x) dx < \overline{\int_{\mathbb{R}^d}} g(x) dx + \varepsilon$.
+And we also define $f'' = f + g - g''  \leq f$, which is an unsigned simple function. Hence \begin{align*}
+\underline{\int_{\mathbb{R}^d}}f(x) dx + \overline{\int_{\mathbb{R}^d}} g(x) dx &\geq 
+\mathrm{Simp}\int_{\mathbb{R}^d} f''(x) dx + \mathrm{Simp}\int_{\mathbb{R}^d} g''(x) dx - \varepsilon\\
+&= \mathrm{Simp}\int_{\mathbb{R}^d} f(x) + g(x) dx - \varepsilon.
+\end{align*}
+Let $\varepsilon \to 0$ and we finally obtain that $\mathrm{Simp}\int_{\mathbb{R}^d} f(x) + g(x) dx = 
+\underline{\int_{\mathbb{R}^d}}f(x) dx + \overline{\int_{\mathbb{R}^d}} g(x) dx$.
+\end{proof}
+
+(12) {\bfseries Exercise 1.3.11.}\begin{proof}
+By {\bfseries Exercise 1.3.4.} there exists two sequence of unsigned simple functions $\{g_n(x)\}$ and $\{h_n(x)\}$ such
+that $g_n \uparrow f, h_n \downarrow f$ uniformly. Thus we can assume that $$
+f(x) - g_n(x) \leq \frac{1}{2n\cdot m(\mathrm{supp}f)},\ \ \ h_n(x) - f \leq \frac{1}{2n\cdot m(\mathrm{supp}f)}, 
+\forall x \in \mathbb{R}^d.
+$$Thus $h_n(x) - g_n(x) \leq \frac{1}{n \cdot m(\mathrm{supp}f)}$, and $$
+\mathrm{Simp}\int_{\mathbb{R}^d}h_n(x)1_{E}(x) dx - \mathrm{Simp}\int_{\mathbb{R}^d} g_n(x)1_{E}(x) dx =
+\mathrm{Simp}\int_{\mathbb{R}^d} (h_n(x) - g_n(x))1_E(x) dx \leq \frac{1}{n},
+$$where $E := \mathrm{supp}f$. Note that $$
+\mathrm{Simp}\int_{\mathbb{R}^d} g_n(x)1_{E}(x) dx \leq \underline{\int_{\mathbb{R}^d}}f(x) dx \leq 
+\overline{\int_{\mathbb{R}^d}}f(x) dx \leq \mathrm{Simp}\int_{\mathbb{R}^d} h_n(x)1_{E}(x) dx,
+$$Take $n \to \infty$ we obtain that $\underline{\int_{\mathbb{R}^d}}f(x) dx = \overline{\int_{\mathbb{R}^d}}f(x) dx$.
+\end{proof}
+\end{document}

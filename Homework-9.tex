@@ -1,0 +1,183 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath, amssymb, amsthm, mathrsfs, enumitem}
+\usepackage[hmargin = 1in, vmargin = 1.25in]{geometry}
+\title{Homework-9}
+\author{Haocheng Wang \and 2019011994}
+
+\newtheorem{ex}{Exercise}[subsection]
+\newtheorem{lem}{Lemma}[subsection]
+\stepcounter{section}
+\setcounter{subsection}{6}
+\renewcommand{\proofname}{\noindent\bf Proof}
+\renewcommand\labelenumi{\roman}
+\renewcommand{\Re}{\mathrm{Re}\,}
+\renewcommand{\Im}{\mathrm{Im}\,}
+
+\begin{document}
+\maketitle
+\begin{ex}\end{ex}\begin{proof}
+Note that for any $x \in [a, b]$, one has $$
+\lim_{[a,b] \ni y \to x} |F(x) - F(x_0)| = \lim_{[a,b] \ni y \to x} |(y - x) \frac{F(y) - F(x)}{y - x}| = 
+\lim_{[a,b] \ni y \to x}|y - x|F'(x) = 0.
+$$Therefore $F$ is continuous. Define $$
+f_n(x) := \begin{cases}
+    n(F(x + \frac{1}{n}) - F(x)), &x \in [a, \frac{a + b}{2}],\\
+    n(F(x) - F(x - \frac{1}{n})), &x \in (\frac{a + b}{2}, b].
+\end{cases}\ \ \ n \geq \lfloor \frac{2}{b - a} \rfloor.
+$$Then $f_n$ is almost everywhere continuous, thus is measurable. It's clear that $\lim_{n \to \infty} f_n(x) = F'(x)$,
+which implies that $F'$ is measurable. By same construction one can show that almost everywhere defined function $F'$
+is measurable. An easy example is that $F(x) = |x|$.
+\end{proof}
+
+\setcounter{ex}{4}\begin{ex}\end{ex}\begin{proof}
+Let $E_\lambda := \{x \in \mathbb{R} : f(x) \geq \lambda\}$, by Markov's inequality one has $0 \leq \limsup_{\lambda \to \infty}
+m(E_\lambda)\leq \lim_{\lambda \to \infty} \frac{1}{\lambda}||f||_{L^1} = 0$. By dominated convergence theorem one has $$
+\lim_{\lambda \to \infty} \int_{E_\lambda} |f(x)|\,dx = \lim_{\lambda \to \infty} \int_\mathbb{R} |f(x)1_{E_\lambda}(x)|\,dx = 
+\int_\mathbb{R} \lim_{\lambda \to \infty} |f(x)1_{E_\lambda}(x)|\,dx = 0.
+$$Therefore for every $\varepsilon > 0$ there exists $\lambda > 0$ such that $\int_{E_\lambda} |f|\,dx \leq \varepsilon / 2$.
+Now for any $x, y \in \mathbb{R}$ with $0 \leq x < y + \frac{\varepsilon}{2\lambda}$, one has $$
+|F(y) - F(x)| = |\int_{[x, y]} f(t)\,dt| \leq \int_{[x, y]} |f(t)|\,dt = \int_{[x, y]} |f(t)1_{E_\lambda}(t) + f(t)1_{E^c_\lambda}(t)|\,dt
+\leq \lambda\cdot \frac{\varepsilon}{2\lambda} + \frac{\varepsilon}{2} = \varepsilon.
+$$Hence $F$ is continuous.
+\end{proof}
+
+\stepcounter{ex}\begin{ex}\end{ex}\begin{proof}
+Since $g$ is essentially bounded, there exists $M > 0$ such that $|g(x)| \leq M$ for almost all $x \in \mathbb{R}$, 
+then $|f(y)g(x - y)| \leq M|f(y)|$ for almost all $y \in \mathbb{R}$, thus $
+\int_{\mathbb{R}^d}|f(y)g(x - y)|\,dy \leq \int_{\mathbb{R}^d}M|f(y)|\,dy < +\infty.
+$Therefore $f * g(x)$ is well-defined and bounded. Make the change of variable we find that$$
+f * g(x) = \int_{\mathbb{R}^d} f(y)g(x - y)\,dy = \int_{\mathbb{R}^d} f(x - t)g(t)\,dt = g * f(x).
+$$Then$$
+|f * g(x + h) - f * g(x)| = |\int_{\mathbb{R}^d}g(y)(f(x + h - y) - f(x - y))\,dy| \leq M\int_{\mathbb{R}^d}|f_h(x - y) - f(x - y)|\,dy
+$$
+Since $f_h$ converges in $L^1$ norm to $f$ as $h \to 0$, we have $f * g(x)$ is a continuous function.
+\end{proof}
+
+\begin{ex}[Steinhaus theorem]\end{ex}\begin{proof}
+    Since $E$ is measurable, for every $\varepsilon > 0$ there exists a compact set $K \subset E$ and an open set 
+    $U \supset E$ such that $m(U) - \varepsilon < m(E) < m(K) + \varepsilon$, and we can always choose $K$ and $U$
+    such that $m(U) < 2m(K)$. Since $K \subset U$, for each $k \in K$, there exists a neighbourhood $W_k$ of 0 such
+    that $k + W_k \subset U$ and further there exists a neighbourhood $V_k$ of origin such that $2V_k \subset W_k$.
+    The family $\{k + V_k\}$ is an open cover of the compact set $K$, so one can choose a finite subcover 
+    $\{k_1 + V_{k_1}, \dots, k_n + V_{k_n}\}$. Let $V := \bigcap_{i = 1}^n V_{k_i}$, then$$
+    K + V \subset \bigcup_{i = 1}^n (k_i + V_{k_i}) + V \subset \bigcup_{i = 1}^n (k_i + 2V_{k_i}) \subset 
+    \bigcup_{i = 1}^n (k_i + W_{k_i}) \subset U.
+    $$Let $v \in V$, if $(K + v) \cap K = \emptyset$, then $$
+    2m(K) = m(K + v) + m(K) = m((K + v) \cup K) < m(U),
+    $$and this contradicting our choice of $K$ and $U$. Hence for all $v \in V$ there exists $k_1, k_2 \in K \subset E$
+    such that $v + k_1 = k_2$, which means that $V \subset E - E$. 
+\end{proof}
+
+\begin{ex}\end{ex}\begin{proof}
+Since $f(0) = f(0 + 0) = f(0) + f(0)$, we have $f(0) = 0$, thus for any $z_1, z_2 \in \mathbb{C}$, one has 
+$|f(z_1) - f(z_2)| = |f(z_1 - z_2) - f(0)|$, which implies that it suffices to show that $f$ is continuous at origin.
+To establish this, first we show that for any disk $D$ centered at origin in the complex plane, $f^{-1}(z + D)$ has 
+positive measure for at least one $z \in \mathbb{C}$.
+
+Denote $D_r = B(0, r)$, and $\tilde{D}_r := \bigcup_{n \in \mathbb{Z}} (D_r + \frac{nr}{2}i)$, then one has $\mathbb{R}^d
+= \bigcup_{m \in \mathbb{Z}} (D_r + \frac{mr}{2})$ is a null set, this contradiction implies that there exists at least
+one $z \in \mathbb{C}$ such that $E := f^{-1}(z + D_r)$ has positive measure. By Steinhaus theorem there exists $\delta > 0$
+such that $V := B(0, \delta) \subset E - E\subset \mathbb{R}^d$. For any $x \in V$, there exists $e_1, e_2 \in E$ 
+such that $x = e_1 - e_2$. Besides, one can express $f(e_k) = z + r_k, k = 1, 2$ where $r_k \in D_r$. Thus 
+$|f(x) - f(0)| = |f(e_1) - f(e_2)| = |r_1 - r_2| \leq 2r$. Since $r$ is arbitary, we have $f$ is continuous.
+
+By induction $f(nx) = nf(x), \forall n \in \mathbb{N}$, further $$
+mf(\frac{n}{m}x) = f(nx) = nf(x) \Rightarrow f(\frac{n}{m}x) = \frac{n}{m}x, \forall  m, n \in \mathbb{N}, x \in \mathbb{R}^d.
+$$And since $f(x) + f(-x) = f(0) = 0$, we have $f(rx) = rf(x)$ for any $r \in \mathbb{Q}$. Therefore for any
+$\lambda \in \mathbb{R}$, by continuity $$
+f(\lambda x) = f(\lim_{\mathbb{Q}\ni r \to \lambda} rx) = \lim_{\mathbb{Q}\ni r \to \lambda}  f(rx) = 
+\lim_{\mathbb{Q}\ni r \to \lambda} rf(x) = \lambda f(x).
+$$Hence the claim follows.
+\end{proof}
+
+\setcounter{ex}{9}\begin{ex}\end{ex}\begin{proof}
+Given any $x \in U$, let $\{I_\alpha\}_{\alpha \in \mathcal{A}}$ be a collection of open subintervals of $U$ with 
+$x \in I_\alpha \subset U$. Define a partially order $I_\alpha \leq I_\beta \Leftrightarrow I_\alpha \subset I_\beta$,
+it's easy to check that every chain of $\{I_\alpha\}_{\alpha \in \mathcal{A}}$ has an upper bound in $\{I_\alpha\}_{\alpha \in \mathcal{A}}$
+(e.g. $\bigcup_{n = 1}^\infty I_n$ is an upper bounded of a chain $I_1 \leq I_2 \leq \cdots \leq I_n \leq \cdots$).
+By Zorn's lemma it has at least one maximal element $I_x$ in $\{I_\alpha\}_{\alpha \in \mathcal{A}}$, by definition it's
+the maximal open subinterval of $U$ containing $x$. And it's clear that given $x, y \in U$, either $I_x = I_y$ or 
+$I_x \cap I_y =  \emptyset$, otherwise $I_x \cup I_y \supsetneq I_x$ leads to a contradiction. Now suppose $y \in U$ is 
+a irrational number, since $U$ is open, there exists $\varepsilon > 0$ such that $(y - \varepsilon, y + \varepsilon) \subset U$,
+choose $x \in (y - \varepsilon, y + \varepsilon) \cap \mathbb{Q}$, then $y \in I_x$. Define another equivalence relation
+$x \sim y \Leftrightarrow I_x = I_y$, then it's obvious that $U \cap \mathbb{Q} / \sim$ is at most countable. Hence 
+$U = \bigcup_{[x] \in U \cap \mathbb{Q} / \sim} I_x$, as required.
+\end{proof}
+
+\begin{ex}\end{ex}\begin{proof}
+Denote that \begin{align*}
+Mf(x) = \sup_{x\in I} \frac{1}{|I|}\int_I |f(t)|\,dt,\ \ \ M_lf(x) = \sup_{k > 0}\frac{1}{k}\int_{[x - k, x]}
+|f(t)|\,dt,\ \ \ M_rf(x) = \sup_{h > 0}\frac{1}{h}\int_{[x, x + h]}|f(t)|\,dt.
+\end{align*}And for any fixed $x \in \mathbb{R}$, define\begin{align*}
+A_x(h) := \frac{1}{h}\int_{[x, x + h]}|f(t)|\,dt,\ \ \ B_x(k) := \frac{1}{k}\int_{[x - k, x]}|f(t)|\,dt,\ \ \ 
+C_x(h, k) := \frac{h}{h + k}A_x(h) + \frac{k}{h + k}B_x(k).
+\end{align*}
+Then $Mf(x) = \sup_{h, k > 0}C_x(h, k)$. Then one can find a sequence $\{(h_n, k_n)\}_{n \geq 1}$ in $\mathbb{R}_+^2$
+such that $\lim_{n \to \infty} C_x(h_n, k_n) = Mf(x)$. Since $(\frac{h_n}{h_n + k_n}, \frac{k_n}{h_n + k_n}) \in [0,1]^2, \forall n \geq 1$, there exists
+convergent subsequence, so without loss of generality one can assume that $(\frac{h_n}{h_n + k_n}, \frac{k_n}{h_n + k_n})$ 
+converges to a point $(a, b) \in [0,1]^2$ with $a + b = 1$. For each $n$, the inequality\begin{align*}
+C_x(h_n, k_n) = \frac{h_n}{h_n + k_n}A_x(h_n) + \frac{k_n}{h_n + k_n}B_x(k_n) \leq 
+\frac{h_n}{h_n + k_n}M_rf(x) + \frac{k_n}{h_n + k_n}M_lf(x)
+\end{align*}holds; let $n \to \infty$ we obtain that $$
+Mf(x) \leq aM_rf(x) + bM_lf(x),
+$$which implies that $Mf(x) \leq \max(M_lf(x), M_rf(x))$. The reverse inequality is trivial, thus $Mf(x) = \max(M_lf(x), M_rf(x))$.
+Hence $$
+\{x \in \mathbb{R} : Mf(x) \geq \lambda\} \subset \{x \in \mathbb{R} : M_lf(x) \geq \lambda\} \cup \{x \in \mathbb{R} : M_rf(x) \geq \lambda\}.
+$$By one-sided Hardy-Littlewood maximal inequality we obtain$$
+m(\{x \in \mathbb{R} : \sup_{x\in I} \frac{1}{|I|}\int_I |f(t)|\,dt \geq \lambda\}) \leq \frac{2}{\lambda} \int_\mathbb{R}|f(t)|\,dt.
+$$
+\end{proof}
+
+\begin{ex}\end{ex}\begin{proof}
+We rearrange the rising sun inequality:$$
+0 \leq \int_{x: f^*(x) > \lambda} f(x) - \lambda\,dx = \int_{x: g^*(x) > 0} g(x)\,dx,\ \ \ \text{where}\ \ g(x) = f(x) - \lambda,
+$$thus it suffices to establish the inequality in $\lambda = 0$ case. Let $F(x) := \int_{[-\infty, x]}f(t)\,dt$, then 
+$f^*(x) > 0$ if and only if there exists at least one $y > x$ such that $F(y) < F(x)$, as $F$ is continuous, 
+$U := \{x \in \mathbb{R} : f^*(x) > 0\}$ is open set. Express $U$ as $U = \bigcup_{n} (a_n, b_n)$, by rising sun lemma,
+either $F(a_n) = F(b_n)$ or $a_n = a, F(a_n) \leq F(b_n)$. By dominated convergence theorem, one has 
+$F(-\infty) := \lim_{x \to -\infty} \int_{[-\infty, x]} f(t)\,dt = 0$. Suppose that $(a_1, b_1) = (a, b_1)$ where
+$a$ take value $-\infty$. Thus \[
+\int_{x: f^*(x) > 0} f(t)\,dt = \sum_{n = 1}^\infty \int_{[a_n, b_n]}f(t)\,dt = \sum_{n = 1}^\infty F(b_n) - F(a_n)
+= F(b_1) \geq F(-\infty) = 0. 
+\]The implication is obvious for $\int_{x: |f|^*(x) > \lambda} |f(t)|\,dt \leq \int_\mathbb{R} |f(t)|\,dt$.
+\end{proof}
+
+\stepcounter{ex}\begin{ex}\end{ex}\begin{proof}\ 
+\begin{enumerate}[label = (\roman*)]
+    \item Suppose that $f$ is locally integrable, then for any $x \in \mathbb{R}^d$, there exists a neighbourhood $U_x$ of 
+    $x$ such that $\int_{U_x} |f(x)|\,dx < +\infty$. Since $\{U_x\}_{x \in \overline{B(0, r)}}$ is an open cover of 
+    $\overline{B(0, r)}$, there exists a finite cover $\{U_i\}_{1 \leq i \leq n}$. Then 
+    $\int_{B(0, r)} |f(x)| \,dx \leq \sum_{i = 1}^n \int_{U_i}|f(x)|\,dx \leq +\infty$. The reverse is trivial by 
+    monotonicity.
+    \item Since $f$ is locally integrable, $f1_{B(0, R)}$ is absolutely integrable for any $R > 0$, then for almost
+    every $x \in B(0, R)$, one has\begin{align*}
+    &\lim_{r \to 0} \frac{1}{m(B(x, r))}\int_{B(x, r)}|f(y) - f(x)|\,dy\\ = 
+    {}&\lim_{r \to 0} \frac{1}{m(B(x, r))}\int_{B(x, r)}|f(y)1_{B(0, R)}(y) - f(x)1_{B(0, R)}(x)|\,dy = 0
+    \end{align*}
+    Since $R$ is arbitary, the claim follows.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{ex}\end{ex}\begin{proof}
+For some $c > 0$, $$
+0 \leq \limsup_{h \to 0}\frac{1}{m(E_h)}\int_{x + E_h}|f(y) - f(x)|\,dy\leq \lim_{h \to 0}\frac{1}{cm(B(x, h))}
+\int_{B(x, h)}|f(y) - f(x)|\,dy = 0,
+$$by triangle inequality the claim follows.
+\end{proof}
+
+\setcounter{ex}{22}\begin{ex}[Cousin's theorem]\end{ex}\begin{proof}
+Suppose for contradiction that one can not find such a partition, then bisect $I_0 = [a, b]$ into two intervals, 
+there exists at least one of them such that one can not find such a partition on it, denote it $I_1$. Repeat this process
+and we obtain a sequence of nested closed intervals $I_0 \supset I_1 \supset I_2 \supset \cdots$. By nested intervals
+theorem there exists a unique $t^* \in I_n, \forall n \in \mathbb{N}$. Since $\lim_{n \to \infty} |I_n| = 0$, there exists 
+$k > 0$ such that $|I_k| < \delta(t^*)$, which implies that $\{(I_k, t^*)\}$ meets the requirement, and thus contradicting
+the definition of $I_k$. This contradiction finished the proof.
+\end{proof}
+
+\begin{ex}\end{ex}\begin{proof}
+For almost every $x \in \mathbb{R}^d$, by Lebesgue differentiation theorem,$$
+\lim_{r \to 0} \frac{m(E \cap B(x, r))}{m(B(x, r))} = \lim_{r\to 0}\frac{1}{m(B(x, r))}\int_{B(x, r)} 1_E(y)\,dy = 1_E(x).
+$$Hence almost every point in $E$ is a point of density for $E$, and almost every point in the complement of $E$ 
+is not a point of density for $E$.
+\end{proof}
+\end{document}

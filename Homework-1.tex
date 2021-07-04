@@ -1,0 +1,277 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage[hmargin = 1.25in, vmargin = 1in]{geometry}
+\author{Haocheng Wang \and 2019011994}
+\title{Homework-1}
+%\everymath{\displaystyle}
+
+\begin{document}
+\maketitle
+\newtheorem{ex}{Exercise}[subsection]
+\stepcounter{section}
+\stepcounter{subsection}
+\begin{ex}[Boolean Closure]\end{ex}
+\begin{proof}
+Since both of $E$ and  $F$ is elementary sets which are the union of finite number of boxes, we express $E$ and $F$
+as unions of boxes $$
+E = \bigcup_{i = 1}^m E_i,\ \ \ F = \bigcup_{j = 1}^n F_j.
+$$
+Note that the union of $E$ and $F$ is $\displaystyle \Big(\bigcup_{i = 1}^m E_i\Big) \cup \Big(\bigcup_{j = 1}^n F_j\Big)$,
+which is also the union of finite boxes. Hence the union $E \cup F$ is an elementary set. Similarly,$$
+E \cap F = \Big(\bigcup_{i = 1}^m E_i\Big) \cap \Big(\bigcup_{j = 1}^n F_j\Big) = \bigcup_{i = 1}^m \bigg( E_i 
+\cap \Big( \bigcup_{j = 1}^n F_j\Big) \bigg) = \bigcup_{i = 1}^m \bigcup_{j = 1}^n (E_i \cap F_j),
+$$Observe that the intersection of finite boxes is still a box, then the intersection of $E$ and $F$ is elementary set.
+For the similar reason in the case of intersection, it suffices to show that the set theoretic difference of any two
+boxes $E_i$ and $F_j$ is still elementary set. In fact $E_i \setminus F_j = E_i - (E_i \cap F_j)$, which can be 
+expressed as the union of some boxes. To prove $E \Delta F$ is elementary set, we note that both $E \setminus F$
+and $F \setminus E$ are elementary sets, then their union is still elementary set. It's obviously that the translation 
+of a box is still a box, then the translation $E + x$ is also elementary set.
+\end{proof}
+
+\stepcounter{ex}
+\begin{ex}[Uniqueness of elementary measure]\end{ex}
+\begin{proof}
+Since any elementary set $E$ can be expressed as the finite union of disjoint boxes, it suffices to show that 
+$m'(B) = cm(B)$ for any boxes $B \subset \mathbb{R}^d$, where $c := m'([0, 1)^d)$. From the finite additivity and 
+translation invariance properties we obtain that $m'([0, \frac{1}{n})) = \frac{c}{n^d}$, then for all $r \in \mathbb{Q}$ 
+we have $m([0, r)^d) = cr^d$. Now we consider the irrational number $i \in \mathbb{R} \setminus \mathbb{Q}$, then 
+we can find two sequences of rational number $\{s_n\}, \{t_n\}$ that $\{s_n\}$ is monotonically increasingly tends to $i$ 
+and $\{t_n\}$ is monotonically decreasingly tends to $i$, then from the non-negativity property we have $$
+cs_n^d = m([0, s_n)^d) \leq m([0, i)^d) \leq m([0, t_n)^d) = ct_n^d.
+$$Let $n \to \infty$, we get $m([0, i)^d) = ci^d, i \in \mathbb{R} \setminus \mathbb{Q}$. Since we can build any 
+boxes by using cube $[0, x)^d, x \in \mathbb{R}$, we finally obtain $m'(E) = cm(E)$ for any elementary sets $E$.
+\end{proof}
+
+\stepcounter{ex}
+\begin{ex}[Charaterisation of Jordan measurablity]\end{ex}
+\begin{proof}
+$(1) \Rightarrow (2)$ Since $E$ is Jordan measurable, supremum $m_{*,(J)}(E)$ and infimum $m^{*,(J)}(E)$ exist. 
+That is, there exists elementary sets $A$ and $B$ satisfying $A \subset E \subset B$ s.t. for every 
+$\varepsilon > 0$$$
+m_{*, (J)}(E) - m(A) \leq \frac{\varepsilon}{2},\ \ m(B) - m^{*, (J)}(E) \leq \frac{\varepsilon}{2} \Rightarrow 
+m(B \setminus A) \leq \varepsilon.
+$$
+$(2) \Rightarrow (3)$ Note that $A \Delta E = E \setminus A \subset B \setminus A$, from the monotonicity we find
+that \[
+m^{*,(J)}(A \Delta E) \leq m^{*,(J)}(B \setminus A) = m(B \setminus A) \leq \varepsilon.
+\]
+$(3) \Rightarrow (1)$ Since $m^{*,(J)}(A \Delta E) \leq \varepsilon$, there exists a elementary set 
+$C \supset A \Delta E$ s.t. $m(C) \leq 2\varepsilon$, then we find that $A \setminus C \subset E \subset A \cup C$
+where $m((A \cup C) - (A \setminus C)) \leq 4\varepsilon$. Notice that $$
+m(A \setminus C) \leq m_{*,(J)}(E) \leq m^{*, (J)}(E) \leq m(A \cup C) \leq m(A \setminus C) + 4\varepsilon,
+$$let $\varepsilon$ tends to 0, we obtain $m_{*,(J)}(E) = m^{*, (J)}(E)$. That is, $E$ is Jordan measurable.
+\end{proof}
+
+\begin{ex}\end{ex}
+\begin{proof} 
+(1)(Boolean Closure) There exists elementary sets $A, B, C, D$ s.t. for every $\varepsilon > 0$$$
+A \subset E \subset B,\ C \subset F \subset D,\ m(B \setminus A) \leq \varepsilon/2, 
+m(D \setminus C) \leq \varepsilon / 2.
+$$To prove that $E \cup F$ is Jordan measurable, we note that $A \cup C \subset E \cup F \subset B \cup D$,\begin{align*}
+m((B \cup D) \setminus (A\cup C)) &= m((B - A \cup C) \cup (D - A \cup C)) \leq 
+m(B - A \cup C) + m(D - A \cup C)\\
+&\leq m(B \setminus A) + m(D \setminus C) \leq \varepsilon.
+\end{align*}
+Hence $E \cup F$ is Jordan measurable. To prove case of $E \cap F$, we notice that $$
+(B \cap D) \setminus (A \cap C) = ((B \cap D) \setminus A) \cup ((B \cap D) \setminus C) \subset 
+(B \setminus A) \cup (D \setminus C),
+$$then$$
+m((B \cap D) \setminus (A \cap C)) \leq m(B \setminus A) + m(D \setminus C) \leq \varepsilon.
+$$Hence $E \cap F$ is Jordan measurable. To prove the third case, notice that $A \setminus D \subset E \setminus F
+\subset B \setminus C$, and$$
+B \setminus C - A \setminus D \subset (B \setminus A) \cup (D \setminus C) \Rightarrow 
+m(B \setminus C - A \setminus D) \leq m(B \setminus A) + m(D \setminus C) \leq \varepsilon.
+$$Hence $E \setminus F$ is also Jordan measurable, and for the same reason $E \Delta F$ is Jordan measurable.\\
+(2)(Non-negativity) This one is obvious from the definition of Jordan measure, since elementary measure is non-negative.\\
+(3)(Finite additivity) Since $E, F$ are disjoint, we can find \emph{almost} disjoint elementary $A_1, B_1, A_2, B_2$ sets 
+s.t. $$
+A_1 \subset E \subset B_1,\ A_2 \subset F \subset B_2\ \ \text{where}\ \ B_1^{\circ} \cap B_2^{\circ} = \emptyset.
+$$Note that $m(B_i) = m(B_1^{\circ}), i = 1, 2$, from the finite additivity of elementary measure we can easily see 
+that $m(E \cup F) = m(E) + m(F)$.\\
+(4)(Monotonicity) Note that $m(F) = m((F \setminus E) \cup E) = m(F \setminus E) + m(E)$, and from the non-negativity 
+we obtain that $m(E) \leq  m(F)$.\\
+(5)(Finite subadditivity) From monotonicity and finite additivity properties we obatain $$
+m(E \cup F) = m((E \setminus F) \cup F) = m(E \setminus F) + m(F) \leq m(E) + m(F).
+$$
+(6)(Translation invariance) It's easy to show this for all of elementary sets are translation invariance.
+\end{proof}
+
+\begin{ex}[Regions under graphs are Jordan measurable]\end{ex}
+\begin{proof}
+(1)Since in a compact metric space, continuous function $f(x)$ is uniformly continuous, i.e. for every $\varepsilon > 0$
+and $\forall x_0 \in B$, there exists $\delta > 0$ s.t. $|f(x) - f(x_0)| < \varepsilon / |B|$ whenever $|x - x_0| < \delta$.
+We take partition $P:= \{B_i\}_{i \in \mathcal{I}}$ of $B$ with a mesh $\lambda(P) < \frac{\delta}{\sqrt{d}}$, here mesh 
+$$\lambda(P) := \max_{B_i \in P} \{|I_i| : I_i\ \text{is the longest side of}\ B_i\}.$$
+Then we get a collection of open boxes $\{A_i\}_{i \in \mathcal{I}}$ which covers $B$. Hence the measure of graph $G$ $$
+0 \leq m_{*,(J)}(G) \leq m^{*, (J)}(G) \leq m\left( \bigcup_{i \in \mathcal{I}} A_i \right) \cdot \frac{\varepsilon}{|B|} = \varepsilon.
+$$Hence the graph $G$ is Jordan measurable in $\mathbb{R}^{d + 1}$ with Jordan measure zero.\\
+(2)We still use previous notation, but now we choose two distinguished point for each $B_i \in P$
+$\xi_i := \inf_{x \in B_i} f(x), \eta_i := \sup_{x \in B_i} f(x)$. Then we get two collection of elementary sets \begin{gather*}
+\{\Xi_i\}_{i \in \mathcal{I}} := \{B_i \times [0, \xi_i]: B_i \in P\}, \ \ 
+\{H_i\}_{i \in \mathcal{I}} := \{B_i \times [0, \eta_i]: B_i \in P\}.
+\end{gather*}
+It's obvious that $\bigcup_{i \in \mathcal{I}} \Xi_i \subset \tilde{G} \subset \bigcup_{i \in \mathcal{I}} H_i$, here
+$\tilde{G} := \{(x, t) : x \in B; 0 \leq t \leq f(x)\}$, then we obtain$$
+m\left( \bigcup_{i \in \mathcal{I}} \Xi_i \right) \leq m_{*,(J)}(\tilde{G}) \leq m^{*,(J)}(\tilde{G})
+\leq m\left( \bigcup_{i \in \mathcal{I}} H_i \right) \leq m\left( \bigcup_{i \in \mathcal{I}} \Xi_i \right) + \varepsilon.
+$$Let $\varepsilon$ tends to zero, $\tilde{G}$ is Jordan measurable, i.e. $f$ is de facto Riemann integrable.
+\end{proof}
+
+\setcounter{ex}{9}
+\begin{ex}\end{ex}
+\begin{proof}
+We firstly prove the closed case, it suffices to show that closed hemisphere is Jordan measurable.
+Let $f: \mathbb{R}^{d - 1} \to \mathbb{R}, x \mapsto \sqrt{r^2 - x^2}$ and $B$ is a box which contains the ball 
+$x_1^2 + \cdots + x_{d - 1}^2 = r^2$ of $d - 1$ dimension. Then the set 
+$\{(x, t): x \in B; 0 \leq t \leq f(x) \} \subset \mathbb{R}^d$ is Jordan measurable, and this set is the hemisphere.
+Hence the closed ball in $\mathbb{R}^d$ is Jordan measurable. To prove the open case, we note that for arbitary open ball
+at the origin $\overline{B(0, r)} = \partial B(0, r) \cup B(0, r)$, where $$
+\partial B(0, r) = \{(x, f(x)): x \in B\}
+$$ has a Jordan measure zero. Hence $B(0, r) = \overline{B(0, r)} \setminus \partial B(0, r)$ is Jordan measurable 
+and has the same measure with its closure. Since Euclidean balls are Jordan measurable, it can be approximated by
+elementary sets, so we can write the $m(B(x, r)) = c_d(r)r^d$, we will show that $c_d(r)$ is a constant depending
+only on $d$. Consider the inscribed cube $C_1$ and circumscribed cube $C_2$ of the ball $B(x, r)$, it's easy to 
+write that $|C_1| = (\frac{2r}{\sqrt{d}})^d, |C_2| = (2r)^d$. Then we have the inequality $$
+\left( \frac{2}{\sqrt{d}} \right)^d r^d \leq m(B(x, r)) \leq 2^d r^d \Rightarrow 
+\left( \frac{2}{\sqrt{d}} \right)^d \leq c_d(r) \leq 2^d.
+$$Hence $c_d(r) = c_d$ is a constant depending only on dimension $d$.
+\end{proof}
+
+\setcounter{ex}{11}
+\begin{ex}\end{ex}
+\begin{proof}
+Suppose that $E$ is a Jordan null set, then for every $\varepsilon > 0$ there exists an elementary set $A$ 
+containing $E$ with Jordan measure $\varepsilon$. For any subset $F \subset E \subset A$, then$$
+0 \leq m_{*,(J)}(F) \leq m^{*, (J)}(F) \leq m(A) = \varepsilon,
+$$let $\varepsilon$ tends to zero, we finally obatain that $F$ is also a Jordan null set.
+\end{proof}
+
+\begin{ex}\end{ex}
+\begin{proof}
+Since $E$ is Jordan measurable, there exists two sequences of elementary sets $\{A_n\}, \{B_n\}$ s.t. $m(E) - m(A_n) < 
+\frac{1}{2n}, m(B_n) - m(E) < \frac{1}{2n}$. On the other hand, from $A_n \subset E \subset B_n$ we find that $$
+\frac{1}{N^d}\#(A_n \cap \frac{1}{N}\mathbb{Z}^d) \leq \frac{1}{N^d}\#(E \cap \frac{1}{N}\mathbb{Z}^d) \leq 
+\frac{1}{N^d}\#(B_n \cap \frac{1}{N}\mathbb{Z}^d).
+$$Let $N \to \infty$, we get $$
+m(A_n) \leq \varliminf_{N \to \infty} \frac{1}{N^d}\#(E \cap \frac{1}{N}\mathbb{Z}^d) \leq 
+\varlimsup_{N \to \infty} \frac{1}{N^d}\#(E \cap \frac{1}{N}\mathbb{Z}^d) \leq m(B_n).
+$$Then let $n \to \infty$, we finally obtain that $$
+m(E) = \lim_{N \to \infty} \frac{1}{N^d}\#(E \cap \frac{1}{N}\mathbb{Z}^d)
+$$holds for all Jordan measurable set $E \subset \mathbb{R}^d$.
+\end{proof}
+
+\begin{ex}[Metric entropy fomulation of Jordan measurablity]\end{ex}
+\begin{proof}
+\emph{Sufficiency}. Let $E_*(E, 2^{-n})$ denotes the collection of dyadic cubes of sidelength $2^{-n}$ that are contained 
+in $E$, and let $E^*(E, 2^{-n})$ be the collection of dyadic cubes of sidelength $2^{-n}$ that intersect $E$.
+The first observation is that $\{2^{-dn} \mathcal{E}_*(E, 2^{-n})\}$ is non-decreasing, and 
+$\{2^{-dn} \mathcal{E}^*(E, 2^{-n})\}$ is non-increasing. Since $
+\bigcup_{E_i \in E_*(E, 2^{-n})} E_i \subset E \subset \bigcup_{E_j \in E^*(E, 2^{-n})} E_j, 
+$ it's obvious that $2^{-dn} \mathcal{E}_*(E, 2^{-n}) \leq 2^{-dn} \mathcal{E}^*(E, 2^{-n})$, hence both of 
+$\lim_{n \to \infty} 2^{-dn} \mathcal{E}_*(E, 2^{-n})$ and $\lim_{n \to \infty} 2^{-dn} \mathcal{E}^*(E, 2^{-n})$
+exist. Since $\lim_{n \to \infty} (2^{-dn} \mathcal{E}^*(E, 2^{-n}) - 2^{-dn} \mathcal{E}_*(E, 2^{-n})) = 0$, for
+every $\varepsilon > 0$, there exists $N \in \mathbb{N}$ s.t. $$
+m\Bigg( \bigcup_{E_j \in E^*(E, 2^{-n})} E_j \setminus \bigcup_{E_i \in E_*(E, 2^{-n})} E_i \Bigg) \leq \varepsilon,
+\forall n > N.
+$$
+Hence $E$ is Jordan measurable, in which case one has $$
+m(E) = \lim_{n \to \infty} 2^{-dn} \mathcal{E}_*(E, 2^{-n}) = \lim_{n \to \infty} 2^{-dn} \mathcal{E}^*(E, 2^{-n}).
+$$
+\emph{Necessity}. To solve this problem, we firstly define the enlargement and shrinking of any given boxes 
+$B = [a_1, b_1] \times [a_2, b_2] \times \cdots \times [a_d, b_d]$ at scale $2^{-n}$\begin{itemize}
+    \item The enlargement of $B$ at scale $2^{-n}$ is $(B)^n := [a_1 - 2^{-n}, b_1 + 2^{-n}] \times \cdots \times 
+    [a_d - 2^{-n}, b_d + 2^{-n}]$;
+    \item The shrinking of $B$ at scale $2^{-n}$ is $(B)_n := [a_1 + 2^{-n}, b_1 - 2^{-n}] \times \cdots \times 
+    [a_d + 2^{-n}, b_d - 2^{-n}]$.
+\end{itemize}
+Since $E$ is Jordan measurable, one can find two elementary set $A, B$ s.t. $A \subset E \subset B, m(B \setminus A) < \varepsilon$,
+then rewrite $A$ and $B$ as the finite unions of disjoint boxes $A = \bigcup_i A_i, B = \bigcup_j B_j$. We are now
+going to consider an arbitary dyadic cube $D$ which is contained in $\bigcup_{E_j \in E^*(E, 2^{-n})} E_j \setminus 
+\bigcup_{E_i \in E_*(E, 2^{-n})} E_i$. It's easy to find that $D \cap (A_i)_n = \emptyset$ for all $i$, and $D$ is
+contained in some $(B)^n$s for $D$ is intersecting with $B$. Thus, $D \in \bigcup_j (B_j)^n - \bigcup_i (A_i)_n$.
+And we find that for any Jordan measurable set $F$ the inequalities $$
+2^{-dn} \mathcal{E}_*(F, 2^{-n}) \leq m(F) \leq 2^{-dn} \mathcal{E}^*(F, 2^{-n})
+$$hold. Note that $(A)_n = \bigcup_{i} (A_i)_n, (B)^n = \bigcup_{j} (B_j)^n$, one has\begin{align*}
+2^{-dn}(\mathcal{E}^*(E, 2^{-n}) - \mathcal{E}_*(E, 2^{-n})) &\leq 2^{-dn}(\mathcal{E}_*((B)^n, 2^{-n}) - 
+\mathcal{E}^*((A)_n, 2^{-n})) \leq m((B)^n) - m((A)_n)\\
+&= m(B) - m(A) + m((B)^n\setminus B) + m(A \setminus (A)_n)\\
+&\leq \varepsilon + m((B)^n\setminus B) + m(A \setminus (A)_n).
+\end{align*}
+Let $n \to \infty$, one has that $m((B)^n\setminus B) + m(A \setminus (A)_n)$ tends to zero. Thus$$
+0 \leq 2^{-dn}(\mathcal{E}^*(E, 2^{-n}) - \mathcal{E}_*(E, 2^{-n})) \leq \varepsilon
+$$holds for arbitary $\varepsilon > 0$. Let $\varepsilon$ tends to zero, we finally obtain that$$
+\lim_{n \to \infty} 2^{-dn}(\mathcal{E}^*(E, 2^{-n}) - \mathcal{E}_*(E, 2^{-n})) = 0.
+$$
+\end{proof}
+
+\begin{ex}[Uniqueness of Jordan  measure]\end{ex}
+\begin{proof}
+We use the conclusion in the elementary measure case so that $m'([0, r)^d) = cr^d, \forall r \in \mathbb{R}$ where 
+$c = m'([0, 1)^d) \in \mathbb{R}^+$. Using previous notation, from finite additivity property one finds that 
+$c2^{-dn}\mathcal{E}_*(E, 2^{-n}) \leq m'(E) \leq c2^{-dn}\mathcal{E}^*(E, 2^{-n})$. Since $E \in \mathcal{J}(\mathbb{R}^d)$,
+let $n \to \infty$ and we finally obtain that $m'(E) = c2^{-dn}\mathcal{E}_*(E, 2^{-n}) = cm'(E)$ for all Jordan measurable
+sets $E$.
+\end{proof}
+
+\begin{ex}\end{ex}
+\begin{proof}
+Since $E_1, E_2$ are Jordan measurable, there exists elementary sets $A_1, A_2, B_1, B_2$ s.t. 
+$A_1 \subset E_1 \subset B_1, A_2 \subset E_2 \subset B_2$ which satisfy $m(B_i \setminus A_i) < \varepsilon, i = 1, 2$.
+Note that $A_1 \times A_2 \subset E_1 \times E_2 \subset B_1 \times B_2$. We use the conclusion in the elementary
+measure, we find that \begin{gather*}
+m^{d_1 + d_2}(B_1 \times B_2) = m^{d_1}(B_1)m^{d_2}(B_2) \leq (m^{d_1}(A_1) + \varepsilon)(m^{d_2}(A_2) + \varepsilon) 
+\leq (m^{d_1}(E_1) + \varepsilon)(m^{d_2}(E_2) + \varepsilon),\\
+m^{d_1 + d_2}(A_1 \times A_2) = m^{d_1}(A_1)m^{d_2}(A_2) \geq (m^{d_1}(B_1) - \varepsilon)(m^{d_2}(B_2) - \varepsilon) 
+\geq (m^{d_1}(E_1) - \varepsilon)(m^{d_2}(E_2) - \varepsilon).
+\end{gather*}
+From these two inequalities we obtain$$
+m^{d_1 + d_2}(B_1 \times B_2) - m^{d_1 + d_2}(A_1 \times A_2) \leq 2(m^{d_1}(E_1) + m^{d_2}(E_2))\varepsilon.
+$$Hence $E_1 \times E_2$ is Jordan measurable, and $m^{d_1 + d_2}(E_1 \times E_2) = m^{d_1}(E_1)\times m^{d_2}(E_2)$.
+\end{proof}
+
+\setcounter{ex}{17}
+\begin{ex}\end{ex}
+\begin{proof}
+(1)Since $E \subset \overline{E}$, from the monotonicity we obtain $m^{*,(J)}(E) \leq m^{*,(J)}(\overline{E})$ 
+immediately. For every $\varepsilon > 0$, there exists an elementary sets $B$ such that $B \supset E$ and inequality
+$m(B) - m^{*, (J)}(E) < \varepsilon$ holds. Notice that $\overline{E} \subset \overline{B}$, so 
+$m^{*, (J)}(\overline{E}) \leq m(B) \leq m^{*, (J)}(E) + \varepsilon$. Let $\varepsilon$ tends zero we obtain that
+$m^{*, (J)}(E) \geq m^{*, (J)}(\overline{E})$. Hence $E$ and the closure $\overline{E}$ have the same Jordan outer
+measure.\\
+(2)Inequality $m_{*,(J)}(E^{\circ}) \leq m_{*,(J)}(E)$ is obvious for $E^{\circ} \subset E$. On the other hand, 
+for every $\varepsilon > 0$, there exists an elementary set $A \subset E$ s.t. $m_{*,(J)}(E) - m(A) \leq \varepsilon$.
+Note that $A^{\circ} \subset E^{\circ}$, thus $m_{*,(J)}(E^{\circ}) \geq m(A^{\circ}) = m(A) \geq m_{*,(J)}(E) - \varepsilon$,
+since $\varepsilon$ is arbitary, $m_{*,(J)}(E^{\circ}) \geq m_{*,(J)}(E)$. Hence $E$ and the interior $E^\circ$ have
+the same Jordan inner measure.\\
+(3) $E$ is Jordan measurable if and only if $\lim_{n \to \infty} 2^{-dn}(\mathcal{E}^*(E, 2^{-n}) - \mathcal{E}_*(E, 2^{-n})) = 0$,
+Notice that if $D$ is a dyadic cube that is not contained in $E$ but intersets $E$ if and only if it intersect $\partial E$,
+that is $\mathcal{E}^*(\partial E, 2^{-n}) = \mathcal{E}^*(E, 2^{-n}) - \mathcal{E}_*(E, 2^{-n})$.\\
+On the other hand, since $(\partial E)^\circ = \emptyset$, so $\partial E$ contains no dyadic cubes, i.e. 
+$\lim_{n \to \infty} 2^{-dn}\mathcal{E}_*(\partial E, 2^{-n}) = 0 \Rightarrow m_{*, (J)} = 0$. And 
+$\lim_{n \to \infty} 2^{-dn}\mathcal{E}^*(\partial E, 2^{-n}) = 0 = \lim_{n \to \infty} 2^{-dn}\mathcal{E}_*(\partial E, 2^{-n})$
+if and only if $\partial E$ is Jordan measurable, if and only if $m^{*, (J)}(\partial E) = m_{*, (J)}(\partial E) = 0$.\\
+(4)Since both of bullet-riddled square $[0, 1]^2 \setminus \mathbb{Q}^2$ and set of bullets $[0, 1]^2 \cap \mathbb{Q}^2$
+have the interior $\emptyset$, so both have Jordan inner measure zero. And both have the closure $[0, 1]^2$, thus
+they Jordan outer measure one. In particular, both set are not Jordan measurable.
+\end{proof}
+
+\begin{ex}[Carath\'eodory type property]\end{ex}
+\begin{proof}
+Let $E'$ be elementary sets s.t. $E' \supset E$, then $E' = (E' \cap F) \cup (E' \setminus F), E' \cap F 
+\supset E \cap F, E' \setminus F \supset E \setminus F$. And the equality
+$m(E') = m(E' \cap F) + m'(E' \setminus F)$ holds. We take infimum on both sides and find that $$
+\inf_{E' \supset E} m(E') = \inf_{E' \supset E} (m(E' \cap F) + m(E' \setminus F)) \geq \inf_{A \supset E \cap F} m(A)
++ \inf_{B \supset E \setminus F} m(B),
+$$where $A, B$ are elementary sets. Thus $m^{*, (J)}(E) \geq m^{*, (J)}(E \cap F) + m^{*, (J)}(E \setminus F)$.
+Note that $E \subset(A \cup B) \setminus (A \cap B)$, and the equality $m((A \cup B) \setminus 
+(A \cap B)) = m(A) + m(B) - m(A \cap B)$ holds. we firstly take infimum on $A$, then we take infimum on $B$, we obtain\begin{align*}
+&m^{*,(J)}(E \cap F) + m^{*, (J)}(E \setminus F) - \inf_{B \supset E \setminus F} \inf_{A \supset E \cap F} m(A \cap B)\\
+={} &\inf_{B \supset E \setminus F} \inf_{A \supset E \cap F} m((A \cup B) \setminus (A \cap B))
+\geq \inf_{E' \supset E} m(E') = m^{*, (J)}(E).
+\end{align*}
+Since $m(A \cap B) \geq 0$, we obtain that $m^{*, (J)}(E) \leq m^{*, (J)}(E \cap F) + m^{*, (J)}(E \setminus F)$. 
+From this inequality and the previous one we finally complete the proof$$
+m^{*, (J)}(E) = m^{*, (J)}(E \cap F) + m^{*, (J)}(E \setminus F).
+$$
+\end{proof}
+\end{document}

@@ -1,0 +1,298 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath, amssymb, amsthm, mathrsfs, enumitem}
+\usepackage[hmargin = 1in, vmargin = 1.25in]{geometry}
+\title{Homework-7}
+\author{Haocheng Wang \and 2019011994}
+
+\newtheorem{ex}{Exercise}[subsection]
+\stepcounter{section}
+\setcounter{subsection}{4}
+\renewcommand{\proofname}{\noindent\bf Proof}
+\renewcommand\labelenumi{\roman}
+\renewcommand{\Re}{\mathrm{Re}\,}
+\renewcommand{\Im}{\mathrm{Im}\,}
+
+\begin{document}
+\maketitle
+\setcounter{ex}{39}\begin{ex}
+\end{ex}\begin{proof}\ 
+\begin{enumerate}[label = (\roman*)]
+    \item For any $f, g \in L^1(X, \mathcal{B}, \mu)$ and $a, b \in \mathbb{C}$  one has $af + bg$ is measurable and
+    by triangle inequality one has $|af + bg| \leq |af| + |bg|$, therefore $$
+    \int_X |af + bg|\,d\mu \leq |a|\int_X |f|\,d\mu + |b|\int_X |g|\,d\mu < \infty,
+    $$which implies that $af + bg$ is absolutely integrable. Hence $L^1(X, \mathcal{B}, \mu)$ is a complex vector space.
+    \item Denote that $h = f + g$, then $h_+ - h_- = f_+ - f_- + g_+ - g_-$, which implies $h_+ + f_- + g_- = h_- 
+    + f_+ + g_+$,therefore $$
+    \int_{X} h_+\,d\mu + \int_{X} f_-\,d\mu + \int_{X} g_-\,d\mu = 
+    \int_{X} h_-\,d\mu + \int_{X} f_+\,d\mu + \int_{X} g_+\,d\mu.
+    $$
+    Hence \begin{align*}
+    \int_{X} f + g\,d\mu &= \int_{X} h_+\,d\mu - \int_{X} h_-\,d\mu \\
+    &= \int_{X} f_+\,d\mu - \int_{X} f_-\,d\mu + \int_{X} g_+\,d\mu - \int_{X} g_-\,d\mu
+    = \int_{X} f\,d\mu + \int_{X} g\,d\mu.
+    \end{align*}
+    Now we verify homogeneity, if $c = 0$, the case is trivial. First we assume that $f$ is real-valued,
+    one has that $(cf)_+ = cf_+, (cf)_- = cf_-$ for $c > 0$
+    and $(cf)_+ = -cf_-, (cf)_- = -cf_+$ for $c < 0$. That is \begin{gather*}
+        \int_{X} cf\,d\mu = \int_{X} cf_+\,d\mu - 
+        \int_{X} cf_-\,d\mu = c \times \int_{X} f\, d\mu,\ c > 0;\\
+        \int_{X} cf\,d\mu = \int_{X} -cf_-\,d\mu - 
+        \int_{X} -cf_+\,d\mu = c \times \int_{X} f\, d\mu,\ c < 0.
+    \end{gather*}
+    For any complex-valued function $f$, we take its real part and complex part respectively and the claim follows.
+    Now we prove the third claim. \begin{align*}
+        \int_{X} \overline{f}\, d\mu &= \int_{X} \Re  f(x)\, d\mu + i
+        \int_{X} -\Im f \,d\mu = \int_{X} \Re  f\, d\mu - i
+        \int_{X} \Im f \,d\mu\\
+        &=\overline{\int_{X} \Re  f \,d\mu + i\int_{X} \Im f \,d\mu}
+        = \overline{\int_{X} f d\mu}.
+    \end{align*}
+    Hence $\int_X d\mu$ is a complex-linear map.
+    \item The first inequality is obvious from the triangle inequality $|f + g| \leq |f| + |g|$ and the definition 
+    of integral. Now we show the second one, 
+    note that $$
+c\int_Xf\,d\mu = c\sup_{0 \leq g \leq f} \mathrm{Simp}\int_{\mathbb{R}^d} g \,d\mu
+= \sup_{0 \leq g \leq f} \mathrm{Simp}\int_{\mathbb{R}^d} cg\,d\mu,
+$$Since $0 \leq c\cdot g \leq c\cdot f$, one has that $c\int_X f\,d\mu \leq 
+\int_X cf\,d\mu$. Now we prove the reverse inequality, if $c = 0$, the case is trivial;
+we assume that $c > 0$, then for any $g \leq cf$, one has that $\frac{1}{c}g \leq f$, hence $$
+\int_X cf\,d\mu = \sup_{0 \leq g \leq cf} \mathrm{Simp}\int_{\mathbb{R}^d}g\,d\mu
+= c \sup_{0 \leq g \leq cf} \mathrm{Simp}\int_{\mathbb{R}^d} \frac{1}{c} g\,d\mu \leq
+c \sup_{0 \leq h \leq f} \mathrm{Simp}\int_{\mathbb{R}^d} h\,d\mu = c\int_X f\,d\mu.
+$$
+Thus we have that $\int_X cf(x)d\mu = c\int_X f(x)d\mu$.
+    \item Let $E := \{x \in X : f(x) \ne g(x)\}$ with $\mu(E) = 0$, then one has that $f1_{E^c} = g1_{E^c}$ for any 
+    $x \in X$. On the other hand $$
+    |\int_X f1_E\,d\mu| \leq \int_E |f|\,d\mu \leq +\infty \cdot \mu(E) = 0,\ \  
+    |\int_X g1_E\,d\mu| \leq \int_E |g|\,d\mu \leq +\infty \cdot \mu(E) = 0
+    $$Therefore $\int_X f\,d\mu = \int_X g\,d\mu$.
+    \item First we assume that $f$ is unsigned bounded and has finite measure support, and thus $f \in L^1(\mu')$.
+    Let $g$ be unsigned $\mu$-simple
+    function such that $g \leq f$ a.e., then by Exercise 1.4.35 we has that $\mathrm{Simp}\int_X g\,d\mu = \mathrm{Simp}\int_X g\,d\mu'$,
+    so $\sup_{g \leq f}\mathrm{Simp}\int_X g\,d\mu \leq \sup_{g' \leq f}\mathrm{Simp}\int_X g'\,d\mu'$ where $g'$
+    range over unsigned $\mu'$-simple functions, which implies that $\int_X f\,d\mu \leq \int_X f\,d\mu'$. Conversely,
+    for any $\varepsilon > 0$, there exists a $\mu'$-simple function $h \leq f$ such that 
+    $\mathrm{Simp}\int_X h\,d\mu' \geq \int_X f\,d\mu' - \varepsilon$, and denote that $h = \sum_{i = 1}^n c_i1_{A_i}$
+    where $c_1 < \cdots < c_n$ and $A_i \in \mathcal{B}'$ are pairwisely disjoint. Since $f$ is $\mathcal{B}$-measurable,
+    set $B_i := f^{-1}((c_i, c_{i + 1}]), i = 1, \dots, n - 1$ and $B_n := f^{-1}((c_n, +\infty])$ are measurable.
+    Note that $$
+    \bigcup_{i = j}^n A_i \subset f^{-1}((c_j, +\infty]) = \bigcup_{i = j}^nB_i, \forall 1 \leq j \leq n \Rightarrow
+    \sum_{i = j}^n \mu'(A_i) \leq \sum_{i = j}^n \mu'(B_i) = \sum_{i = j}^n \mu(B_i), \forall 1 \leq j \leq n.
+    $$
+    Let $h' = \sum_{i = 1}^n c_i1_{B_i}$ be a $\mu$-simple function and clearly $h' \leq f$, therefore \begin{align*}
+    \int_X f\,d\mu' - \varepsilon &\leq \mathrm{Simp}\int_X h\,d\mu' = \sum_{i = 1}^n c_i\mu'(A_i)
+    = c_1\sum_{i = 1}^n \mu'(A_i) + \sum_{i = 2}^n(c_i - c_{i - 1})\sum_{j = i}^n \mu'(A_j)\\
+    &\leq c_1 \sum_{i = 1}^n \mu(B_i) + \sum_{i = 2}^n (c_i - c_{i - 1})\sum_{j = i}^n \mu(B_i) = 
+    \sum_{i = 1}^n c_i\mu(B_i) = \mathrm{Simp}\int_X h'\,d\mu \leq \int_X f\,d\mu.
+    \end{align*}
+    Send $\varepsilon \to 0$ and the claim follows.
+    \item If $f$ is $\mu$-almost everywhere, then by (iv) the claim follows. Now we suppose that $||f||_{L^1(\mu)} = 0$,
+    by Markov's inequality one has $$
+    \mu(\{x \in X : |f| \geq \lambda\}) \leq \frac{1}{\lambda}||f||_{L^1(\mu)} = 0, \forall \lambda \in (0, +\infty).
+    $$Therefore $$
+    \mu(\{x \in X : |f| > 0\}) = \mu(\bigcup_{n = 1}^\infty \{x \in X : |f| \geq \frac{1}{n}\}) = \sum_{n = 1}^\infty
+    \mu(\{x \in X : |f| \geq \frac{1}{n}\}) = 0,
+    $$which implies that $f$ is $\mu$-almost everywhere zero.
+    \item Note that \begin{align*}
+    &\int_Y f\downharpoonright_Y \,d\mu\downharpoonright_Y = \sup_{g \leq f\downharpoonright_Y}\mathrm{Simp}\int_Y 
+    g\,d\mu\downharpoonright_Y = \sup_{g \leq f\downharpoonright_Y}\sum_{i = 1}^n c_i\mu\downharpoonright_Y(g^{-1}(c_i))\\ 
+    &= \sup_{g \leq f\downharpoonright_Y}\sum_{i = 1}^n c_i\mu(g^{-1}(c_i)) \leq \int_X f1_Y\,d\mu,
+    \end{align*}where $g$ range over all $\mu\downharpoonright_Y$-simple functions. On the other hand, note that for any 
+    $\mu$-simple function $h \leq f1_Y$, one has the $\mathrm{supp}\ h$ always subsets $\mathrm{supp}\ f1_Y$. Since 
+    $Y$ is measurable, one has that $\mathrm{supp}\ h \cap Y$ is also measurable. Thus $h\downharpoonright_Y = h$,
+    by similar argument we have $\int_X f1_Y\,d\mu = \int_Y f \downharpoonright_Y \,d\mu\downharpoonright_Y$.
+\end{enumerate}
+\end{proof}
+
+\stepcounter{ex}\begin{ex}\end{ex}\begin{proof}
+Let $f_n := 1_{[n - 1], n} - 1_{[n, n + 1]}$, then $\sum_{n = 1}^\infty f_n = 1_{[0, 1]}$, however\[
+\int_X \sum_{n = 1}^\infty f_n \,d\mu = 1 \ne 0 = \sum_{n = 1}^\infty \int_Xf_n\,d\mu.\qedhere
+\]
+\end{proof}
+
+\setcounter{ex}{44}\begin{ex}\end{ex}\begin{proof}
+Note that $0 \leq |f_n - f| \leq 2G$ $\mu$-almost everywhere, and $|f_n - f|$ converge pointwise $\mu$-almost everywhere 
+to zero, then by dominated convergence theorem\[
+\lim_{n \to \infty} ||f_n - f||_{L^1(\mu)} = \lim_{n \to \infty} \int_X |f_n - f|\,d\mu = \int_X \lim_{n \to \infty}
+|f_n - f|\,d\mu = 0.\qedhere
+\]
+\end{proof}
+
+\setcounter{ex}{46}\begin{ex}[Defect version of Fatou’s lemma]\end{ex}\begin{proof}
+Note that $\min(f_n, f) = \frac{1}{2}(f_n + f - |f_n - f|)$. Since $\min(f_n, f)$ is dominated by unsigned absolutely 
+integrable function $f$, by dominated convergence theorem one has $$
+\lim_{n \to \infty} \int_X \min(f_n, f)\,d\mu = \int_X \lim_{n \to \infty} \min(f_n, f)\,d\mu = \int_X f\,d\mu,
+$$which implies that \[
+\int_X f_n\,d\mu - \int_X f\,d\mu - ||f - f_n||_{L^1(\mu)} \to 0\ \ \ \text{as}\ \ \ n \to \infty. \qedhere    
+\]
+\end{proof}
+
+\setcounter{ex}{49}\begin{ex}\end{ex}\begin{proof}
+By assumption, there exists two sequence of $\mu$-measurable functions $\{g_n\}, \{h_n\}$ such that $g_n \leq f \leq h_n$
+and $\int_X h_n - g_n\,d\mu < \frac{1}{n^2}$, and let $A_n := \{x \in X : h_n - g_n > \frac{1}{n}\}$. Consider
+the set $f^{-1}([a, b]) = \{x \in X : a \leq f \leq b\}$, for every $n > 0$ either 
+$a - \frac{1}{n} \leq g_n \leq h_n \leq b - \frac{1}{n}$ or $h_n - g_n \geq \frac{1}{n}$ for all $x \in f^{-1}([a, b])$.
+Thus $$
+f^{-1}([a, b]) = \bigcap_{n = 1}^\infty (\{x \in X : a - \frac{1}{n} \leq g_n \leq h_n \leq b - \frac{1}{n}\} \cup
+(f^{-1}([a, b]) \cap A_n))
+$$Besides, by Fatou’s lemma$$
+\mu(\bigcap_{n = 1}^\infty A_n) = \mu(\liminf_{n \to \infty} A_n) \leq \liminf_{n\to\infty} \mu(A_n) \leq 
+\lim_{n\to\infty} \int_{A_n} n \cdot (h_n - g_n)\,d\mu \leq \lim_{n\to\infty} n\cdot \frac{1}{n^2} = 0.
+$$Hence $f^{-1}([a, b])$ is the intersection of countable measurable sets and a null set and thus measurable, which 
+implies that $f$ is measurable.
+\end{proof}
+
+\stepcounter{subsection}
+\begin{ex}[Linearity of convergence]\end{ex}\begin{proof}\ 
+\begin{enumerate}[label = (\roman*)]
+    \item \begin{enumerate}[label = (\alph*)]
+        \item (Pointwise a.e.) Suppose that $f_1, f_2, \dots$ converge to $f$ pointwisely almost everywhere, i.e. $\lim_{n \to\infty}
+        f_n(x) = f(x)$, which implies that $\lim_{n \to\infty} |f_n(x) - f(x)| = 0$ almost everywhere. Conversely,
+        by triangle inequality one has that $\lim_{n \to \infty} f_n(x) - f(x) \leq \lim_{n \to \infty} |f_n(x) - f(x)| = 0$,
+        that is $\lim_{n \to\infty} f_n(x) = f(x)$ a.e., and so is pointwise convergence.
+        \item (Uniformly a.e.) $f_1, f_2, \dots$ converge to $f$ uniformly a.e. if and only if for any $\varepsilon > 0$
+        there exists $N > 0$ such that $|f_n(x) - f(x)| < \varepsilon$ a.e., i.e. $|f_n(x) - f(x)|$ converge to zero
+        uniformly a.e., and so is uniformly.
+        \item (Almost uniformly) Similar to (b).
+        \item (in $L^1$ norm) $f_n$ converges to $f$ in $L^1$ norm if and only if $\int_X |f_n - f|\,d\mu \to 0$ as $n \to 
+        \infty$, i.e. $\int_X ||f_n - f| - 0|\,d\mu \to 0$ as $n \to \infty$. 
+        \item (in measure) Similar to (d).
+    \end{enumerate}
+    Hence $f_n$ converges to $f$ along one of the seven modes of convergence if and only if $|f_n - f|$ converges to
+    zero along the same mode.
+    \item Note that $f_n + g_n$ converges to $f + g$ if and only if $|f_n + g_n - f - g|$ converges to zero along the
+    same mode. By triangle inequality one has $|f_n + g_n - f - g| \leq |f_n - f| + |g_n - g| \to 0$ as $n \to \infty$
+    and the first claim follows in pointwise a.e., uniformly a.e., almost uniformly an $L^1$ norm case. In measure case, 
+    denote $E_n^\varepsilon := \{x \in X : |f_n(x) - f(x)| \geq \varepsilon\}, F_n^\varepsilon := \{x \in X : |g_n(x) - g(x)| \geq \varepsilon\}$,
+    then for any $x \in (X\setminus E_n^{\varepsilon/2}) \cap (X \setminus F_n^{\varepsilon /2})$, one has $$
+    |f_n(x) - f(x)| + |g_n(x) - g(x)| \leq |f_n(x) - f(x)| + |g_n(x) - g_n(x)| < \varepsilon,
+    $$which implies that $\{x \in X : |f_n(x) + g_n(x) - f(x) - g(x)| \geq \varepsilon\} \subset E_n^{\varepsilon/2}\cup F_n^{\varepsilon/2}$,
+    so$$
+    \mu(\{x \in X : |f_n(x) + g_n(x) - f(x) - g(x)| \geq \varepsilon\}) \leq \mu(E_n^{\varepsilon/2}) + \mu(F_n^{\varepsilon/2})
+    \to 0
+    $$as $n \to \infty$, hence $f_n + g_n$ converges to $f + g$ as required.
+    And since $|cf_n - cf| = |c||f_n - f|$ the second claim follows.
+    \item (Squeeze test) For pointwise a.e. case, for every $\varepsilon > 0$ there exists $N(x)$ such that 
+    $|g_n(x)| \leq |f_n(x)| < \varepsilon$ for any $n > N(x)$, so $g_n$ converges to 0 pointwise a.e.. By replace 
+    $N(x)$ with a uniform $N$ the claim follows in uniformly a.e. case and almost uniformly case. For convergence 
+    in $L^1$ norm, by monotonicity of integral $||g_n||_{L^1} \leq ||f_n||_{L^1} \to 0$ as $n \to \infty$ therefore
+    $g_n$ converges to 0 in $L^1$ norm. Take similar argument and the last mode case follows. \qedhere
+\end{enumerate}    
+\end{proof}
+
+\begin{ex}[Easy implications]\end{ex}\begin{proof}\ \begin{enumerate}[label = (\roman*)]
+    \item Obvious.
+    \item Suppose that $f_n$ converges to $f$ is $L^\infty$ norm, then for any $m \in \mathbb{N}$ there exists $N_m \in \mathbb{N}$
+    such that $|f_n(x) - f(x)| < \frac{1}{m}$ outside a null set $E_{m, n}$ for any $n \geq N_m$. Let 
+    $E := \bigcup_{m = 1}^\infty \bigcup_{n = N_m}^\infty E_{m, n}$, then $f_n$ converges to $f$ uniformly outside a 
+    null set $E$. The converse is obvious.
+    \item This is obvious from (ii) since $\mu(E) = 0$.
+    \item For any $m \in \mathbb{N}$, there exists an exceptional set $E_m$ with $\mu(E_m) < \frac{1}{m}$ such that
+    $f_n$ converges to $f$ uniformly on $X \setminus E_m$. Let $E := \bigcap_{m = 1}^\infty$, then $\mu(\bigcap_{m = 1}^\infty E_m) \leq 
+    \mu(E_m) < \frac{1}{m}, \forall m > 0$, thus $\bigcap_{m = 1}^\infty E_m$ is a null set. For any $x \in X \setminus E$,
+    there exists at least one $m > 0$ such that $x \in X \setminus E_m$, therefore $|f_n(x) - f(x)| \to 0$ as $n \to \infty$.
+    Hence $f_n$ converges to $f$ pointwise a.e..
+    \item Obvious.
+    \item By Markov's inequality, for any $\varepsilon > 0$ $$
+    \mu(\{x \in X : |f_n(x) - f(x)| \geq \varepsilon) \leq \frac{1}{\varepsilon}\int_X |f_n - f| \,d\mu \to 0
+    $$as $n \to \infty$. Hence $f_n$ converges to $f$ in measure.
+    \item For every $\varepsilon > 0$ and $m > 1$, there exists an exceptional set $E_m \in \mathcal{B}$ of measure $\mu(E_m) < 1/m$
+    such that $|f_n(x) - f(x)| \to 0$ as $n \to \infty$ for any $x \in X \setminus E_m$, which implies that 
+    $\{x \in X : |f_n(x) - f(x)| \geq \varepsilon\} \subset E_m$ for large enough $n$. Let $m \to \infty$ and the
+    claim follows. \qedhere
+\end{enumerate}
+\end{proof}
+
+\setcounter{ex}{4}\begin{ex}[Fast $L^1$ convergence]\end{ex}\begin{proof}\ 
+\begin{enumerate}[label = (\roman*)]
+    \item Let $E_{N, m} := \{x \in X : \sup_{n \geq N} |f_n(x) - f(x)| \geq \frac{1}{m}\} = 
+    \bigcup_{n = N}^\infty \{x \in X : |f_n(x) - f(x)| \geq \frac{1}{m}\}$. Then $f_n$ converges to $f$ if and only if 
+    $\bigcap_{N = 1}^\infty E_{N, m}$ is a null set for any $m > 0$. By Markov's inequality one has that $$
+    \mu(E_{N, m}) \leq \sum_{n = N}^\infty \mu(\{x \in X : |f_n(x) - f(x)| \geq \frac{1}{m}\}) \leq m\sum_{n = N}^\infty
+    ||f_n - f||_{L^1(\mu)} \to 0
+    $$as $N \to \infty$. Therefore $\mu(\bigcap_{N = 1}^\infty E_{N, m}) = \lim_{N \to \infty} \mu(E_{N, m}) = 0$ for 
+    any $m > 0$, as required.
+    \item For every $\varepsilon > 0$, choose $N_k$ such that $\sum_{n \geq N_k} ||f_n - f||_{L^1(\mu)} \leq \varepsilon 4^{-k}$.
+    Therefore $\mu(E_{N_k, 2^k}) \leq 2^k \sum_{n \geq N_k} ||f_n - f||_{L^1(\mu)} \leq \varepsilon 2^{-k}$, let
+    $E := \bigcup_{k = 1}^\infty E_{N_k, 2^k}$, then $\mu(E) \leq \varepsilon$. For any $x \in X \setminus E$, one 
+    has $|f_n(x) - f(x)| \leq \frac{1}{2^k}$ for all $k > 0$. Hence $f_n$ converges to $f$ almost uniformly.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{ex}\end{ex}\begin{proof}
+For any given $\varepsilon > 0$, choose $n_j$ such that $\mu(\{x \in X : |f_{n_j}(x) - f(x)| > 1/j\}) \leq \varepsilon 2^{-j}$,
+and let $E = \bigcup_{j = 1}^\infty E_j$, thus $\mu(E) \leq \varepsilon$. For any $x \in X \setminus E$, one has 
+$x \in X \setminus E_j, \forall j \geq 1$, which implies $|f_{n_j}(x) - f(x)| \leq 1/j$. Hence $f_{n_j}$ 
+converges to $f$ almost uniformly.
+\end{proof}
+
+\setcounter{ex}{9}\begin{ex}\end{ex}
+\begin{proof}
+We only need to establish the ``if'' direction. Suppose that $||f_n - f||_{L^1(\mu)} \not\to 0$, then there exists 
+$\varepsilon_0 > 0$ and a subsequence of $\{f_n\}$ (denote $\{f_{n_j}\}$) such that $||f_{n_j} - f||_{L^1(\mu)} \geq \varepsilon_0$
+for every integer $j$. But $f_{n_j}$ converges to $f$ in measure, by Exercise 1.5.6 it has a further subsequence
+$\{f_{n_{i_k}}\}$ converge to $f$ pointwise a.e., since $\{f_n\}$ is dominated, by dominated convergence theorem
+one has $\lim_{k \to \infty} ||f_{n_{i_k}} - f||_{L^1(\mu)} = 0$, which implies that there exists $K \in \mathbb{N}$
+such that $||f_{n_{i_k}} - f||_{L^1(\mu)} < \varepsilon_0$ for any $k > K$, this contradicion finish the proof.
+\end{proof}
+
+\setcounter{ex}{16}\begin{ex}[Defect version of Fatou’s lemma]\end{ex}\begin{proof}
+The ``only if'' direction is trivial, since $||f||_{L^1(\mu)} \leq ||f_n||_{L^1(\mu)} + ||f_n - f||_{L^(\mu)} < \infty$,
+one has that $f \in L^1(\mu)$, then $$
+|\int_X f\,d\mu - \int_X f_n \,d\mu| \leq \int_X |f_n - f|\,d\mu = ||f_n - f||_{L^1(\mu)} \to 0
+$$as $n \to \infty$, hence $\lim \int_X f_n\,d\mu = \int_X f\,d\mu$.
+
+Now we establish the ``if'' direction, since $\lim_{n \to \infty} \int_X f_n\,d\mu = \int_X f\,d\mu$, we have 
+$f \in L^1(\mu)$ and $f_n \in L^1(\mu)$. In Exercise 1.4.47 we have showed that $$
+\lim_{n \to \infty} \int_X f_n\,d\mu - \int_X f\,d\mu - ||f - f_n||_{L^1(\mu)} = 0,
+$$hence $f_n$ converges to $f$ in $L^1$ norm.
+\end{proof}
+
+\stepcounter{ex}\begin{ex}\end{ex}\begin{proof}\ 
+\begin{enumerate}[label = (\roman*)]
+    \item Suppose that $f_n$ converges to $f$ in measure, note that for any $y < x$\begin{align*}
+    \{t \in X : f(t) < y\} &= \{t \in X : f(t) < y, f_n(t) < x\} \cup \{t \in X : f(t) < y, f_n(t) \geq x\}\\
+    &\subset \{t \in X : f_n(t) < x\} \cup \{t \in X : |f_n(t) - f(t)| \geq x - y\},
+    \end{align*}which implies that$$
+    F(y) \leq F_n(x) + \mu(\{t \in X : |f_n(t) - f(t)| \geq x - y\}).
+    $$let $n \to \infty$, one has that $$
+    F(y) \leq \liminf_{n \to \infty} F_n(x).
+    $$Similarly for any $x < z$ one has $\limsup_{n \to\infty} F_n(x) \leq F(z)$. Assume that $F$ is continous at 
+    $x$, and let $y \uparrow x, z \downarrow x$ we obtain that $$
+    F(x) \leq \liminf_{n \to\infty} F_n(x) \leq \limsup_{n \to\infty} F_n(x) \leq F(x) \Rightarrow \lim_{n \to \infty}
+    F_n(x) = F(x).
+    $$Hence $f_n$ converges in distribution to $f$ in sense of convergence in measure, and thus in $L^1$ norm.
+
+    Now we suppose that $f_n$ converges to $f$ pointwise a.e.. Denote $E_{N, m} = \bigcup_{n = N} \{x \in X : |f_n(x) - f(x)| > \frac{1}{m}\}$.
+    Then one has that $\mu(\bigcup_{m = 1}^\infty \bigcap_{N = 1}^\infty E_{N, m}) = 0$, besides $$
+    \{x \in X : |f_n(x) - f(x)| \geq \varepsilon\} \subset \bigcup_{N = n}^\infty \{x \in X : |f_n(x) - f(x)| \geq \varepsilon\}
+    \subset E_{n, \lfloor 1/\varepsilon \rfloor + 1},\ \forall \varepsilon > 0
+    $$which implies that $\lim_{n \to \infty} \mu(\{x \in X : |f_n(x) - f(x)| \geq \varepsilon\}) = 0$. Therefore
+    $f_n$ converges to $f$ in measure, and the claim follows, because uniformly, essential uniformly, almost uniformly, 
+    pointwise implie pointwise a.e..
+    \item Define $\{f_n\}$ recursively: $f_1 := 1_I, I = [0, 1/4] \cup [1/2, 3/4]$, then $f_{n + 1}(x) := f_n(\frac{1}{2}x) + 
+    f_n(\frac{1}{2}(x - \frac{1}{2}))$. Then $$
+    F_n(\lambda) \equiv \begin{cases}
+        1, &\lambda > 1,\\
+        1/2, &0 < \lambda < 1,\\
+        0, &\lambda < 0. 
+    \end{cases}
+    $$And we set $f = f_1$, but $f_n$ converges to $f$ not in any of the the seven senses.
+    \item Let $X = \{0, 1\}, \mu(\{0\}) = \mu(\{1\}) = 1/2$. Define $f_n(0) = g_n(0) = 1, f_n(1) = g_n(1) = 0$, 
+    and $f(0) = 0, f(1) = 1, g(0) = 0, g(1) = 1$. Let $H_n, H$ be cumulative dis- tribution function of $f_n + g_n$
+    and $f + g$ respectively, then $$
+    H_n(\lambda) = \begin{cases}
+        1, &\lambda \geq 2,\\
+        1/2, &0 \leq \lambda < 2,\\
+        0, &\lambda < 0.
+    \end{cases}\ \ \ 
+    H(\lambda) = \begin{cases}
+        1, &\lambda \geq 1,\\
+        0, &\lambda < 1.
+    \end{cases}
+    $$Hence $f_n + g_n$ not converges to $f + g$ in distribution.
+    \item Use the notation in (iii), $f_n$ converges to $f$ and $g$ in distribution, but $f$ and $g$ are not 
+    equal almost everywhere.
+\end{enumerate}
+\end{proof}
+\end{document}

@@ -1,0 +1,195 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb, amsthm, mathrsfs}
+\usepackage[hmargin = 1.25in, vmargin = 1in]{geometry}
+\title{Homework-2}
+\author{Haocheng Wang \and 2019011994}
+
+\newtheorem{ex}{Exercise}[subsection]
+\stepcounter{section}
+\stepcounter{subsection}
+\renewcommand{\proofname}{\noindent\bf Proof}
+
+\begin{document}
+\maketitle
+
+\noindent(1) See {\bfseries Exercise 1.1.22}.
+
+\setcounter{ex}{20}
+\begin{ex}[Basic properties of the piecewise constant integral]\end{ex}
+\begin{proof}
+(1) (Linearity) The first equation $$
+\mathrm{p.c.} \int_a^b cf(x)\, dx = \sum_{i = 1}^n cc_i|I_i| = c\sum_{i = 1}^n c_i |I_i| = c\ \mathrm{p.c.} 
+\int_a^b f(x)\, dx.
+$$There exists two partion of $[a, b]$ $\mathcal{P}_1: I_1, \dots, I_n$ and $\mathcal{P}_2: J_1, \dots, J_m$, such 
+that $f$ and $g$ are equal to constants on $I_i$ and $J_j$ respectively. One 
+can place the endpoints of the intervals of both partion in increasing order (discarding repetitions), then we get 
+a new partion $\mathcal{P}_3: K_1, \dots, K_k$ such that both of $f$ and $g$ are equal to constants $c_k$ and $d_k$
+on each of the intervals $K_k$ respectively. Then we have that $$
+\mathrm{p.c.} \int_a^b f(x) + g(x) dx = \sum_{k} (c_k + d_k)|K_k| = \sum_k c_k|K_k| + \sum_{k}d_k |K_k|
+= \mathrm{p.c.}\int_a^b f(x) dx + \mathrm{p.c.}\int_a^b g(x) dx.
+$$
+
+(2) (Monotonicity) Since $\sum_{i = 1}^n f(x_i^*) |I_i| \leq \sum_{i = 1}^n g(x_i^*)|I_i|$, the conclusion holds.
+
+(3) (Indicator) Note that $E$ is the union of finite intervals contained in $[a, b]$, $1_E(x) = 1$ on these intervals
+and $1_E(x) = 0$ on the complement of their union, which is also a union of several intervals contained in $[a, b]$.
+Since any interval can be splits into several interval, we have showed that $1_E(x)$ is piecewise constant. Note that 
+$E$ is elementary, $E$ can be expressed as the finite union of disjoint intervals $I_1, \dots, I_n$ and thus 
+$1_E(x) = \sum_{k = 1}^n 1_{I_k}(x)$, then\[
+\mathrm{p.c.} \int_a^b 1_E(x)\, dx = \mathrm{p.c.} \int_a^b \sum_{k = 1}^n 1_{I_k}(x)\, dx = 
+\sum_{k = 1}^n \mathrm{p.c.}\int_{I_k} 1_{I_k}(x)\, dx = \sum_{k = 1}^n |I_k| = m(E). \qedhere
+\]
+\end{proof}
+
+\begin{ex}\end{ex}
+\begin{proof}
+Assume that $f$ is Darboux integrable.
+Denote that $I := \overline{\int_a^b} f(x)\, dx = \underline{\int_a^b}\, f(x) dx$. Given any $\varepsilon > 0$, there 
+exists $g_1(x) \leq f(x), h_1(x) \geq f(x)$ such that $$
+I - \int_a^b g_1(x)\, dx < \varepsilon,\ \ \ \int_a^b h_1(x)\, dx - I < \varepsilon.
+$$
+We keep the partion of $g_1(x)$ on $[a, b]$: $I_1, \dots, I_n$, then we construct a new function on $[a, b]$$$
+g_2(x) := \inf_{x \in I_i} f(x),\ x \in I_i.
+$$Now it's obvious to see that $$
+I - \int_a^b g_2(x)\, dx \leq I - \int_a^b g_1(x)\, dx < \varepsilon.
+$$Similarly we construct another function $h_2(x)$ on $[a, b]$ such that$$
+h_2(x) := \sup_{x \in J_i} f(x),\ x \in J_i,\ \ \ \ \int_a^b h_2(x)\, dx - I \leq \int_a^b h_1(x)\, dx - I < \varepsilon.
+$$
+Here we get two partion of $[a, b]$: $\mathcal{P}_1: I_1, \dots, I_n$ and $\mathcal{P}_2: J_1, \dots, J_m$. One 
+can place the endpoints of the intervals of both partion in increasing order (discarding repetitions), then we get 
+a new partion $\mathcal{P}_3$ whose norm $\Delta(\mathcal{P}_3) \leq \Delta(\mathcal{P}_i), i = 1, 2$. An observation
+is that when one splits an interval $K$ into several ones $K_1, \dots, K_l$, then $$
+\sup_{x \in K} f(x) |K| \leq \sum_{i = 1}^l \sup_{x \in K_i} f(x) |K_i|,\ \ \ 
+\inf_{x \in K} f(x) |K| \geq \sum_{i = 1}^l \inf_{x \in K_i} f(x) |K_i|.
+$$Hence now we define two new functions on $[a, b]$:$$
+g_3(x) := \sup_{x \in H_i} f(x),\ x \in H_i,\ \ \ \ h_3(x) := \inf_{x \in H_i} f(x),\ x \in H_i,
+$$where $H_i \in \mathcal{P}_3$, then we have that$$
+I - \int_a^b g_3(x)\, dx \leq I - \int_a^b g_2(x)\, dx < \varepsilon,\ \ \ 
+\int_a^b h_3(x)\, dx - I \leq \int_a^b h_2(x)\, dx - I < \varepsilon.
+$$Thus$$
+\int_a^b g_3(x)\, dx \leq \sum_{i} f(x_i^*) |H_i| \leq \int_a^b h_3(x)\, dx \Rightarrow
+-\varepsilon \leq \sum_i f(x_i^*)|H_i| \leq \varepsilon, \forall x_i^* \in H_i.
+$$
+Whenever a new partion $\mathcal{P}$ whose norm $\Delta(\mathcal{P}) < \Delta(\mathcal{P}_3)$, we can always
+define two functions $g_4, h_4$ in the same way and will find that $-\varepsilon \leq \mathcal{R}(f, \mathcal{P}) 
+\leq \varepsilon$. Hence we have proved that if $f$ is Darboux integrable, then it is also Riemann integrable.
+Moreover, $\int_a^b f(x)\, dx = \overline{\int_a^b} f(x)\, dx = \underline{\int_a^b}\, f(x) dx$.
+
+Now we assume that $f$ is Riemann integrable, given any $\varepsilon > 0$, there exists $\delta > 0$ such that
+$|\int_a^b f(x)\, dx - \mathcal{R}(f, \mathcal{R})| < \varepsilon$ for all partions $\mathcal{P}: I_1, \dots I_n$ 
+satisfying $\Delta(\mathcal{P}) < \delta$ and any chosen tagged points. Thus we can choose $\sup_{x \in I_i} f(x)$
+and $\inf_{x \in I_i} f(x)$ as tagged points, then we can define two piecewise constant function $g, h$ such that
+$$
+\int_a^b f(x)\, dx - \int_a^b g(x)\, dx < \varepsilon,\ \ \ \int_a^b h(x)\, dx - \int_a^b f(x)\, dx < \varepsilon.
+$$Thus$$
+\int_a^b f(x)\, dx - \varepsilon < \int_a^b g(x)\, dx \leq \underline{\int_a^b} f(x)\, dx \leq 
+\overline{\int_a^b} f(x)\, dx \leq \int_a^b h(x)\, dx < \int_a^b f(x)\, dx + \varepsilon.
+$$
+Let $\varepsilon$ tends to zero and we obtain that $\overline{\int_a^b} f(x)\, dx = \underline{\int_a^b}\, f(x) dx$
+i.e. $f$ is Darboux integrable.
+\end{proof}
+
+\setcounter{ex}{24}
+\begin{ex}[Area interpretation of the Riemann integral]\end{ex}
+\begin{proof}
+First assume that $f$ is non-negative on $[a, b]$. $f$ is Riemann integrable if and only if it is Darboux integrable,
+i.e. for every $\varepsilon > 0$, there exists piecewise constant function $g, h$ such that 
+$\int_a^b h(x)\, dx - \int_a^b g(x)\, dx < \varepsilon$. And by the discussion in {\bfseries Exercise 1.1.22} we can 
+always choose $g, h$ such that both share the same partion $\mathcal{P}: I_1, \dots, I_n$ of $[a, b]$. Then we take
+Cartesian production and union: $A := I_i \times [0, g(x_i^*)], B:= I_i \times [0, h(x_i^*)]$. It's obvious that
+$A \subset E_+ \subset B$ and $m^2(B \setminus A) < \varepsilon$, that is $E_+$ is two-dimensional Jordan measurale.
+Since $m^2(A) \leq m^2(E_+) \leq m^2(B)$, we obtain that $\int_a^b f(x)\, dx = m^2(E_+)$.
+
+Now we consider the case that $f$ may not always non-negative, we define that $f_+ := \frac{1}{2}(|f| + f),
+f_- := \frac{1}{2}(|f| - f)$, then $f_+ \geq 0, f_- \geq 0, \forall x \in [a, b], f = f_+ - f_-$. By the Lebesgue
+criterion both $f_+$ and $f_-$ are Riemann integrable, hence \[
+\int_a^b f(x)\, dx = \int_a^b f_+(x)\, dx - \int_a^b f_-(x)\, dx = m^2(E_+) - m^2(E_-). \qedhere
+\]
+\end{proof}
+
+\stepcounter{subsection}
+\begin{ex}\end{ex}
+\begin{proof}
+Let $E_n = [n - 2^{-n}, n + 2^{-n}]$, $E_n$ is obviously Jordan measurale, now we consider $\bigcup_{n = 1}^\infty E_n$.
+It's clear that $m_{*, (J)}(\bigcup_{n = 1}^\infty E_n) = 2$, but $m^{*, (J)} = \infty$, for $\bigcup_{n = 1}^\infty$
+need to be covered by finite number of elementary set. Thus the union of Jordan measurale sets $\bigcup_{n = 1}^\infty E_n$
+is not Jordan measurale. On intersection, we take the complements of $E_n$ in $\mathbb{R}$ and we obtain that 
+$\bigcap_{n = 1}^\infty E_n^c$ is also not Jordan measurale.
+\end{proof}
+
+\begin{ex}\end{ex}
+\begin{proof}
+We denote that $\mathbb{Q} \cap [0, 1] = \{r_1, r_2, \dots\}$, and define that $$
+f_n(x) := \begin{cases}
+    1, &x = r_1, \dots, r_n,\\
+    0, &\text{other cases}
+\end{cases}, \qquad
+f(x) := \begin{cases}
+    1, &x \in \mathbb{Q} \cap [0, 1],\\
+    0, &x \in [0, 1]\setminus \mathbb{Q}.
+\end{cases}
+$$
+It's clear that $f_n(x)$ is Riemann integrable and has integral 0, but $f(x)$ is not Riemann integrable for $f_n$
+is de facto Dirichlet function. Thus Riemann integrable function $f_n: [0, 1] \to \mathbb{R}$ for $n = 1, 2, \dots$
+that converge pointwise to  a bounded function $f$ that is not Riemann integrable.
+
+$f$ is Riemann integrable if $f_n \rightrightarrows f$.
+\end{proof}
+
+\begin{ex}[The outer measure axioms]\end{ex}
+\begin{proof}
+(i) (Empty set) For every $\varepsilon > 0$, there exists a box $B$ s.t. $|B| < \varepsilon$, and
+$\emptyset \subset B$, thus $0 \leq m^*(\emptyset) \leq |B| < \varepsilon$. Since $\varepsilon$ is arbitary, 
+$m^*(\emptyset) = 0$.
+
+(ii) (Monotonicity) Since the union of sets used to be take infimum $m^*(F)$ is always containing $E$, hence 
+$m^*(E) \leq m^*(F)$.
+
+(iii) (Countable subadditivity) For every $E_n$, let $\{B_{n, k}\}_{k \geq 1}$ be a sequence of boxes such that 
+$E_n \subset \bigcup_{k = 1}^\infty B_{n, k}$ and set $$
+\sum_{k = 1}^\infty |B_{n, k}| \leq m^*(E_n) + \varepsilon 2^{-n}.
+$$
+Hence $\bigcup_{n = 1}^\infty E_n \subset \bigcup_{n = 1}^\infty \bigcup_{k = 1}^\infty B_{n, k}$, and by Tonelli's
+theorem $$
+m^*\Big( \bigcup_{n = 1}^\infty E_n \Big) \leq m^*\Big(\bigcup_{n = 1}^\infty \bigcup_{k = 1}^\infty B_{n, k}\Big)
+= \sum_{n = 1}^\infty \sum_{k = 1}^\infty |B_{n, k}| \leq \sum_{n = 1}^\infty \Big(m^*(E_n) + \frac{\varepsilon}{2^n}\Big)
+= \sum_{n = 1}^\infty m^*(E_n) + \varepsilon.
+$$Let $\varepsilon \to 0$ to complete the proof.
+\end{proof}
+
+\begin{ex}\end{ex}
+\begin{proof}
+Supposed that $E$ is compact, we assert that there exists $x \in E$ such that $\mathrm{dist}(x, F) = \mathrm{dist}(E, F)$,
+here $\mathrm{dist}(x, F) := \inf \{|x - y| : y \in F\}$. First we show that $\mathrm{dist}(x, F) \in C(E, \mathbb{R})$.
+For arbitary $p, q \in E$, from the triangle inequality on has that $|p - a| \leq |q - a| + |p - q|$ for any $a \in F$.
+Form the definition of $\mathrm{dist}(x, F)$, there exists a sequence $\{a_n\}_{n \geq 1} \subset F$ such that 
+$|q - a_n| \leq \mathrm{dist}(q, F) + \frac{1}{n}$, then $$
+\mathrm{dist}(p, F) \leq |p - a_n| \leq |q - a_n| + |p - q| \leq \mathrm{dist}(q, F) + |p - q| + \frac{1}{n},
+$$let $n \to \infty$ we obtain that $\mathrm{dist}(p, F) \leq \mathrm{dist}(q, F) + |p - q|$ and similarly we can 
+prove that $\mathrm{dist}(q, F) \leq \mathrm{dist}(p, F) + |p - q|$, i.e.$$
+|\mathrm{dist}(p, F) - \mathrm{dist}(q, F)| \leq |p - q|.
+$$
+Hence $\mathrm{dist}(x, F)$ is a continous function on compact set $E$, then it can reach its minimum, i.e. there
+exists $x \in E$ such that $\mathrm{dist}(x, F) = \mathrm{dist}(E, F)$. If $\mathrm{dist}(E, F)$ is equal zero, 
+there exists a sequence $\{a_n\}_{n \geq 1}$ converges to $x$, i.e. $x \in \overline{F} = F \Rightarrow E \cap F \not= \emptyset$,
+this contradiction finish the proof. Here is a counterexample for the compactness hypothesis is dropped: let
+$E = \{(x, 0) : x \in \mathbb{R}\}, F = \{(x, e^x) : x \in \mathbb{R}\}$, it's obvious that $\mathrm{dist}(E, F) = 0$
+for $E$ is the asymptote of $y = e^x$, but $E \cap F = \emptyset$.
+\end{proof}
+
+\begin{ex}\end{ex}
+\begin{proof}
+Since $E$ is expressible as the countable union of almost disjoint boxes, denote that $E = \bigcup_{n = 1}^\infty B_n$,
+and set $A_n = \bigcup_{k = 1}^n E_k$. For any $B \subset E$, there exists $N \in \mathbb{N}$ such that 
+$B \subset \bigcup_{n = 1}^N E_n$, i.e. $m(E) \leq m(A_N) = \bigcup_{n = 1}^N |E_n|$. Hence\[
+m_{*,(J)}(E) = \sup_{A \subset E, A\ \text{is elementary}} m(A) = \lim_{n \to \infty} m(A_n) = \lim_{n \to \infty}
+\sum_{k = 1}^n |B_k| = \sum_{n = 1}^\infty |B_n| = m^*(E). \qedhere
+\]
+\end{proof}
+
+\begin{ex}\end{ex}
+Let $E := \mathbb{Q} \cap [0, 1], F := [0, 1] \setminus \mathbb{Q}$. It's obvious that the interior of $F$ is $\emptyset$,
+then $$\sup_{U \subset F, U\ \text{is open}} m^*(U) = 0.$$ However, by subadditivity one has \[
+m^*([0, 1]) = m^*(E \cup F) \leq m^*(E) + m^*(F) \Rightarrow m^*(F) \geq 1.
+\]
+\end{document}

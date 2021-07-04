@@ -1,0 +1,232 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath, amssymb, amsthm, mathrsfs, enumitem}
+\usepackage[hmargin = 1in, vmargin = 1.25in]{geometry}
+\title{Homework-10}
+\author{Haocheng Wang \and 2019011994}
+
+\newtheorem{ex}{Exercise}[subsection]
+\newtheorem{lem}{Lemma}[subsection]
+\stepcounter{section}
+\setcounter{subsection}{6}
+\renewcommand{\proofname}{\noindent\bf Proof}
+\renewcommand\labelenumi{\roman}
+\renewcommand{\Re}{\mathrm{Re}\,}
+\renewcommand{\Im}{\mathrm{Im}\,}
+
+\begin{document}
+\maketitle
+\setcounter{ex}{16}\begin{ex}\end{ex}\begin{proof}
+Let $\varepsilon, \lambda$ be arbitary, since $f$ is absolutely integrable, there exists a compact supported continuous 
+function $g$ with $||f - g||_{L^1(\mathbb{R}^d)} \leq \varepsilon$. By Hardy-Littlewood maximal inequality we conclude$$
+m(\{x \in \mathbb{R}^d : \sup_{r > 0}\frac{1}{m(B(x, r))} \int_{B(x, r)} |f(t) - g(t)|\,dt \geq \lambda\}) 
+\leq \frac{C_d\varepsilon}{\lambda}.
+$$From Markov's inequality we have $$
+m(\{x \in \mathbb{R}^d : |f(x) - g(x)| \geq \lambda\}) \leq \frac{\varepsilon}{\lambda}.
+$$By subadditivity we conclude that for all $x \in \mathbb{R}^d$ outside of a set $E$ of measure at most $(C_d + 1)\varepsilon / \lambda$,
+one has both $$
+\frac{1}{m(B(x, r))} \int_{B(x, r)} |f(t) - g(t)|\,dt < \lambda\ \ \ \text{and}\ \ \ 
+|f(x) - g(x)| < \lambda,
+$$for all $h > 0$. Since $g$ is continuous, we have $$
+|\frac{1}{m(B(x, r))}\int_{B(x, r)}g(t)\,dt  - g(x)| < \lambda
+$$whenever $r$ is sufficently small. Therefore\begin{align*}
+&|\frac{1}{m(B(x, r))}\int_{B(x, r)}f(t)\,dt  - f(x)|\\ \leq{} &\frac{1}{m(B(x, r))}\int_{B(x, r)}|f(t) - g(t)|\,dt + 
+|\frac{1}{m(B(x, r))}\int_{B(x, r)}g(t)\,dt  - g(x)| + |f(x) - g(x)| < 3\lambda
+\end{align*}for all $r$ sufficently close to zero. In particular$$
+\limsup_{r \to 0} |\frac{1}{m(B(x, r))}\int_{B(x, r)}f(t)\,dt - f(x)| < 3\lambda
+$$for all $x$ outside of a set of measure $(C_d + 1)\varepsilon/\lambda$. Keeping $\lambda$ fixed and sending $\varepsilon \to 0$,
+we conclude that the inequality holds for almost every $x \in \mathbb{R}^d$. Then we let $\lambda := 1/n$ and send
+$n \to \infty$ we conclude that $$
+\limsup_{r \to 0} |\frac{1}{m(B(x, r))}\int_{B(x, r)}f(t)\,dt - f(x)| = 0
+$$for almost every $x \in \mathbb{R}^d$ and the claim follows.
+\end{proof}
+
+\stepcounter{ex}
+\begin{ex}\end{ex}\begin{proof}
+We use the denotation in Theorem 1.6.20, e.g. $K$ is the compact set that is contained in $$
+\{x \in \mathbb{R}^d : \sup_{r > 0}\frac{1}{m(B(x, r))}\int_{B(x, r)}|f(y)|\,dy >\lambda\}.
+$$By construction, for every $x \in K$, there exists $r_x > 0$ such that $$
+\frac{1}{m(B(x, r_x))}\int_{B(x, r_x)}|f(y)|\,dy > \lambda.
+$$Therefore we get an open cover $\{B(x, r_x)\}_{x \in K}$ of $K$, further, we note that for any $\varepsilon > 0$
+$\{B(x, \varepsilon r_x)\}_{x \in K}$ is also an open cover. Then we can get a subcover 
+$\{B(x_i, \varepsilon r_i)\}_{1 \leq i \leq N}$, without the loss of generality, we can assume that 
+$r_1 \geq r_2 \geq \cdots \geq r_N$. We use greedy algorithm argument from $B(x_1, r_1)$, if one ball does not 
+intersect any selected balls, we select it, otherwise discard it, then we get a collection of balls 
+$\{B(x_{i_k}, r_{i_k})\}_{1 \leq k \leq M}$, where $M \leq N$ and $i_1 \leq i_2 \leq \cdots \leq i_M$.
+
+Suppose for contradiction that there exists $1 \leq j \leq N, j \ne i_k$ such that 
+$$B(x_j, \varepsilon r_j) \not\subset \bigcup_{k = 1}^M B(x_{i_k}, (2 + \varepsilon)r_{i_k}).$$
+Then by triangle inequality one has that $|x_j - x_{i_k}| + \varepsilon r_j > (2 + \varepsilon)r_{i_k}$ for each $k$.
+Since $B(x_j, r_j)$ is not selected, we can find some $k$ such that $B(x_{i_k}, r_{i_k}) \cap B(x_j, r_j) \ne \emptyset$,
+which implies that $|x_{i_k} - x_j| < r_{i_k} + r_j$. Let $k$ be the smallest one, i.e. 
+$B(x_j, r_j) \cap B(x_{i_l}, r_{i_l}) = \emptyset, \forall l < k$. Then we have$$
+(2 + \varepsilon)r_{i_k} - \varepsilon r_j < |x_j - x_{i_k}| < r_j + r_{i_k} \Rightarrow r_{i_k} < r_j \Rightarrow 
+i_k > j.
+$$This contradicts the algorithm we ran, thus $B(x_j, \varepsilon r_j) \subset \bigcup_{k = 1}^M B(x_{i_k}, (2 + \varepsilon)r_{i_k})$
+for all $1 \leq j \leq N$, which implies that $\{B(x_{i_k}, (2 + \varepsilon)r_{i_k})\}_{1 \leq k \leq M}$ is an open cover of $K$,
+with $B(x_{i_k}, r_{i_k})$ are pairwisely disjoint. Hence $$
+m(K) \leq m(\bigcup_{k = 1}^M B(x_{i_k}, (2 + \varepsilon)r_{i_k})) \leq (2 + \varepsilon)^d \sum_{k = 1}^M B(x_{i_k}, r_{i_k})
+\leq \frac{(2 + \varepsilon)^d}{\lambda}\int_{\mathbb{R}^d} |f(y)|\,dy.
+$$Send $\varepsilon \to 0$ and the claim follows.
+\end{proof}
+
+\stepcounter{ex}\begin{ex}[Besicovitch covering lemma in one dimension]\end{ex}\begin{proof}
+First refine the family of intervals so that no interval $I_i$ is contained in the union of the other intervals.
+We use the following algorithm:\begin{enumerate}[label = Step \arabic*., left = 2pt]
+    \item Initialise $m = n$.
+    \item If there are no intervals that covered by the union of remained intervals except itself , STOP. Otherwise, go on to Step 3.
+    \item Locate the largest interval $I_k$ with $I_k \subset \bigcup_{i = 1}^m I_i \setminus I_k$, discard it. 
+    Decrement $m$ to $m - 1$ and rearrange the remained intervals, then return to Step 2.
+\end{enumerate}
+The algorithm yields a refined family $I_1', \cdots, I_m'$ so that no interval $I_i'$ is contained in the union of the 
+other intervals. It's clear that $\bigcup_{i = 1}^n I_i = \bigcup_{j = 1}^m  I_j'$ and it is no longer possible for a point 
+to be contained in three of the intervals.
+\end{proof}
+
+\begin{ex}\end{ex}\begin{proof}
+For every $x \in K \subset \{x \in \mathbb{R} : \sup_{x \in I}\frac{1}{\mu(I)}\int_I |f(y)|\,d\mu(y) \geq \lambda\}$, 
+there exists $I_x \ni x$ such that $$
+\frac{1}{\mu(I_x)}\int_{I_x} |f(y)|\,d\mu(y) \geq \lambda.
+$$Thus the open cover $\{I_x\}_{x \in K}$ has a finite subcover $I_1, \dots, I_n$, by Besicovitch covering lemma it 
+has a subfamily $I_1' \dots, I_m'$ such that $\mu(\bigcup_{i = 1}^n I_i) = \mu(\bigcup_{j = 1}^m I_j') \leq \sum_{j = 1}^m \mu(I_j')$.
+Since for any $x \in \mathbb{R}$, it's covered by at most two such intervals, one has \[
+\sum_{j = 1}^m \mu(I_j') \leq \frac{1}{\lambda}\sum_{j = 1}^m \int_{I_j'} |f(y)|\,d\mu(y) \leq \frac{2}{\lambda}
+\int_{\mathbb{R}^d}|f(y)|\,d\mu(y).\qedhere
+\]
+\end{proof}
+
+\setcounter{ex}{25}\begin{ex}\end{ex}\begin{enumerate}[label = (\roman*)]
+    \item Let $\{q_1, q_2, \dots\}$ be the enumeration of all rationals. Take 
+    $$
+    U = [0, 1] \cap \bigcup_{n = 1}^\infty (q_n - \varepsilon 2^{-n}, q_n + \varepsilon 2^{-n}),
+    $$where $\varepsilon < 1$. Then $U$ is an open dense subset of $[0, 1]$ of measure strictly less than 1. Let
+    $K = [0, 1] \setminus U$, which is a compact set satisfies the requirement.
+    \item Let $\{r_n\}$ be an enumeration of the rationals, and put$$
+    V_n = (r_n - 3^{-n - 1}, r_n + 3^{n + 1}), \ \ \ \ \ W_n = V_n \setminus \bigcup_{k = 1}^\infty V_{n + k},
+    $$observe that $$
+    m(W_n)>m(V_n)-\sum_{k=1}^{\infty}m(V_{n+k})=m(V_n)-m(V_n)\sum_{k=1}^{\infty}3^{-k}=\frac{m(V_n)}{2}.
+    $$The inequality can be strict since there exists $r_i (i > n)$ such that $V_i \subset V_n^c$. 
+    
+    For each $n$, let $K_n = (r_n - \frac{1}{2}3^{-n - 1}, r_n + \frac{1}{2}3^{n + 1}) \subset V_n$ with 
+    $m(K_n) = \frac{m(V_n)}{2}$. Finally, we put $$
+    A_n= W_n\cap K_n,\qquad A=\bigcup_{n=1}^{\infty}A_n.
+    $$Now we show that $E$ has the desired properties. It suffices to show that for each $n$ \[
+    0 < m(A \cap V_n) < m(V_n), \tag{*}\label{*}
+    \]since every open interval $I = (a, b) \subset [0, 1]$ in contains at least one $V_n$. 
+    For the left inequality, it is enough to prove that $m(A_n\cap V_n)=m(A_n)=m(W_n\cap K_n)>0$, and this follows
+    from $$
+    m(W_n\cup K_n)\leq m(V_n)<m(W_n)+m(K_n)=m(W_n\cup K_n)+m(W_n\cap K_n),
+    $$
+    For the right inequality in \eqref{*}, observe that $V_n \subset W_i^c, \forall 0 < i < n$, therefore \begin{align*}
+    m(A\cap V_n)&=m\left(\bigcup_{k=0}^{\infty}A_{n+k}\cap V_n\right)\leq\sum_{k=0}^{\infty}m(K_{n+k}\cap V_n)\\
+    &<\sum_{k=0}^{\infty}m(K_{n+k})=\sum_{k=0}^{\infty}\frac{m(V_{n+k})}{2}=
+    \frac{m(V_n)}{2}(1 + \sum_{n = 1}^n 3^{-n})=m(V_n).
+    \end{align*}
+    Let $E = A \cap [0, 1]$, its obvious that $E$ is Lebesgue measurable and has positive measure, thus $E$ is the 
+    set desired.
+\end{enumerate}
+
+\stepcounter{ex}
+\begin{ex}[Weierstrass function]\end{ex}\begin{proof}\ 
+\begin{enumerate}[label = (\roman*)]
+    \item Note that $$\sum_{n = 1}^\infty |4^{-n}\cos(16^n\pi x)| \leq \sum_{n = 1}^\infty 4^{-n} < +\infty,$$ 
+    by Weierstrass M-test one has that $\sum_{n = 1}^N 4^{-n}\cos(16^n\pi x)$ converges $F(x)$ uniformly and 
+    absolutely, thus $F(x)$ is a well-defined, bounded and continuous function.
+    \item First we note that $$
+    \sum_{k = n + 1}^\infty 4^{-k}(\cos(16^{k - n}(j + 1)\pi) - \cos(16^{k - n}j\pi)) = 0,
+    $$and $$
+    |4^{-n}(\cos(16^{n - n}(j + 1)\pi) - \cos(16^{n - n}j\pi))| = 4^{-n}|\cos((j + 1)\pi) - \cos(j\pi)| = 2\cdot 4^{-n}.
+    $$By Lagrange mean-value theorem one has $$
+    |\sum_{k = 1}^{n - 1} 4^{-k}(\cos(16^{k - n}(j + 1)\pi) - \cos(16^{k - n}j\pi))| \leq \sum_{k = 1}^{n - 1}
+    4^{-k}16^{k - n}\pi < \frac{\pi}{3}4^{-n}.
+    $$Hence by triangle inequality $|F(\frac{j + 1}{16^n}) - F(\frac{j}{16^n})| \geq (2 - \frac{\pi}{3})4^{-n}$.
+    \item Suppose for contradiction that $F(x)$ is differentiable at $x_0 \in \mathbb{R}$, then one has $$
+    |\frac{F(x + h_1) - F(x)}{h_1}| < +\infty,\ \ \ |\frac{F(x) - F(x - h_2)}{h_2}| < +\infty
+    $$for $h_1, h_2$ sufficently close to zero. And we have easy implication$$
+    |\frac{F(x + h_1) - F(x - h_2)}{h_1 + h_2}| \leq |\frac{F(x + h_1) - F(x)}{h_1}| + |\frac{F(x) - F(x - h_2)}{h_2}| < +\infty.
+    $$For each $n$, there exists at least one 16-dyadic interval $[\frac{j_n}{16^n}, \frac{j_n + 1}{16^n}]$ that 
+    contains $x_0$, and $$
+    |\frac{F(\frac{j_n + 1}{16^n}) - F(\frac{j_n}{16^n})}{16^{-n}}| \geq c4^n \to +\infty.
+    $$This contradiction showed that $F$ is not differentiable at any point $x \in \mathbb{R}$.%\qedhere
+\end{enumerate}
+\end{proof}
+
+\stepcounter{ex}\begin{ex}\end{ex}\begin{proof}
+We will only show the upper right derivative $\overline{D^+}F$ of monotone increasing function $F$ is measurable. Define $$
+f_h(x) := \sup_{0 < \delta < h}\frac{F(x + \delta) - F(x)}{\delta}.
+$$Note that $f_{\frac{1}{n}}(x) \geq f_{\frac{1}{n + 1}}(x)$, thus 
+$\overline{D^+}F(x) = \lim_{n \to \infty}f_{1/n}(x) = \inf_{n \geq 1}f_{1/n}(x)$, by monotone convergence theorem 
+it suffices to show that set $E := \{x \in \mathbb{R} : f_h(x) > \lambda\}$ for any $h, \lambda > 0$. Let $x \in E$, 
+which implies that there exists $\delta \in (0, h)$ such that $$
+\frac{F(x + \delta) - F(x)}{\delta} > \lambda.
+$$Then one may choose $\delta' \in (\delta, h)$ such that $$
+\frac{F(x + \delta) - F(x)}{\delta'} > \lambda.
+$$Choose $y \in [x + \delta - \delta', x]$, then $$
+\frac{F(y + \delta') - F(y)}{\delta'} \geq \frac{F(x + \delta) - F(x)}{\delta'} > \lambda,
+$$which implies that $[x + \delta - \delta', x] \subset E$. Therefore $E$ is the union of finite positive length 
+intervals, then $E$ can expressed as at most countable union of open intervals and hence measurable.
+\end{proof}
+
+\begin{ex}\end{ex}\begin{proof}
+It suffices to show that for any compact $K \subset \{x \in (a, b) : \overline{D^+}F(x) > \lambda\}$ one has 
+$m(K) \leq C\frac{F(b) - F(a)}{\lambda}$. For any $x \in K$ one has $$
+\overline{D^+}F(x) > \lambda \Rightarrow \exists h_x > 0\ \mathrm{s.t.}\ \frac{F(x + h_x) - F(x)}{h_x} > \lambda.
+$$By Exercise 1.6.30, one can find $y(x) < x$ and $h_y > h_x$ such that $x \in (y(x), y(x) + h_y)$, nevertheless$$
+\frac{F(y(x) + h_y) - F(y(x))}{h_y} \geq \frac{F(x + h_x) - F(x)}{h_x} > \lambda.
+$$Let $I_x := (y(x), y(x) + h_y), \forall x \in K$, then $\{I_x\}_{x \in K}$ is an open cover of $K$. By the 
+compactness of $K$, one can find a finite subcover $I_1, \dots, I_n$. Applying Vitali-type covering lemma one may
+find a subcolleciton $I_1', \dots, I_m'$ of \emph{disjoint} intervals such that $$
+m(K) \leq m(\bigcup_{i = 1}^n I_i) \leq 3\sum_{j = 1}^m m(I_j') \leq 3\sum_{j = 1}^m \frac{F(y_j + h_j) - F(y_j)}{\lambda}
+\leq 3\frac{F(b) - F(a)}{\lambda}.
+$$Hence \[
+m(\{x \in [a, b] : \overline{D^+}F(x) \geq \lambda\}) \leq 3\frac{F(b) - F(a)}{\lambda}.\qedhere
+\]
+\end{proof}
+
+\begin{ex}\end{ex}\begin{proof}
+Define $F(x) := \mu([-\infty, x])$. Then we have $$
+\sup_{r > 0}\frac{1}{2r}\mu([x - r, x + r]) = \sup_{r > 0} \frac{F(x + r) - F(x - r)}{2r} \leq \frac{1}{2}
+(\sup_{r > 0} \frac{F(x + r) - F(x)}{r} + \sup_{r > 0}\frac{F(x) - F(x - r)}{r})
+$$Denote$$
+AF(x) := \sup_{r > 0} \frac{F(x + r) - F(x - r)}{2r},\ \ A_lF(x) := \sup_{r > 0}\frac{F(x) - F(x - r)}{r},\ \ 
+A_rF(x) := \sup_{r > 0} \frac{F(x + r) - F(x)}{r}.
+$$By similar argument in Exercise 1.6.31. we may conclude that$$
+m(\{x \in [a, b] : A_lF(x) \geq \lambda\}) \leq 3\frac{F(b) - F(a)}{\lambda},\ \ 
+m(\{x \in [a, b] : A_rF(x) \geq \lambda\}) \leq 3\frac{F(b) - F(a)}{\lambda}
+$$Hence \begin{align*}
+m(\{x \in [a, b] : AF(x) \geq \lambda\}) &\leq m(\{x \in [a, b] : A_lF(x) \geq \lambda\}) + m(\{x \in [a, b] : A_rF(x) \geq \lambda\})\\
+&\leq 6\frac{F(b) - F(a)}{\lambda}.
+\end{align*}
+Since $F(x)$ is monotone increasing, we obtain that $$
+m(\{x \in \mathbb{R} : \sup_{r > 0}\frac{1}{2r}\mu([x - r, x + r]) \geq \lambda\}) \leq \frac{6}{\lambda}\mu(\mathbb{R}).
+$$
+\end{proof}
+
+\noindent\bfseries{Question 0.2}\begin{proof}
+Define $T^tf := f * h_t$, where $h_t$ is heat kernel given by$$
+h_t(x) = (4\pi t)^{-n/2}e^{-|x|^2/4t}.
+$$By maximal ergodic theorem one has $$
+m(\{x \in \mathbb{R}^n : \sup_{s > 0}\frac{1}{s}\int_0^s T^tf(x)\,dt > \lambda\}) \leq \frac{1}{\lambda}||f||_{L^1}.
+$$
+We take $f \geq 0$ and note that $T^t(1) = 1$, it suffices to find an appropriate $s_0$ and suitable $a_n$ so that \[
+\frac{1_B(x)}{m(B)} \leq a_n\frac{1}{s_0}\int_0^{s_0}h_t(x)\,dt,\tag{$\star$}
+\]where $B = B_n$ is unit ball in $\mathbb{R}^n$. Observe that both $1_B(x)$ and $h_t(x)$ are decreasing functions of $|x|$,
+it is clear that $(\star)$ is equivalent to $$
+m(B)^{-1} \leq a_n\frac{1}{s_0}\int_0^{s_0}h_t\,dt,
+$$where $h_t = (4\pi t)^{-n/2}e^{-1/4t}$. Now $$
+\int_0^\infty h_t\,dt = \pi^{-n/2}\int_0^\infty (4t)^{-n/2}e^{-1/4t}\,dt = 
+\frac{\pi^{-n/2}}{4}\int_0^\infty u^{n/2 - 2}e^{-u}\,du = \frac{\pi^{-n/2}}{4}\Gamma(n/2 - 1).
+$$We choose $s_0 = 1/n$, $$
+\int_{s_0}^\infty h_t\,dt = \frac{\pi^{-n/2}}{4}\int_0^{1/s_0}u^{n/2 - 2}e^{-u}\,du \leq e^{-n/4}(4\pi)^{-n/2}n^{n/2 - 1}, 
+\ \ \ (n\ \text{large}).
+$$This last quantity is $o(\pi^{-n/2}\Gamma(n/2 - 1))$, as $n \to \infty$, by Stirling's formula and so 
+$$\int_0^{s_0}h_t\,dt \geq c\pi^{-n/2}\Gamma(n/2 - 1).$$ However $m(B)^{-1} = \frac{1}{2\pi^{-n/2}}n\Gamma(n / 2)$,
+and thus we can choose $a_n = c'n$ where $c'$ is an absolute constant.
+Dilating both sides of $(\star)$ would give $$
+Mf(x) := \sup_{r > 0} \frac{1}{m(B_n)r^n}\int_{B(x, r)}|f(y)|\,dy \leq a_n\sup_{s > 0}\frac{1}{s}\int_0^s T^tf(x)\,dt.
+$$Hence \[
+m(\{x \in \mathbb{R}^n : Mf(x) \geq \lambda\}) \leq 
+m(\{x \in \mathbb{R}^n : \sup_{s > 0}\frac{1}{s}\int_0^s T^tf(x)\,dt > \frac{\lambda}{a_n}\}) \leq \frac{c'n}{\lambda}||f||_{L^1}.
+\qedhere
+\]
+\end{proof}
+\end{document}

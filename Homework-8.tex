@@ -1,0 +1,282 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath, amssymb, amsthm, mathrsfs, enumitem}
+\usepackage[hmargin = 1in, vmargin = 1.25in]{geometry}
+\title{Homework-8}
+\author{Haocheng Wang \and 2019011994}
+
+\newtheorem{ex}{Exercise}[subsection]
+\newtheorem{lem}{Lemma}[subsection]
+\stepcounter{section}
+\setcounter{subsection}{7}
+\renewcommand{\proofname}{\noindent\bf Proof}
+\renewcommand\labelenumi{\roman}
+\renewcommand{\Re}{\mathrm{Re}\,}
+\renewcommand{\Im}{\mathrm{Im}\,}
+
+\begin{document}
+\maketitle
+\begin{ex}[Null sets are Carath\'eodory measurable]\end{ex}\begin{proof}
+By monotonicity one has that $\mu^*(A \cap E) \leq \mu^*(E) = 0$ and $\mu^*(A \setminus E) \leq \mu^*(A)$. And by 
+subadditivity one has $$
+\mu^*(A) \leq \mu^*(A \cap E) + \mu^*(A \setminus E) = \mu^*(A \setminus E).
+$$Therefore $\mu^*(A) = \mu^*(A \setminus E)$, which implies that $\mu^*(A) = \mu^*(A \cap E) + \mu^*(A \setminus E)$,
+i.e., $E$ is Carath\'eodory measurable.
+\end{proof}
+
+\begin{ex}[Compatibility with Lebesgue measurability]\end{ex}\begin{proof}
+If $E$ is Carath\'eodory measurable, then the claim follows from Exercise 1.2.17. Now we suppose that $E$ Lebesgue 
+measurable. Given any subset $A \subset X$, let $\{B_n\}_{n \geq 1}$ be pairwisely disjoint boxes such that 
+$A \subset \bigcup_{n = 1}^\infty B_n$ with $\sum_{n = 1}^\infty m^*(B_n) \leq m^*(A) + \varepsilon$ for arbitary 
+$\varepsilon > 0$. Then $A \cap E \subset \bigcup_{n = 1}^\infty B_n \cap A, A \setminus E \subset \bigcup_{n = 1}^\infty B_n \setminus A$.
+By Exercise 1.2.17 $$
+m^*(A \cap E) + m^*(A \setminus E) \leq \sum_{n = 1}^\infty m^*(B_n \cap E) + m^*(B_n \setminus E) = \sum_{n = 1}^\infty
+m^*(B_n) \leq m^*(A) + \varepsilon.
+$$Hence $m^*(A \cap E) + m^*(A \setminus E) \leq m^*(A)$, the reverse is obvious by monotonicity. Hence $E$ is 
+Carath\'eodory measurable with respect to Lebesgue outer measure.
+\end{proof}
+
+\begin{ex}\end{ex}\begin{proof}
+This is the definition.
+\end{proof}
+
+\begin{ex}\end{ex}\begin{proof}
+\ \begin{enumerate}[label = (\roman*)]
+    \item Note that $\mu_0(\bigcup_{n = 1}^N E_n) = \sum_{n = 1}^N \mu_0(E_n) + \sum_{n = N + 1}^\infty \mu_0(\emptyset) 
+    = \sum_{n = 1}^N \mu_0(E_n)$, which implies the finite additivity. Conversely, finite additive measure implies 
+    that $\mu_0(\emptyset) = 0$ by definition.
+    \item Suppose the $\sigma$-subadditivity holds, since $\bigcup_{n = 1}^N E_n \subset \bigcup_{n = 1}^\infty E_n$, 
+    by monotonicity one has $$\sum_{n = 1}^N \mu_0(E_n) = \mu_0(\bigcup_{n = 1}^N E_n) \leq \mu_0(\bigcup_{n = 1}^\infty E_n)$$
+    for any $n \geq 0$. Send $n \to \infty$ and the claim follows. The reverse is obvious.
+    \item See Exercise 1.7.6 below.
+\end{enumerate}
+\end{proof}
+
+\stepcounter{ex}\begin{ex}\end{ex} For any $E \in \mathcal{B}_0 = 2^\mathbb{N}$, define $$
+\mu_0(E) = \begin{cases}
+    0, &|E| < \infty,\\
+    1, &|E| = \infty.
+\end{cases}
+$$
+
+\begin{ex}\end{ex}\begin{proof}
+For any $E \in \mathcal{B}'$, there exist $\{E_n\}_{n \geq 1} \in \mathcal{B}_0$ with $\mu_0(E_n) < +\infty$ such that
+$E \subset \bigcup_{n = 1}^\infty E_n$, by monotonicity one has $$
+\mu'(E) \leq \mu'(\bigcup_{n = 1}^\infty E_n) = \sum_{n = 1}^\infty \mu'(E_n) = \sum_{n = 1}^\infty \mu_0(E_n),
+$$whenever $E_n$ cover $E$, hence $\mu'(E) \leq \mu^*(E), \forall E \in \mathcal{B}'$. For any $E \in \mathcal{B} \cap \mathcal{B}'$
+and $\varepsilon > 0$, there exist a cover of $E$ such that $$
+\mu(E) \leq \sum_{n = 1}^\infty \mu_0(E_n) \leq \mu(E) + \varepsilon.
+$$Since $\bigcup_{n = 1}^\infty E_n \in \mathcal{B}' \cap \mathcal{B}$, one has $$
+\mu'(\bigcup_{n = 1}^\infty E_n \setminus E) \leq \mu^*(\bigcup_{n = 1}^\infty E_n \setminus E) = 
+\mu(\bigcup_{n = 1}^\infty E_n \setminus E) = \sum_{n = 1}^\infty \mu_0(E_n) - \mu(E)\leq \varepsilon,
+$$which implies that $$
+\mu'(E) \geq \mu'(\bigcup_{n = 1}^\infty E_n) - \varepsilon = \sum_{n = 1}^\infty \mu'(E_n) - \varepsilon
+= \sum_{n = 1}^\infty \mu_0(E_n) - \varepsilon \geq \mu(E) - \varepsilon.
+$$Hence $\mu(E) = \mu'(E)$ for all $E \in \mathcal{B} \cap \mathcal{B}'$.
+\end{proof}
+
+\stepcounter{ex}\begin{ex}\end{ex}\begin{proof}\ 
+\begin{enumerate}[label = (\roman*)]
+    \item For any $n \geq 1$, by definition of Hahn-Kolmogorov extension there exists $\{F_{n, m}\}_{m \geq 1} \in \mathcal{B}_0$
+    such that $E \subset \bigcup_{m = 1}^\infty F_{n, m} =: F_n$, which satisfies that $$
+    \mu(E) \leq \sum_{m = 1}^\infty \mu_0(F_{n, m}) \leq \mu(E) + \frac{1}{n}.
+    $$Therefore $\mu(F_n \setminus E) \leq \frac{1}{n}$, take $F = \bigcup_{n = 1}^\infty F_n$ we obtain that $\mu(F \setminus E) = 0$.
+    \item For any $\varepsilon > 0$, there exists a cover $F_n \in \mathcal{B}_0$ of $E$ such that 
+    $\mu(\bigcup_{n = 1}^\infty F_n \setminus E) \leq \varepsilon / 2$. Since $\sum_{n = 1}^\infty \mu_0(F_n)$ converges,
+    there exists $N \in \mathbb{N}$ such that $\sum_{n = N + 1}^\infty \mu_0(F_n) < \varepsilon / 2$. Let $F = \bigcup_{n = 1}^N F_n$, 
+    note that $$
+    E \Delta F = (E \setminus F) \cup (F \setminus E) \subset (\bigcup_{n = N + 1}^\infty F_n) \cup (\bigcup_{n = 1}^\infty \setminus E),
+    $$hence $$
+    \mu(E \Delta F) \leq \mu(\bigcup_{n = N + 1}^\infty F_n) + \mu(\bigcup_{n = 1}^\infty \setminus E) \leq \varepsilon,
+    $$as required.
+    \item Note that for any $A \subset X$$$
+    A \cap E = [A \cap (E \setminus F)] \cup [A \cap (E \cap F)] \subset [A \cap (E \Delta F)] \cup (A \cap F) \subset E \Delta F 
+    \cup (A \cap F),
+    $$and similarly $A \cap E^c \subset (E \Delta F) \cup (A \setminus F)$. Thus $$
+    \mu(A \cap E) + \mu(A \cap E^c) \leq 2\mu(E \Delta F) + \mu(A \cap F) + \mu(A \setminus F) = 2\mu(E \Delta F) + \mu(A) \leq \mu(A) + 2\varepsilon.
+    $$Since $\varepsilon$ is arbitary, one has $\mu(A) \geq \mu(A \cap E) + \mu(A \setminus E)$ for any given $A \subset X$.
+    Hence $E \in \mathcal{B}$.
+\end{enumerate}
+\end{proof}
+
+\setcounter{ex}{17}\begin{ex}\end{ex}\begin{proof}\ 
+\begin{enumerate}[label = (\roman*)]
+    \item Since $X \in \mathcal{B}_X, Y \in \mathcal{B}_Y$, one has $E \times Y, X \times F \in \langle E \times F : E 
+    \in \mathcal{B}_X, F \in \mathcal{B}_Y \rangle$, which implies that $\mathcal{B}_X \times \mathcal{B}_Y \subset \langle E \times F : E 
+    \in \mathcal{B}_X, F \in \mathcal{B}_Y \rangle$. On the other hand, note that $E \times F = (E \times Y) \cap (X \times F)$,
+    we have $\langle E \times F : E \in \mathcal{B}_X, F \in \mathcal{B}_Y \rangle$. 
+    \item Suppose $\mathcal{B}$ is a $\sigma$-algebra on $X \times Y$ such that $\pi_X$ and $\pi_Y$ are measurable 
+    morphism. Then one has $\pi_X^{-1}(E), \pi_Y^{-1}(F), E \in \mathcal{B}_X, F \in \mathcal{B}_Y$ are $\mathcal{B}$-
+    measurable, which implies that $\mathcal{B}_X \times \mathcal{B}_Y \in \mathcal{B}$.
+    \item Let $
+    \mathcal{A} = \{E \in X \times Y : E_x \in \mathcal{B}_Y, \forall x \in X; E^y \in \mathcal{B}_X, \forall y \in Y\}.
+    $, note that $$
+    \emptyset \in \mathcal{A};\ \ (E^c)_x = (E_x)^c, (E^c)^y = (E^y)^c;\ \ (\bigcup_{n = 1}^\infty E_n)_x = \bigcup_{n = 1}^\infty (E_n)_x,
+    (\bigcup_{n = 1}^\infty E_n)^y = \bigcup_{n = 1}^\infty (E_n)^y,
+    $$therefore $\mathcal{A}$ is a $\sigma$-algebra that contains all rectangle $E \times F$. Hence $$
+    \mathcal{B}_X \times \mathcal{B}_Y = \langle E \times F : E \in \mathcal{B}_X; F \in \mathcal{B}_Y\rangle \in \mathcal{A}.
+    $$
+    \item For any Borel set $B \in [0, +\infty]$, one has $f^{-1}(B) \in \mathcal{B}_X \times \mathcal{B}_Y$, note that$$
+    y \in f_x^{-1}(B) \iff f_x(y) \in B \iff f(x, y) \in B \iff (x, y) \in f^{-1}(B) \iff y \in (f^{-1}(B))_x,
+    $$thus $f_x^{-1}(B) = (f^{-1}(B))_x \in \mathcal{B}_Y$, which implies that $f_x$ is $\mathcal{B}_Y$-measurable.
+    Similar for $f^y$.
+    
+\end{enumerate}
+\end{proof}
+
+\begin{ex}\end{ex}\begin{proof}\ \begin{enumerate}[label = (\roman*)]
+    \item Suppose $\mathcal{B}_X = \{\emptyset, X\}, \mathcal{B}_Y = \{\emptyset, Y\}$, and note that $\emptyset \times Y = \emptyset,
+    X \times \emptyset = \emptyset$. Hence $\mathcal{B}_X \times \mathcal{B}_Y = \{\emptyset, X \times Y\}$, which
+    is again trivial.
+    \item Suppose $\mathcal{B}_X = \langle A_\alpha \rangle_{\alpha \in I}, \mathcal{B}_Y = \langle B_\beta \rangle_{\beta \in J}$, 
+    an observation is that $$
+    E \times F = (\bigcup_{\alpha \in I_E} A_\alpha) \times (\bigcup_{\beta \in J_F} B_\beta) = \bigcup_{(\alpha, \beta) \in I_E \times J_F}
+    A_\alpha \times B_\beta.
+    $$Hence $\{E \times F\}$ is closed under the countable union operation, which implies that $\mathcal{B}_X \times \mathcal{B}_Y$
+    is again atomic.
+    \item Since every finite $\sigma$-algebra is atomic, suppose 
+    $\mathcal{B}_X = \langle A_\alpha \rangle_{\alpha \in I}, \mathcal{B}_Y = \langle B_\beta \rangle_{\beta \in J}$ be 
+    two finite $\sigma$-algebra, i.e., index sets $I, J$ are finite, then from (ii) we see that the index set of $E \times F$
+    is also finite. Therefore, $\mathcal{B}_X \times \mathcal{B}_Y$ is again finite.
+    \item Let $A := \{E \subset \mathbb{R}^d : E \times \mathbb{R}^{d'} \in \mathcal{B}[\mathbb{R}^{d + d'}]\}$. 
+    It's obvious $\emptyset \in A$, and if $E \in A$, then $E^c \times \mathbb{R}^{d'} = \mathbb{R}^{d + d'} \setminus (E \times \mathbb{R}^d) 
+    \in \mathcal{B}[\mathbb{R}^{d + d'}]$, which implies $E^c \in A$. Moreover, let $E_1, E_2, \dots \in A$, then 
+    $(\bigcup_{n = 1}^\infty E_n) \times \mathbb{R}^{d + d'} = \bigcup_{n = 1}^\infty E_n \times \mathbb{R}^{d'} \in \mathcal{B}[\mathbb{R}^{d + d'}]$.
+    Thus $A$ is a $\sigma$-algebra, and it's obvious that all open sets in $\mathbb{R}^d$ belongs to $A$. Therefore 
+    $A = \mathbb{B}[\mathbb{R}^d]$, which implies that $\pi^*_{\mathbb{R}^d}(\mathcal{B}[\mathbb{R}^d]) \subset \mathcal{B}[\mathbb{R}^{d + d'}]$.
+    Similarly $\pi^*_{\mathbb{R}^{d'}}(\mathcal{B}[\mathbb{R}^{d'}]) \subset \mathcal{B}[\mathbb{R}^{d + d'}]$. Thus
+    $\mathcal{B}[\mathbb{R}^d] \times \mathcal{B}[\mathbb{R}^{d'}] = \langle \pi^*_{\mathbb{R}^d}(\mathcal{B}[\mathbb{R}^d]) \cup 
+    \pi^*_{\mathbb{R}^{d'}}(\mathcal{B}[\mathbb{R}^{d'}]) \rangle \subset \mathcal{B}[\mathbb{R}^{d + d'}]$.
+    Conversely, since every open set in $\mathcal{B}[\mathbb{R}^{d + d'}]$ can be expressed by the countable union of
+    $\overline{E} \times \overline{F}$, hence $\mathcal{B}[\mathbb{R}^d] \times \mathcal{B}[\mathbb{R}^{d'}] = \mathcal{B}[\mathbb{R}^{d + d'}]$.
+    \item Suppose $d = d' = 1$, we give a counterexample here. Denote $V \subset \mathbb{R}$ be a non-Lebesgue measurable set, 
+    since $V \times \{0\} \subset \mathbb{R} \times \{0\}$ which is a null set, we have $V \times \{0\}$ is also a null set 
+    and thus $V \times \{0\} \in \mathcal{L}[\mathbb{R}^2]$. If $V \times \{0\} \in \mathcal{L}[\mathbb{R}^1] \times \mathcal{L}[\mathbb{R}^1]$,
+    then its slice $E_0 = V$ is Lebesgue measurable, this contradiction shows that $\mathcal{L}[\mathbb{R}^1] \times \mathcal{L}[\mathbb{R}^1] \subsetneq \mathcal{L}[\mathbb{R}^2]$.
+    \item This claim follows from $$
+    \mathcal{B}[\mathbb{R}^{d + d'}] = \mathcal{B}[\mathbb{R}^d] \times \mathcal{B}[\mathbb{R}^{d'}] \subset \mathcal{L}[\mathbb{R}^d]
+    \times \mathcal{L}[\mathbb{R}^{d'}] \subsetneq \mathcal{L}[\mathbb{R}^{d + d'}].
+    $$
+    
+\end{enumerate}
+\end{proof}
+
+\begin{ex}\end{ex}\begin{proof}\ \begin{enumerate}[label = (\roman*)]
+    \item Given two point $x \in X, y \in Y$, then we obtain two Dirac measures $\delta_x(E) = 1_E(x), \delta_y(F) = 1_F(y)$.
+    Note that $$
+    \delta_x \times \delta_y(E \times F) = \delta_x(E)\delta_y(F) = 1_E(x)1_F(y) = 1_{E \times F}((x, y)), \forall 
+    E \in \mathcal{B}_X, F \in \mathcal{B}_Y.
+    $$Besides, we have $\delta_{(x, y)}(E \times F) = 1_{E \times F}((x, y))$, by uniqueness of product measure
+    we have $\delta_x \times \delta_y = \delta_{(x, y)}$, which is a Dirac measure on $(X \times Y, \mathcal{B}_X \times \mathcal{B}_Y)$.
+    \item The first observation is that $$
+    \#_X \times \#_Y(E \times F) = \#_X(E)\#_Y(F) = \#(E \times F), \forall E \in \mathcal{B}_X, F \in \mathcal{B}_Y.
+    $$Since both $X$ and $Y$ are at most countable, they are both $\sigma$-finite, the claim follows.
+\end{enumerate}
+\end{proof}
+
+\begin{ex}[Associativity of product]\end{ex}\begin{proof}
+Denote $\mathcal{B} = \langle E \times F \times G \mid E \in \mathcal{B}_X, F \in \mathcal{B}_Y, G \in \mathcal{B}_Z\rangle$,
+and observe that $$
+(\mathcal{B}_X \times \mathcal{B}_Y) \times \mathcal{B}_Z = \langle \{A \times Z : A \in \mathcal{B}_X \times \mathcal{B}_Y\} \cup 
+\{X \times Y \times G \}\rangle = \langle \{E \times F \times Z\} \cup \{X \times Y \times G\}\rangle.
+$$We have applied Exercise 1.7.18 here, i.e. $\langle E \times F \times Z\rangle = (\mathcal{B}_X \times \mathcal{B}_Y) \times Z$.
+Since $X \in \mathcal{B}_X, Y \in \mathcal{B}_Y, Z \in \mathcal{B}_Z$, one has $(\mathcal{B}_X \times \mathcal{B}_Y) \times \mathcal{B}_Z \in \mathcal{B}$.
+On the other hand, note that $E \times F \times G = (E \times F \times Z) \cap (X \times Y \times G)$, which implies 
+$\mathcal{B} \subset (\mathcal{B}_X \times \mathcal{B}_Y) \times \mathcal{B}_Z$. Therefore 
+$(\mathcal{B}_X \times \mathcal{B}_Y) \times \mathcal{B}_Z = \mathcal{B}$. Similarly 
+$\mathcal{B}_X \times (\mathcal{B}_Y \times \mathcal{B}_Z) = \mathcal{B}$. It's easy to verify that both
+$\mathcal{B}_X \times \mathcal{B}_Y$ and $\mathcal{B}_Y \times \mathcal{B}_Z$ are $\sigma$-finite, and note that$$
+(\mu_X \times \mu_Y) \times \mu_Z(E \times F \times G) = \mu_X(E)\mu_Y(F)\mu_Z(G) = 
+\mu_X \times (\mu_Y \times \mu_Z)(E \times F \times G),
+$$by the uniqueness of product measure the claim follows.
+\end{proof}
+
+\setcounter{lem}{13}\begin{lem}[Monotone class lemma]\end{lem}\begin{proof}
+Let $\mathcal{B}$ be the intersection of all the monotone classes that contain $\mathcal{A}$. Since $\langle A \rangle$ 
+is clearly one such class, $\mathcal{B}$ is a subset of $\langle \mathcal{A} \rangle$. Our task is then to show that $\mathcal{B}$ contains
+$\langle \mathcal{A} \rangle$.
+
+First we show that $\mathcal{B}$ is closed under complements. Denote $\mathcal{B}' := \{E \in \mathcal{B} : X \setminus E \in \mathcal{B}\}$,
+then one has $\mathcal{A} \subset \mathcal{B}' \subset \mathcal{B}$. Suppose $E_n \uparrow E, E_n \in \mathcal{B}'$,
+then by definition of $\mathcal{B}$ one has $E \in \mathcal{B}$. Since $E_1^c \supset E_2^c \supset \cdots $$$
+E^c = (\bigcup_{n = 1}^\infty E_n)^c = \bigcap_{n = 1}^\infty E_n^c \in \mathcal{B} \Rightarrow E \in \mathcal{B}'.
+$$Similarly, if $E_n \downarrow E, E_n \in \mathcal{B}'$, one has $E^c \in \mathcal{B}'$. Therefore $\mathcal{B}'$
+is a monotone class that contains $\mathcal{A}$, thus $\mathcal{B}' = \mathcal{B}$, as required.
+
+For any $E \in \mathcal{A}$, consider the set $\mathcal{C}_E$ of all sets $F \in \mathcal{B}$ such that $F \setminus E,
+E \setminus F, E \cap F, X \setminus (E \cup F)$ all lies in $\mathcal{B}$. It is clear that $\mathcal{C}_E$ contains $\mathcal{A}$; 
+since $\mathcal{B}$ is a monotone class, we see that $\mathcal{C}_E$ is also. By definition of $\mathcal{B}$, we 
+conclude that $\mathcal{C}_E = \mathcal{B}$ for all $E \in \mathcal{A}$.
+
+Next, let $\mathcal{D}$ be the set of all $E \in \mathcal{B}$ such that $F \in \mathcal{B}$ such that $F \setminus E,
+E \setminus F, E \cap F, X \setminus (E \cup F)$ all lies in $\mathcal{B}$ for all $F \in \mathcal{B}$. By previous 
+discussion, we see that $\mathcal{D}$ contains $\mathcal{A}$. One also easily verifies that $\mathcal{D}$ is a monotone class. 
+By definition of $\mathcal{B}$, we conclude that $\mathcal{D} = \mathcal{B}$. Since $\mathcal{B}$ is also closed under complements, 
+this implies that $\mathcal{B}$ is closed with respect to finite unions. Since this class also contains $\mathcal{A}$, 
+which contains $\emptyset$, we conclude that $\mathcal{B}$ is a Boolean algebra. Given any $E_1, E_2, \dots$ be a
+sequence of sets lie in $\mathcal{B}$, let $F_n = \bigcup_{k = 1}^n E_k \in \mathcal{B}$, then one has 
+$\bigcup_{n = 1}^\infty E_n = \bigcup_{n = 1}^\infty F_n \in \mathcal{B}$, and $\mathcal{A}$ is thus a $\sigma$-algebra.
+As it contains $\mathcal{A}$, it must also contain $\langle \mathcal{A} \rangle$.
+\end{proof}
+
+\begin{ex}\end{ex}\begin{proof}\ 
+\begin{enumerate}[label = (\roman*)]
+    \item Note that \begin{align*}
+    m \times \#(E) &= \inf_{E \subset \bigcup_{n = 1}^\infty X_n \times Y_n}\sum_{n = 1}^\infty m \times \#(X_n \times Y_n)
+    = \inf_{E \subset \bigcup_{n = 1}^\infty X_n \times Y_n} +\infty \sum_{n = 1}^\infty m(X_n) \\
+    &= \inf_{E \subset \bigcup_{n = 1}^\infty X_n \times Y_n} +\infty \cdot 1 = +\infty.
+    \end{align*}
+    Hence $f$ is measurable.
+    \item For any fixed $x \in [0, 1]$, one has $\#(E_x) = 1$, which implies that $\int_Y f(x, y)\,d \#(y) = 1$, thus
+    $\int_X (\int_Y f(x, y)\,d \#(y))\,dm(x) = \int_X 1\,dm(x) = 1$.
+    \item For any fixed $y \in [0, 1]$, one has $m(E^y) = 0$, which implies that $\int_X f(x, y)\,dm(x) = 0$, thus 
+    $\int_Y (\int_X f(x, y)\,dm(x))\,d\#(y) = \int_Y 0\,d\#(y) = 0$.
+    
+\end{enumerate}
+\end{proof}
+
+\begin{ex}\end{ex} Let $$
+f(x, y) = \frac{x^2 - y^2}{(x^2 + y^2)^2} = -\frac{\partial^2}{\partial x\partial y}\arctan(y / x).
+$$This is a measurable function, since it's continous on $[0, 1]^2 \setminus \{(0, 0)\}$. And we have \begin{align*}
+\int_0^1 f(x, y)\,dy = \frac{1}{1 + x^2}\ \ \ \ \int_0^1 f(x, y)\,dx = -\frac{1}{1 + y^2},
+\end{align*}both of which are absolutely integrable, but $$
+\int_0^1(\int_0^1 f(x, y)\,dy)\,dx = \frac{\pi}{4} \not= -\frac{\pi}{4} \int_0^1 (\int_0^1 f(x, y)\,dx)\,dy.
+$$This is because $f$ is not absolutely integrable, in fact by symmetry and Tonelli's theorem one has $$
+\int_{[0, 1]^2} |f(x, y)|\,dx \times dy = 2\int_0^1 \int_0^x \frac{x^2 - y^2}{(x^2 + y^2)^2}\,dy\,dx = \int_0^1 \frac{1}{x}
+= +\infty.
+$$
+
+\begin{ex}[Area interpretation of integral]\end{ex}\begin{proof}
+Suppose $f$ is measurable, then $f^{-1}([n, n + 1))$ is measurable, which implies that $f^{-1}([n, n + 1)) \times [n, n + 1) 
+\in \mathcal{B} \times \mathcal{B}[\mathbb{R}]$. Therefore $$
+\{(x, t) \in X \times \mathbb{R} : 0 \leq t \leq f(x)\} = \bigcup_{n = 0}^\infty f^{-1}([n, n + 1)) \times [n, n + 1)
+\in \mathcal{B} \times \mathcal{B}[\mathbb{R}].
+$$Conversely, it's clear that $\lambda 1_X$ is $\mathcal{B}$-measurable for any $\lambda \geq 0$, thus the set 
+$\{(x, t) \in X \times \mathbb{R} : 0 \leq t \leq \lambda\} \in \mathcal{B} \times \mathcal{B}[\mathbb{R}]$.
+Therefore $$
+f^{-1}([\lambda, +\infty]) = \{(x, t) \in X \times \mathbb{R} : 0 \leq t \leq f(x)\} \setminus 
+\{(x, t) \in X \times \mathbb{R} : 0 \leq t \leq \lambda\} \in \mathcal{B} \times \mathcal{B}[\mathbb{R}].
+$$For any $E \in \mathcal{B}$ and $\lambda \geq 0$ one has that $$
+(\mu \times m)(\{(x, t) \in X \times \mathbb{R} : 0 \leq t \leq \lambda 1_E(x)\}) = \mu(E)m([0, \lambda]) = 
+\int_X \lambda 1_E(x)\,d\mu(x).
+$$By monotone convergence theorem the equality holds.
+\end{proof}
+
+\begin{ex}[Distribution formula]\end{ex}\begin{proof}
+Note that\begin{align*}
+\int_X f(x)\,d\mu(x) &= \int_X\int_\mathbb{R} 1_{\{(x, \lambda) \in X \times \mathbb{R} : 0 \leq \lambda 
+\leq f(x)\}}(x, \lambda)\,d\lambda\,d\mu(x).
+\end{align*}
+Since $f$ is measurable, for any $\lambda > 0$ one has $\{(x, \lambda) \in X \times \mathbb{R}: 0 \leq \lambda \leq f(x)\}$ is 
+$\mathcal{B}_X \times \mathcal{B}[\mathbb{R}]$-measurable, and thus 
+$1_{\{(x, \lambda) \in X \times \mathbb{R}: 0 \leq \lambda \leq f(x)\}}$ is absolutely integrable, by Fubini's theorem
+one has \begin{align*}
+    \int_X f(x)\,d\mu(x) &= \int_X\int_\mathbb{R} 1_{\{(x, \lambda) \in X \times \mathbb{R} : 0 \leq \lambda 
+    \leq f(x)\}}(x, \lambda)\,d\lambda\,d\mu(x)\\
+    &= \int_\mathbb{R}\int_X 1_{\{(x, \lambda) \in X \times \mathbb{R} : 0 \leq \lambda \leq f(x)\}}(x, \lambda)\,d\mu(x)\,d\lambda
+    = \int_{[0, +\infty]} \mu(\{x \in X : f(x) \geq \lambda\})\,d\lambda.
+\end{align*}
+Since both $f^{-1}([\lambda, +\infty])$ and $f^{-1}((\lambda, +\infty])$ are measurable, one also has \[
+\int_X f(x)\,d\mu(x) = \int_{[0, +\infty]} \mu(\{x \in X : f(x) > \lambda\})\,d\lambda.\qedhere
+\]
+\end{proof}
+\end{document}

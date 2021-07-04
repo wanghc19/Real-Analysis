@@ -1,0 +1,324 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath, amssymb, amsthm, mathrsfs}
+\usepackage[hmargin = 1.25in, vmargin = 1in]{geometry}
+\title{Homework-3}
+\author{Haocheng Wang \and 2019011994}
+
+\newtheorem{ex}{Exercise}[subsection]
+\stepcounter{section}
+\stepcounter{subsection}
+\renewcommand{\proofname}{\noindent\bf Proof}
+
+\begin{document}
+\maketitle
+\setcounter{subsection}{2}
+\setcounter{ex}{6}
+
+\begin{ex}[Crieria for measurability]\end{ex}
+\begin{proof}
+(i) $\iff$ (ii) is the defintion of Lebesgue measure.\\
+(ii) $\Rightarrow$ (iii) is trivial because one can always set $U \supset E$ thus $U \Delta E = U \setminus E$.
+(iii) $\Rightarrow$ (ii) For every $\varepsilon > 0$, there exists an open set $V$ such that 
+$m^*(V \Delta E) \leq \varepsilon/3$. In particular $m^*(E \setminus V) \leq m^*(E \Delta V) \leq 
+\varepsilon/2 < 2\varepsilon /3$. Then one can find another open set $W$ containing $E \setminus V$ such that
+$m^*(W) \leq 2\varepsilon / 3$. Let $U = V \cup W$, hence\begin{align*}
+m^*(U \setminus E) = m^*((V \setminus E) \cup (W \setminus E)) \leq m^*(V \setminus E) + m^*(W \setminus E)
+\leq \frac{\varepsilon}{3} + \frac{2\varepsilon}{3} = \varepsilon.
+\end{align*}
+(i) $\Rightarrow$ (iv) For every $\varepsilon > 0$, since $E$ is measurable, $E^c$ is also measurable, therefore
+there exists an open set $U \supset E^c$ such that $m^*(U \setminus E^c) \leq \varepsilon$. Let $F = U^c$ is a 
+closed set, then$$
+m^*(E \setminus F) = m^*(U \cap E) = m^*(U \setminus E^c) \leq \varepsilon.
+$$
+(iv) $\Rightarrow$ (v) is trivial since one can set closed set $F \subset E$.\\
+(v) $\Rightarrow$ (vi) holds since all of closed sets art measurable.\\
+(vi) $\Rightarrow$ (iii) For every $\varepsilon > 0$, there exists measurable set $D$ such that 
+$m^*(D \Delta E) \leq \frac{\varepsilon}{2}$. Then one can find an open set $U$ containing $D$ such that
+$m^*(U \setminus D) \leq \frac{\varepsilon}{2}$. Note that\begin{align*}
+U\Delta E &= (U \setminus E) \cup (E \setminus U) = (D\setminus E) \cup ((U \setminus D) \setminus E) \cup (E \setminus U)\\
+&\subset (D \setminus E) \cup (U \setminus D) \cup (E \setminus D) = (D\Delta E) \cup (U \setminus D),
+\end{align*}
+and hence by subadditivity and monotonicity one has $$
+m^*(U \Delta E) \leq m^*(D \Delta E) + m^*(U \setminus D) \leq \varepsilon.
+$$
+\end{proof}
+
+\begin{ex}\end{ex}
+\begin{proof}
+Given that $E$ is Jordan measurable set, there exists elementary sets $A \subset E \subset B$ such that 
+$m^*(B \setminus A) \leq \frac{\varepsilon}{3}$. Since $A, B$ are elementary, one can always find an open set $B' \supset B$
+and a closed set $A' \subset A$ such that $m^*(B' \setminus A') \leq \varepsilon$. Hence $$
+B' \setminus E \subset B' \setminus A' \Rightarrow m^*(B' \setminus E) \leq m^*(B' \setminus A') \leq \varepsilon.
+$$That is $E$ is Lebesgue measurable.
+\end{proof}
+
+\setcounter{ex}{10}
+\begin{ex}[Monotone convergence theorem for measurable sets]\end{ex}
+\begin{proof}
+(i)(Upward monotone convergence) Express $\bigcup_{n = 1}^\infty E_n$ as the countable union of disjoint sets 
+$\bigcup_{n = 1}^\infty (E_n \setminus E_{n - 1})$, by countable additivity one has that $$
+m\left( \bigcup_{n = 1}^\infty E_n \right) = m\left( \bigcup_{n = 1}^\infty (E_n \setminus E_{n - 1}) \right)
+= \sum_{n = 1}^\infty m(E_n \setminus E_{n - 1}) = \lim_{N \to \infty} \sum_{n = 1}^N m(E_n \setminus E_{n - 1}).
+$$Note that $\bigcup_{n = 1}^N (E_n \setminus E_{n - 1}) = E_N$, thus $$
+m\left( \bigcup_{n = 1}^\infty E_n \right) = \lim_{N \to \infty} \sum_{n = 1}^N m(E_n \setminus E_{n - 1})
+= \lim_{n \to \infty} m(E_n).
+$$
+(ii)(Downward monotone convergence) We can write each $E_n$ as a disjoint union $$
+E_n = \bigcup_{k = n}^\infty (E_k \setminus E_{k + 1}) \cup \bigcap_{k = 1}^\infty E_k.
+$$Then by additivity,$$
+m(E_n) = \sum_{k = n}^\infty m(E_k \setminus E_{k + 1}) + m\Big(\bigcap_{k = 1}^\infty E_k \Big)
+$$The statement that at least one of the $m(E_n)$ is finite ensures that series $\sum_{k = n}^\infty m(E_k \setminus E_{k + 1})$ converges
+and $m(\bigcap_{k = 1}^\infty B_k)$ is finite. Thus,$$
+\lim_{n \to \infty} m(E_n) = \lim_{n \to \infty} \sum_{k = n}^\infty m(E_k \setminus E_{k + 1}) + 
+m\Big(\bigcap_{k = 1}^\infty E_k \Big) = m\Big(\bigcap_{k = 1}^\infty E_k \Big).
+$$
+(iii) Let $A_1 = [0, \frac{1}{2}), A_2 = [\frac{1}{2}, \frac{3}{4}), \dots, A_n = [1 - 2^{1 - n}, 1 - 2^{-n}), \dots$,
+then we take the union of their translation: $E_n = \bigcup_{k = 0}^\infty (A_n + k)$. It's obvious that 
+$\bigcap_{n = 1}^\infty E_n = \emptyset, m(E_n) = +\infty$. Therefore$$
+m\Big(\bigcap_{n = 1}^\infty E_n\Big) = 0 \ne +\infty = \lim_{n \to \infty} m(E_n).
+$$
+\end{proof}
+
+\setcounter{ex}{14}
+\begin{ex}[Inner regularity]\end{ex}
+\begin{proof}
+Firstly suppose that $E$ is bounded, by the conclusion in {\bfseries Exercise 1.2.7} for every $\varepsilon > 0$
+there exists a closed set $K \subset E$ such that $m^*(E \setminus K) \leq \varepsilon$. Since $K$ is closed and
+bounded, $K$ is compact, moreover$$
+m(K) = m(E) - m(E \setminus K) \geq m(E) - \varepsilon
+$$holds for arbitary $\varepsilon > 0$. Hence $m(E) \leq \sup_{K \subset E} m(K)$. The reverse direction of the 
+inequality is obvious by the monotonicity.
+
+Now we assume that $E$ is not bounded, let $E_n = E \cap (B(0, n) \setminus B(0, n - 1))$, then for every 
+$\varepsilon > 0$ there exists a compact set $K_n \subset E_n$ such that $m(E_n \setminus K_n) \leq \varepsilon 2^{-n}$.
+Thus $$
+m\Big(\bigcup_{n = 1}^N K_n\Big) = \sum_{n = 1}^N m(K_n) \geq \sum_{n = 1}^N m(E_n) - \varepsilon \to m(E) - \varepsilon.
+$$
+This implies that there exists $N$ large enough such that $m(\bigcup_{n = 1}^N K_n) \geq m(A) - 2\varepsilon.$
+Hence $m(A) \leq \sup_{K \subset E} m(K)$. The proof has been completed.
+\end{proof}
+
+\begin{ex}[Crieria for finite measure]\end{ex}
+\begin{proof}
+(i) $\Rightarrow$ (ii) Since $E$ is Lebesgue measurable, there exists an open set $U$ containing $E$ such that
+$m^*(U \setminus E) \leq  \varepsilon$. Note that $U \setminus E$ and $E$ are disjoint, thus 
+$m(U) = m(U \setminus E) + m(E)$ is finite.
+
+(ii) $\Rightarrow$ (iii) For every $\varepsilon > 0$, there exists an open set $U \sup E$ suchu that 
+$m^*(U \setminus E) \leq \varepsilon / 2$. Let $U_n = U \cap (B(0, n) \setminus B(0, n - 1))$, then 
+$E \Delta \bigcup_{k = 1}^n U_k = (U \setminus E) \cup \bigcup_{k = n + 1}^\infty U_k$. Set $n$ large enough such that 
+$m^*(\bigcup_{k = n + 1}^\infty U_n) \leq \varepsilon / 2$.  Thus $\bigcup_{k = 1}^n U_k$ is an open set and$$
+m^*\Big(E \Delta \bigcup_{k = 1}^\infty U_k \Big) \leq m^*(U \setminus E) + m^*\Big(\bigcup_{k = n + 1}^\infty U_n\Big) 
+\leq \varepsilon.
+$$
+
+(iii) $\Rightarrow$ (i) For every $\varepsilon > 0$, there exists a bounded open set $V$ such that 
+$m^*(E \Delta V) \leq \varepsilon / 2$, then there exists an open set $W \supset E \Delta V$ such that 
+$m^*(W) \leq \varepsilon$. Let $U = V \cup W$, then this open set contains $E$, and $$
+m^*(U \setminus E) \leq m^*(W) \leq \varepsilon.
+$$Hence $E$ is Lebesgue measurable, furthermore, by monotonicity, 
+$E \subset V \cup W \Rightarrow m(E) \leq m(V) + m(W) < +\infty$.
+
+(i) $\Rightarrow$ (iv) By {\bfseries Exercise 1.2.7}(iv), for every $\varepsilon > 0$ there exists a closed set
+$F \subset E$ such that $m^*(E \setminus F) \leq \varepsilon /2$. Let $F_n = F \cap \overline{B(0, n) \setminus B(0, n - 1)}$.
+Then $E$ can be expressed as the union of disjoint sets 
+$E = (E \setminus F) \cup (F \setminus \bigcup_{n = 1}^N F_n) \cup \bigcup_{n = 1}^N F_n$. By upward monotone convergence,
+one can always choose $N$ large enough such that $m(F \setminus \bigcup_{n = 1}^\infty F_n) \leq \varepsilon / 2$.
+Thus $\bigcup_{n = 1}^\infty F_n \subset E$ and satisfies that $$
+m\Big(E \setminus \bigcup_{n = 1}^\infty F_n\Big) = m^*(E \setminus F) + m\Big(F \setminus \bigcup_{n = 1}^\infty F_n\Big)
+\leq \varepsilon.
+$$
+
+(iv) $\Rightarrow$ (v) This is trivial.
+
+(v) $\Rightarrow$ (vii) This is trivial for any compact sets are Lebesgue measurable sets with finite measure.
+
+(vii) $\Rightarrow$ (vi) This can be easily proved by using the method in showing that (i) $\Rightarrow$ (iv).
+
+(vi) $\Rightarrow$ (viii) By assumption, for every $\varepsilon > 0$, there exists a bounded measurable set $D$
+such that $m^*(E \Delta D) \leq \varepsilon / 2$. Then by the defintion of $m^*$, there exists an elementary set $A$
+such that $m^*(D \Delta A) \leq \varepsilon / 2$. In fact, there exists a sequence of almost disjoint boxes $\{B_n\}$ 
+such that $\bigcup_{n = 1}^\infty B_n \supset D, m^*(\bigcup_{n = 1}^\infty B_n) - m^*(D) \leq \varepsilon / 4$. Since
+$D$ is Lebesgue measurable, then by countable additivity $m^*(\bigcup_{n = 1}^\infty B_n \setminus D) \leq \varepsilon / 4$.
+By assumption $D$ is bounded, so $\sum_{n = 1}^\infty |B_n| < +\infty$, then there exists $N \in \mathbb{N}$ such
+that $\sum_{n = N + 1}^\infty |B_n| \leq \varepsilon / 4$. Let $A = \bigcup_{n = 1}^N B_n$, note that$$
+A \Delta D = (A \setminus D) \cup (D \setminus A) \subset \Big(\bigcup_{n = 1}^\infty B_n \setminus D\Big) \cup
+\Big(\bigcup_{n = N + 1}^\infty B_n\Big),
+$$thus $m^*(A \Delta D) \leq \varepsilon / 2$, as we have asserted. Now \begin{align*}
+A \Delta E &= (A \setminus E) \cup (E \setminus A) \subset [(A \setminus D) \setminus E] \cup (D \setminus E) \cup 
+[(E \setminus D) \setminus A] \cup (D \setminus A)\\
+&\subset (A \setminus D) \cup (D \setminus E) \cup (E \setminus D) \cup (D \setminus A) = (A \Delta D) \cup (D \Delta E),
+\end{align*}
+Finally we obtain that$
+m^*(A \Delta E) \leq m^*(A \Delta D) + m^*(D \Delta E) \leq \varepsilon.
+$
+
+(viii) $\Rightarrow$ (ix) Given an elementary set $A$ such that $m^*(A \Delta E) \leq \varepsilon / 2$, it suffices
+to show that there exists $n \in \mathbb{N}$ a finite union $F$ of closed dyadic cubes of sidelength $2^{-n}$ such
+that $m^*(F \Delta A) \leq \varepsilon / 2$, and this can be ensured by {\bfseries Exercise 1.1.14}. Then$$
+m^*(E \Delta F) \leq m^*(E \Delta A) + m^*(A \Delta F) \leq \varepsilon,
+$$for $\varepsilon$ is arbitarily small, we complete the proof.
+
+(ix) $\Rightarrow$ (iii) For every $\varepsilon > 0$, there exists an integer $n$ and a finite union $F$ of closed 
+dyadic cubes of sidelength $2^{-n}$ such that $m^*(E \Delta F) \leq \varepsilon / 2$. Express $F$ as
+$F = \bigcup_{i = 1}^m F_i$, now we enlarge each of $F_i$ to open set $F_i'$ such that 
+$m^*(F_i' \setminus F_i) \leq \frac{\varepsilon}{2m}$. Then $F' = \bigcup_{i = 1}^m F_i'$ is a bounded open set satisfying
+$m^*(F' \Delta F) \leq \varepsilon / 2$. Hence\[
+m^*(E \Delta F') \leq m^*(E \Delta F) + m^*(F \Delta F') \leq \varepsilon.\qedhere
+\]
+\end{proof}
+
+\begin{ex}[Carath\'eodory criterion, one direction]\end{ex}
+\begin{proof}
+(i) $\Rightarrow$ (iii) Since both $B \cap E$ and $B \setminus E$ are Lebesgue measurable, then by countable additivity
+one has that $|B| = m(B \cap E) + m(B \setminus E)$.
+
+(iii) $\Rightarrow$ (ii) Express $A = \bigcup_{n = 1}^N B_n$ for disjoint boxes $\{B_n\}_{n = 1}^N$, then by subadditivity
+\begin{align*}
+m^*(A \cap E) + m^*(A \setminus E) &= m^*\Big( \bigcup_{n = 1}^N (B_n \cap E)\Big) + m^*\Big(\bigcup_{n = 1}^N 
+(B_n \setminus E)\Big) \\
+&\leq \sum_{n = 1}^N m^*(B_n \cap E) + \sum_{n = 1}^N m^*(B_n \setminus E) = \sum_{n = 1}^N |B_n| = m(A).
+\end{align*}
+The inequality $m(A) \leq m^*(A \cap E) + m^*(A \setminus E)$ is obvious by subadditivity. Hence 
+$m(A) = m^*(A \cap E) + m^*(A \setminus E)$.
+
+(ii) $\Rightarrow$ (i) For every $\varepsilon > 0$ we let $\{B_n\}_{n \geq 1}$ be disjoint boxes such that 
+$\sum_{n = 1}^\infty |B_n| \leq m^*(E) +  \varepsilon$. And then we let open box $B_n' \supset B_n$ such that 
+$|B_n'| \leq |B_n| + \varepsilon 2^{-n}$, and set $U = \bigcup_{n = 1}^\infty B_n'$ be an open set. Thus by 
+subadditivity, $$
+m^*(E) + m^*(U \setminus E) \leq \sum_{n = 1}^\infty [m^*(B_n' \cap E) + m^*(B_n' \setminus E)] 
+\leq \sum_{n = 1}^\infty |B_n| + \varepsilon = m^*(E) + \varepsilon.
+$$That is $m^*(U \setminus E) \leq \varepsilon$, $E$ is Jordan measurable.
+\end{proof}
+
+\stepcounter{ex}
+\begin{ex}\end{ex}
+\begin{proof}
+(i) $\Rightarrow$ (ii) Since $E$ is Lebesgue measurable, then one can find 
+an open set $U_n \supset E$ such that $m^*(U_n \setminus E) \leq \frac{1}{n}$. Let $U = \bigcap_{n = 1}^\infty U_n$, then 
+$U \setminus E \subset U_n \setminus E, \forall n \geq 1$, thus $m^*(U \setminus E) \leq m^*(U_n \setminus E) \leq \frac{1}{n}$,
+let $n \to \infty$, we obtain that $m^*(U \setminus E) = 0$. Note that $E = U\setminus (U \setminus E)$ where $U$ is $G_\delta$
+and $U \setminus E$ is a null set we finish the proof.
+
+(ii) $\Rightarrow$ (i) Assume that $E = G \setminus N$ where $G = \bigcap_{n = 1}^\infty G_n$ is a $G_\delta$ set 
+and $N$ is a null set. Set $U_n = \bigcap_{k = 1}^n G_k$, them $\{U_n\}_{n \geq 1}$ is a non-increasing sequence.
+Note that$$
+U_n \setminus E = U_n \cap (G \cap N^c)^c = (U_n \cap G^c) \cup (U_n \cap N) = (U_n \setminus G) \cup (U_n \cap N),
+$$since $G \subset U_n$ is the countable intersection of Lebesgue measurable set and $U_n \cap N \subset N$, 
+$G$ is Lebesgue measurable and $U_n \cap N$ is also a null set. Now we can conclude that $$
+m^*(U_n \setminus E) \leq m^*(U_n \setminus G) + m^*(U_n \cap N) = m^*(U_n) - m^*(G) = m^*(U_n) - 
+m^*\Big(\bigcap_{n = 1}^\infty U_n\Big) \to 0,
+$$here we have use the conclusion $m^*(\bigcap_{n = 1}^\infty U_n) = \lim_{n \to \infty} m^*(U_n)$.  Hence $E$ is
+Lebesgue measurable.
+
+(i) $\Rightarrow$ (iii) Since $E$ is Lebesgue measurable, its complement in $\mathbb{R}^d$ $E^c$ is also Lebesgue
+measurable, thus we can express $E^c$ as $E^c = G \setminus N$ where $G$ is a $G_\delta$ set and $N$ is a null set.
+Therefore $E = (G \cap N^c)^c = G^c \cup N$, where the complement $G^c$ is a $F_\sigma$ set.
+
+(iii) $\Rightarrow$ (i) Suppose that $E = F \cup N$ where $F$ is a $F_\sigma$ set and $N$ is a null set, then 
+$E^c = F^c \setminus N$ where $F^c$ is a $G_\delta$ set, by (ii) $E^c$ is Lebesgue measurable, thus $E$ is also 
+Lebesgue measurable.
+\end{proof}
+
+\begin{ex}[Translation invariance]\end{ex}
+\begin{proof}
+First we show that Lebesgue outer measure is translation invariance. Let $\{B_n\}_{n \geq 1}$ be a sequence of boxes
+covering $E$, then $\{B_n + x\}_{n \geq 1}$ cover $E + x$ for any $x \in \mathbb{R}^d$. Therefore $$
+m^*(E + x) \leq \sum_{n = 1}^\infty |B_n + x| = \sum_{n = 1}^\infty |B_n|.
+$$
+So for every sequence of boxes $\{B_n\}_{n \geq 1}$ that cover $E$ one has $m^*(E + x) \leq \sum_{n = 1}^\infty |B_n|$,
+hence $m^*(E + x) \leq m^*(E)$. Similarly we can prove the reverse inequality by take the reverse translation 
+$E = (E + x) - x$, and we obtain that $m^*(E) = m^*(E + x)$  holds for any $E \subset \mathbb{R}^d$ and $x \in \mathbb{R}^d$.
+
+Suppose that $E$ is Lebesgue measurable, then for arbitary $\varepsilon > 0$ there exists an open set $U \supset E$ 
+such that $m^*(U \setminus E) \leq \varepsilon$. Note that 
+$m^*((U + x) \setminus (E + x)) = m^*(U \setminus E + x) = m^*(U \setminus E) \leq \varepsilon$, so $E + x$ is 
+also Lebesgue measurable, and that $m(E + x) = m(E)$.
+\end{proof}
+
+\setcounter{ex}{22}
+\begin{ex}[Uniqueness of Lebesgue measure]\end{ex}
+\begin{proof}
+From non-negativity and countable additivity we conclude the monotonicity property, and from monotonicity and 
+additivity we obtain subadditivity. And as we have proved, $m$ must match elementary measure on elementary set.
+
+{\bfseries Step I.} First we show that for any null set $E$, $m(E) = 0$. Since $E$ is measure zero, for every 
+$\varepsilon > 0$ there exists a sequence of boxes $\{B_n\}_{n \geq 1}$ such that 
+$E \subset \bigcup_{n = 1}^\infty B_n, m^*(\bigcup_{n = 1}^\infty B_n) \leq \varepsilon$, note that $m^*(B_n) = m(B_n)$:
+$$
+m(E) \leq m\Big(\bigcup_{n = 1}^\infty B_n\Big) = \sum_{n = 1}^\infty m(B_n) = \sum_{n = 1}^\infty m^*(B_n) \leq \varepsilon.
+$$
+Let $\varepsilon$ tends to zero and we obtain that $m(E) = 0$.
+
+{\bfseries Step II.} Now we show that for every open set $U$ of finite measure, then $m(U) = m^*(U)$. Express 
+$U$ as the union of almost disjoint closed boxes $U = \bigcup_{n = 1}^\infty B_n$, then $B_n^\circ$ are pairwisely
+disjoint. Let $F = \bigcup_{n = 1}^\infty B_n \setminus \bigcup_{n = 1}^\infty B_n^\circ$. Since $$
+m^*(F) = m^*(U) - m^*\Big(\bigcup_{n = 1}^\infty B_n^\circ\Big) = \sum_{n = 1}^\infty |B_n| - \sum_{n = 1}^\infty
+|B_n^\circ| = 0,
+$$one has that $m(F) = 0$. Note that $U$ is the union of disjoint sets $F$ and $\bigcup_{n = 1}^\infty B_n^\circ$, thus
+$$
+m(U) = m(F) + m\Big(\bigcup_{n = 1}^\infty B_n^\circ\Big) = m(F) + \sum_{n = 1}^\infty |B_n^\circ| = \sum_{n = 1}^\infty
+|B_n^\circ| = m^*(U).
+$$
+
+{\bfseries Step III.} We show that $m$ is bounded by Lebesgue outer measure $m^*$. Given Lebesgue measurable set
+$E$ with $m^*(E) < \infty$, for every $\varepsilon > 0$ there exists an open set $U \supset E$ such that
+$m^*(U \setminus E) \leq \varepsilon \Rightarrow m^*(U) - m^*(E) \leq \varepsilon$. Then by monotonicity 
+$m(E) \leq m(U) = m^*(U) \leq m^*(E) + \varepsilon$. Let $\varepsilon \to 0$ we obtain that $m(E) \leq m^*(E)$.
+
+{\bfseries Step IV.} We show that for any Lebesgue measurble bounded set $E$ we have $m(E) = m^*(E)$. Let $B$ be
+a box such that $E \subset B$. By additivity we have $m(B \setminus E) = (B) - m(E)$. Also$$
+m(E) \leq m^*(E) = m^*(B) - m^*(B \setminus E) \leq m^*(B) - m(B \setminus E) = m(B) - (m(B) - m(E)) = m(E).
+$$Hence $m(E) = m^*(E)$.
+
+{\bfseries Step V.} Finally we show that for any Lebesgue measurable set $E$ one has that $m(E) = m^*(E)$. Decompose
+$E$ as $E = \bigcup_{n = 1}^\infty E_n$, where $E_n = E \cap (\overline{B(0, n)} \setminus \overline{B(0, n - 1)})$
+is a bounded set.
+Then by countable additivity of both $m$ and $m^*$, \[
+m(E) = \sum_{n = 1}^\infty m(E_n) = \sum_{n = 1}^\infty m^*(E_n) = m^*(E).\qedhere
+\]
+\end{proof}
+
+\begin{ex}[Lebesgue measure as the completion of elementary measure]\end{ex}
+\begin{proof}
+(i) We verify the relation by the defintion of equivalence relation:\begin{itemize}
+    \item (Reflexivity) This is obvious for $E \Delta E = \emptyset, \forall E \in 2^A$.
+    \item (Symmetry) Note that $E \Delta F = (E \setminus F) \cup (F \setminus E) = (F \setminus E) \cup(E \setminus F) = F \Delta E$.
+    \item (Transitivity) Assume that $A, B, C \in 2^A$ satisfying $m^*(A \Delta B) = m^*(B \Delta C) = 0$. Note
+    that $A \Delta C \subset (A \Delta B) \cup (B \Delta C) \Rightarrow  m^*(A \Delta C) \leq m^*(A \Delta B)
+    + m^*(B \Delta C) = 0 \Rightarrow m^*(A \Delta C) = 0$.
+\end{itemize}
+Hence this is a equivalence relation.
+
+(ii) From the defintion of the relation $\sim$, both $(E \setminus F) \cup (F \setminus E)$ and 
+$(E' \setminus F') \cup (F' \setminus E')$ are null set, therefore $E \setminus F, E' \setminus F'$ are null
+sets. Thus one has the expressions $F = E_1 \cup N, F' = E_1' \cup N'$ where $E_1 = F \cap E, E_1' = F' \cap E'$ and
+$N, N'$ are null sets. Now $$
+F \Delta F' = (E_1 \cup N) \Delta (E_1' \cup N') = \big((E_1 \cup N) \cap \big(E_1' \cup N')^c\big) \cup 
+\big((E_1' \cup N') \cap (E_1 \cap N)^c\big).
+$$Consider the first term$$
+(E_1 \cup N) \cap (E_1' \cup N')^c = (E_1 \cup N) \cap (E_1'^c \cap N'^c) \subset (E_1 \cup N) \cap E_1'^c
+= (E_1 \cap E_1'^c) \cup (E_1'^c \cap N),
+$$we can conclude similar result for the second term, hence $$
+F \Delta F' \subset (E_1 \Delta E_1') \cup (E_1'^c \cap N) \cup (E_1^c \cap N') \subset (E \Delta E') \cup N \cup N'.
+$$The right hand side is the union of $E \Delta E'$ and two null sets, thus $m^*(F \Delta F) \leq m^*(E \Delta E')$.
+Symmetrically we can proved the reverse inequality, then $m^*(E \Delta E') = m^*(F \Delta F')$ whenever $[E] = [F]$
+and $[E'] = [F']$, hence the distance is well defined.
+
+(iii) Given a sequence $\{[E_n]\} \in \mathcal{E} / \sim$ and $[E] \in \mathcal{E} /\sim$ being a limit of $\{[E_n]\}$,
+i.e., for every $\varepsilon > 0$, there exists $N \in \mathbb{N}$ such that $d([E], [E_n]) \leq \varepsilon, \forall n > N$.
+Assert that $[E] \in \mathcal{L} / \sim$. It suffices to show that the representative $E$ is Lebesgue measurable.
+By assumption, $d([E], [E_n]) \leq \varepsilon$, that is, $m^*(E \Delta E_n) \leq \varepsilon \Rightarrow
+m^*(E \setminus E_n) \leq \varepsilon$. Thus there exists an open set $V \supset E \setminus E_n$ such that 
+$m^*(V) \leq 2\varepsilon$. Since $m^*(E_n \Delta E_n^\circ) = 0$, one can always choose representative $E_n$ as
+an open set. Let $U = V \cup E_n$ be an open set, then $$
+m^*(U \setminus E) \leq m^*(V \setminus E) + m^*(E_n \setminus E) \leq m^*(V) + m^*(E_n \Delta E) \leq 3\varepsilon.
+$$Hence $E$ is Lebesgue measurable, i.e., $[E] \in \mathcal{L} / \sim$.
+
+(iv) Given $E, F \in \mathcal{L}$, note that$$
+|m(E) - m(F)| = |m(E) - m(F \cap E) - m(F \setminus E)| = |m(E \setminus F) - m(F \setminus E)| \leq m(E \Delta F),
+$$so if $E \sim  F$, $m(E) = m(F)$, i.e., $m: \mathcal{L} / \sim \to \mathbb{R}^+$ is well defined. Moreover,$$
+|m([E_1]) - m([E_2])| \leq d([E_1], [E_2]).
+$$Thus, $m$ is a continuous funcion on $\mathcal{L}/ \sim$, in particular, it's uniformly continuous.
+\end{proof}
+\end{document}

@@ -1,0 +1,192 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath, amssymb, amsthm, mathrsfs}
+\usepackage[hmargin = 1.25in, vmargin = 1in]{geometry}
+\title{Homework-5}
+\author{Haocheng Wang \and 2019011994}
+
+\newtheorem{ex}{Exercise}[subsection]
+\stepcounter{section}
+\setcounter{subsection}{3}
+\renewcommand{\proofname}{\noindent\bf Proof}
+
+\begin{document}
+\maketitle
+\setcounter{ex}{11}
+\begin{ex}[Upper Lebesgue integral and outer Lebesgue measure]\end{ex}
+\begin{proof}
+For any subset $E \subset \mathbb{R}^d$ and $\varepsilon > 0$, there exists a sequence of disjoint boxes $\{B_k\}_{k \geq 1}$ whose union 
+$B = \bigcup_{k = 1}^\infty B_k$ that contains $E$ such that $\sum_{k = 1}^\infty |B_k| < m^*(E) + \varepsilon$.
+Note that $1_B(x) \geq 1_E(x)$, we have $$
+m^*(E) + \varepsilon > \sum_{k = 1}^\infty |B_k| = \mathrm{Simp}\int_{\mathbb{R}^d}1_B(x)\,dx \geq 
+\overline{\int_{\mathbb{R}^d}}f(x)\,dx,
+$$let $\varepsilon \to 0$ to obtain that $m^*(E) \geq \overline{\int_{\mathbb{R}^d}}f(x)\,dx$. For the other direction,
+there exists an unsigned simple function $h(x) = \sum_{i = 1}^n c_i1_{E_i}(x)$ such that 
+$\mathrm{Simp}\int_{\mathbb{R}^d} h(x)\, dx < \overline{\int_{\mathbb{R}^d}}f(x)\,dx + \varepsilon$. One can rewrite
+$h(x)$ as $h(x) = \sum_{j = 1}^{m} b_j1_{F_j}(x)$ where $F_j$ are pairwisely disjoint. Since $1_E(x) \leq h(x)$, and
+for any $x \in E$, there exists a unique measurable set $F_j$ that contains it, thus $b_j \geq 1, j = 1, \dots, m$.
+Note that $\bigcup_{j = 1}^m F_j \supset E$, one has that $$
+\overline{\int_{\mathbb{R}^d}}f(x)\,dx > \mathrm{Simp}\int_{\mathbb{R}^d}h(x)\,dx - \varepsilon = \sum_{j = 1}^m 
+b_jm(F_j) - \varepsilon \geq \sum_{j = 1}^m m(F_j) - \varepsilon \geq m^*(E) - \varepsilon,
+$$let $\varepsilon \to 0$ and the claim follows.
+\end{proof}
+
+\stepcounter{ex}
+\begin{ex}[Uniqueness of the Lebesgue integral]\end{ex}
+\begin{proof}
+Suppose the map $f \mapsto \int_{\mathbb{R}^d}'f(x)\,dx$ is a map from unsigned Lebesgue measurable function $f$ to
+$[0, +\infty]$ that obeys the four properties. From the horizontal truncation and vertical truncation properties, 
+it suffices to show that $\int_{\mathbb{R}^d}'f(x)\,dx = \int_{\mathbb{R}^d}f(x)\,dx$ for all unsigned Lebesgue 
+measurable function $f$ which is bounded and supported inside a bounded set. From the finite addtivity property and 
+the non-negative property we obtain the monotonicity property, thus for any unsigned simple function $g, h$ with 
+$g \leq f \leq h$ one has that $$
+\mathrm{Simp}\int_{\mathbb{R}^d} g(x)\,dx = \int_{\mathbb{R}^d}'g(x)\,dx \leq \int_{\mathbb{R}^d}'f(x)\,dx \leq 
+\int_{\mathbb{R}^d}'h(x)\,dx = \mathrm{Simp}\int_{\mathbb{R}^d} h(x)\,dx.
+$$By taking supremum of $g$ and infimum of $h$ one has that $\underline{\int_{\mathbb{R}^d}} f(x)\,dx \leq 
+\int_{\mathbb{R}^d}'f(x)\,dx \leq \overline{\int_{\mathbb{R}^d}} f(x)\,dx$, since $f$ is measurable, one has that
+$\int_{\mathbb{R}^d}'f(x)\,dx = \int_{\mathbb{R}^d}f(x)\,dx$.
+\end{proof}
+
+\begin{ex}[Translation invariance]\end{ex}
+\begin{proof}
+For every $\varepsilon > 0$ there exists an unsigned simple function $g \leq f$ such that 
+$\int_{\mathbb{R}^d} g(x)\,dx \geq \int_{\mathbb{R}^d} f(x) - \varepsilon$. Express $g$ as $g(x) = \sum_{i = 1}^n c_i1_{E_i}(x)$ and 
+then $g(x + y) = \sum_{i = 1}^n c_i1_{E_i}(x + y) = \sum_{i = 1}^n c_i1_{E_i - y}(x) =: g'(x)$. Hence$$
+\int_{\mathbb{R}^d}g(x + y)\,dx = \int_{\mathbb{R}^d} g'(x)\,dx = \sum_{i = 1}^n c_im(E_i - y) = 
+\sum_{i = 1}^n c_im(E_i) = \int_{\mathbb{R}^d}g(x)\,dx.
+$$Note that $f(x + y) \geq g(x + y)$, which implies that $$
+\int_{\mathbb{R}^d} f(x + y)\,dx \geq \int_{\mathbb{R}^d} g(x + y)\,dx = \int_{\mathbb{R}^d} g(x)\,dx \geq 
+\int_{\mathbb{R}^d} f(x)\,dx - \varepsilon.
+$$Hence $\int_{\mathbb{R}^d} f(x + y)\,dx \geq \int_{\mathbb{R}^d} f(x)\,dx$, by taking similar argument one can 
+prove the other direction, and the claim follows.
+\end{proof}
+
+\begin{ex}[Linear change of variables]\end{ex}
+\begin{proof}
+By a argument similar to {\bfseries Exercise 1.3.15}, we can assume that $f$ is unsigned simple and further 
+$f(x) = 1_E(x)$. Note that $$
+Tx \in E \Leftrightarrow \exists\, y \in E\ \ \mathrm{s.t.}\ Tx = y \in E \Leftrightarrow x = T^{-1}(y) \in T^{-1}(E).
+$$Thus $f(Tx) = 1_E(Tx) = 1_{T^{-1}(E)}(x)$, so it suffices to show that $m(T^{-1}(E)) = \frac{1}{|\det T|} m(E)$.
+For any invertible linear transformation $T$, one can decompose $T$ into elementary types of linear transformation:\begin{align*}
+&P_{ij}(x): (x_1, \dots, x_i, \dots, x_j, \dots, x_d) \mapsto (x_1, \dots, x_j, \dots, x_i, \dots, x_d);\\
+&M_{\lambda}(x): (x_1, \dots, x_d) \mapsto (\lambda x_1, \dots, x_d);\\
+&T_{ij}(x): (x_1, \dots, x_i, \dots, x_j, \dots, x_d) \mapsto (x_1, \dots, x_i, \dots, x_i + x_j, \dots, x_d).
+\end{align*} 
+Therefore $T^{-1}(E)$ is measurable. And by applying Fubini theorem it's easy to show that 
+$$m(P_{ij}^{-1}(E)) = |\det P_{ij}^{-1}|m(E),\ m(M_\lambda^{-1}(E)) = \frac{1}{\lambda}m(E),\ m(T_{ij}^{-1}(E)) = |\det T_{ij}^{-1}|m(E).$$
+Hence $m(T^{-1}(E)) = |\det T^{-1}|m(E) = \frac{1}{|\det T|}m(E)$.
+\end{proof}
+
+\stepcounter{ex}
+\begin{ex}\end{ex}
+\begin{proof}
+(i) By applying Markov's inequality, one has $$
+m(\{x \in \mathbb{R}^d : f(x) = \infty\}) \leq m(\{x \in \mathbb{R}^d : f(x) \geq \lambda\}) \leq \frac{1}{\lambda}
+\int_{\mathbb{R}^d} f(x)\,dx, \forall \lambda > 0.
+$$Let $\lambda \to \infty$, we obtain that $m(\{x \in \mathbb{R}^d : f(x) = \infty\}) = 0$, which implies that
+$f$ is finite almost everywhere. An counterexample is that $f(x) \equiv 1$.
+
+(ii) Suppose that $\int_{\mathbb{R}^d} f(x)\,dx = 0$, by Markov's inequality, one has $
+m(\{x \in \mathbb{R}^d : f(x) \geq \lambda\}) \leq \frac{1}{\lambda}\int_{\mathbb{R}^d} f(x)\,dx = 0, \forall \lambda > 0.
+$Therefore, $$
+m(\{x \in \mathbb{R}^d : f(x) > 0\}) = m(\bigcup_{n = 1}^\infty \{x \in \mathbb{R}^d : f(x) \geq \frac{1}{n}\}) \leq 
+\sum_{n = 1}^\infty m(\{x \in \mathbb{R}^d : f(x) \geq \frac{1}{n}\}) = 0.
+$$Hence $f$ is zero almost everywhere. The reverse is trivial.
+\end{proof}
+
+\begin{ex}[Integration is linear]\end{ex}\begin{proof}
+Denote that $h(x) = f(x) + g(x)$, then $h_+ - h_- = f_+ - f_- + g_+ - g_-$, which implies $h_+ + f_- + g_- = h_- 
++ f_+ + g_+$,therefore $$
+\int_{\mathbb{R}^d} h_+(x)\,dx + \int_{\mathbb{R}^d} f_-(x)\,dx + \int_{\mathbb{R}^d} g_-(x)\,dx = 
+\int_{\mathbb{R}^d} h_-(x)\,dx + \int_{\mathbb{R}^d} f_+(x)\,dx + \int_{\mathbb{R}^d} g_+(x)\,dx.
+$$By the triangle inequality, $f + g$ is also absolutely integrable, thus the both side of above equality are finite.
+Hence \begin{align*}
+\int_{\mathbb{R}^d} f(x) + g(x)\,dx &= \int_{\mathbb{R}^d} h_+(x)\,dx - \int_{\mathbb{R}^d} h_-(x)\,dx \\
+&= \int_{\mathbb{R}^d} f_+(x)\,dx - \int_{\mathbb{R}^d} f_-(x)\,dx + \int_{\mathbb{R}^d} g_+(x)\,dx - \int_{\mathbb{R}^d} g_-(x)\,dx\\
+&= \int_{\mathbb{R}^d} f(x)\,dx + \int_{\mathbb{R}^d} g(x)\,dx.
+\end{align*}
+Now we establish the second equality, if $c = 0$, the case is trivial. First we assume that $f$ is real-valued,
+one has that $(cf)_+ = cf_+, (cf)_- = cf_-$ for $c > 0$
+and $(cf)_+ = -cf_-, (cf)_- = -cf_+$ for $c < 0$. That is \begin{gather*}
+    \int_{\mathbb{R}^d} cf(x)dx = \int_{\mathbb{R}^d} cf_+(x)dx - 
+    \int_{\mathbb{R}^d} cf_-(x)dx = c \times \int_{\mathbb{R}^d} f(x) dx, c > 0;\\
+    \int_{\mathbb{R}^d} cf(x)dx = \int_{\mathbb{R}^d} -cf_-(x)dx - 
+    \int_{\mathbb{R}^d} -cf_+(x)dx = c \times \int_{\mathbb{R}^d} f(x) dx, c < 0.
+\end{gather*}
+For any complex-valued function $f$, we take its real part and complex part respectively and the claim follows.
+Now we prove the third claim. \begin{align*}
+    \int_{\mathbb{R}^d} \overline{f}(x)\, dx &= \int_{\mathbb{R}^d} \Re  f(x) dx + i
+    \int_{\mathbb{R}^d} -\Im f(x) dx = \int_{\mathbb{R}^d} \Re  f(x) dx - i
+    \int_{\mathbb{R}^d} \Im f(x) dx\\
+    &=\overline{\int_{\mathbb{R}^d} \Re  f(x) dx + i\int_{\mathbb{R}^d} \Im f(x) dx}
+    = \overline{\int_{\mathbb{R}^d} f(x) dx}.\qedhere
+\end{align*}
+\end{proof}
+
+\setcounter{ex}{20}
+\begin{ex}[Absolute summability is a special case of absolute integrability]\end{ex}
+\begin{proof}
+Since measurable sets $[n, n + 1)$ are pairwisely disjoint, one has $|f(x)| = \sum_{n \in \mathbb{Z}} |c_n|1_{[n, n + 1)}$\\$(x)$.
+By the vertical truncation one has that $$
+\int_{\mathbb{R}^d} |f(x)|\,dx = \lim_{N \to \infty} \int_{\mathbb{R}^d} |f(x)|1_{|x| \leq N}(x)\,dx 
+= \lim_{N \to \infty} \sum_{n = -N}^N |c_n| = \sum_{n \in \mathbb{Z}}|c_n|,
+$$Hence $f$ is absolutely integrable if and only if series $\sum_{n \in \mathbb{Z}}c_n$ is absolutely convergent.
+By similar argument one can conclude that $\int_{\mathbb{R}^d} f(x)\,dx = \sum_{n \in \mathbb{Z}} c_n$.
+\end{proof}
+
+\begin{ex}\end{ex}\begin{proof}
+Since $f$ is measurable on $E \cup F$, $f$ is measurable on any subset of $E \cup F$, thus $$
+\int_{E} f(x)\,dx = \int_{\mathbb{R}^d} \tilde{f}(x)1_{E \cup F}(x)1_E(x)\,dx = \int_{E \cup F} f(x)1_E(x)\,dx.
+$$And \begin{align*}
+\int_E f(x)\,dx + \int_F f(x)\,dx &= \int_{\mathbb{R}^d} \tilde{f}(x)1_E(x)\,dx + \int_{\mathbb{R}^d} \tilde{f}(x)1_F(x)\,dx 
+= \int_{\mathbb{R}^d} \tilde{f}(x)(1_E(x) + 1_F(x))\,dx\\
+&=\int_{\mathbb{R}^d} \tilde{f}(x)1_{E \cup F}(x)\,dx = \int_{E \cup F} f(x)\,dx.\qedhere
+\end{align*}
+\end{proof}
+
+\begin{ex}\end{ex}\begin{proof}
+First we assume that $f$ is locally absolutely integrable, then for any $n \in \mathbb{N}$ there exists a continuous 
+function $f_n$ such that $|f(x)1_{|x| \leq n} - f_n(x)| < \frac{\varepsilon}{2^n}$ for any $x$ outside a measurable 
+set $E_n$ with measure at most $\varepsilon 2^{-n}$. Let $E = \bigcup_{n = 1}^\infty E_n$ is measurable set, then 
+$m(E) \leq \sum_{n = 1}^\infty m(E_n) \leq \varepsilon$. Therefore for any $x \in E^c$ one has $|f(x) - f_n(x)| < \frac{\varepsilon}{2^n}$
+for any $n \in \mathbb{N}$, by uniform convergence, the restriction of $f$ on $\mathbb{R}^d \setminus E$ is continuous.
+
+Now we assume that $f$ is just measurable, consider the function $\tilde{f} := \frac{f}{(1 + |f|^2)^{1/2}}$ with
+$|\tilde{f}| \leq 1, \forall x \in \mathbb{R}^d$ and thus is locally integrable. Therefore there exists a continuous
+$g(x)$ such that $f|_{\mathbb{R}^d \setminus E} = g|_{\mathbb{R}^d \setminus E}$ where $m(E) \leq \varepsilon$.
+Hence $f|_{\mathbb{R}^d \setminus E} = \frac{g}{(1 - |g|^2)^{1/2}}|_{\mathbb{R}^d \setminus E}$ is continuous.
+\end{proof}
+
+\begin{ex}\end{ex}\begin{proof}
+If $f$ it is the pointwise almost everywhere limit of continuous functions $f_n$, it suffices to note that any continuous
+functions are the pairwise limit of simple functions and the claim follows. Now we assume that $f$ is measurable.
+By {\bfseries Exercise 1.3.25.}(ii) for every $\varepsilon > 0$ there exists $M_n > 0$ such that $f1_{|x| \leq n}(x) \leq M_n$
+outside a measurable set $A_n$ with $m(A_n) \leq\varepsilon 2^{-(n + 1)}$. By the proof of Lusin's theorem, there
+exists a continuous function $f_n$ such that $|f1_{|x| \leq n}1_{|f| \leq M_n} - f_n| \leq \frac{\varepsilon}{2^{n - 1}}$
+for all $x$ outside outside a measurable set $B_n$ of measure at most $\varepsilon 2^{-(n + 1)}$. Let $E_n := \{
+x \in B(0, n) : |f(x) - f_n(x)| > \frac{\varepsilon}{2^{n - 1}}\}$, then $E_n \subset A_n \cup B_n$ which implies that
+$m(E_n) \leq m(A_n) + m(B_n) = \varepsilon 2^{-n}$. Set $E = \bigcup_{n = 1}^\infty E_n$, then $m(E) \leq \sum_{n = 1}
+^\infty m(E_n) \leq \varepsilon$, for any $x \in \mathbb{R}^d \setminus E$, one has that $x \in E_n^c, \forall n \geq 1$,
+which implies that $|f(x) - f_n(x)| \leq \frac{\varepsilon}{2^{n - 1}}$. Hence $\lim_{n \to \infty} f_n(x) = f(x)$ holds
+for any $x$ outside a measurable set of measure at most $\varepsilon$, the claim follows.
+
+Now we establish Lusin’s theorem for arbitrary measurable functions. By Egorov's theorem one has that $f_n$ converges
+uniformly to $f$ outside of $A$ with $m(A) \leq \varepsilon$ for arbitrary $\varepsilon > 0$. Therefore for any 
+bounded set subset $\mathbb{R}^d \setminus A$ one has that $f$ is the uniform limit of $f_n$ restricted on that set
+which implies that $f$ is continuous locally. Hence $f|_{\mathbb{R}^d \setminus A}$ is continuous.
+\end{proof}
+
+\begin{ex}[Littlewood-like principles]\end{ex}
+\begin{proof}
+(i) Since $f$ is absolutely integrable one may suppose that $f$ is unsigned measurable function by replacing $f$ with $|f|$.
+We find that $f1_{|x| \leq n} \leq f1_{|x| \leq n + 1} \leq f$ for all $n \in \mathbb{N}$, thus $\int_{\mathbb{R}^d}f(x)1_{|x| \leq n}
+(x)\,dx \leq \int_{\mathbb{R}^d} f(x)\,dx$, and by vertical truncation one has that $$\lim_{n \to \infty} \int_{\mathbb{R}^d}f(x)1_{|x| \leq n}
+(x)\,dx = \int_{\mathbb{R}^d}f(x)\,dx.$$ Therefore for every $\varepsilon > 0$ there exists $R \in \mathbb{N}$ such 
+that $\int_{\mathbb{R}^d \setminus B(0, R)} f(x)\,dx = \int_{\mathbb{R}^d}f(x)\,dx - \int_{\mathbb{R}^d} f(x)1_{|x| \leq R}\,dx \leq \varepsilon$.
+
+(ii) Note that $$
+m(\bigcap_{n = 1}^\infty \{x \in \mathbb{R}^d : |f(x)| > n\}) = m(\{x \in \mathbb{R}^d : |f(x)| = +\infty\}) = 0.
+$$Let $E \supset \bigcap_{n = 1}^\infty \{x \in \mathbb{R}^d : |f(x)| > n\}$ with $m(E) \leq \varepsilon$, then
+there exists at least one $N \in \mathbb{N}$ such that $E \supset \{x \in \mathbb{R}^d : |f(x)| > N\}$, that is,
+$f$ is locally bounded outside of a set $E$ with measure at most $\varepsilon$.
+\end{proof}
+\end{document}

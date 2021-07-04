@@ -1,0 +1,461 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath, amssymb, amsthm, mathrsfs, enumitem}
+\usepackage[hmargin = 1in, vmargin = 1in]{geometry}
+\title{Homework-6}
+\author{Haocheng Wang \and 2019011994}
+
+\newtheorem{ex}{Exercise}[subsection]
+\stepcounter{section}
+\setcounter{subsection}{3}
+\renewcommand{\proofname}{\noindent\bf Proof}
+\renewcommand\labelenumi{\roman}
+\renewcommand{\Re}{\mathrm{Re}\,}
+\renewcommand{\Im}{\mathrm{Im}\,}
+
+\begin{document}
+\maketitle
+(1)\begin{proof}
+Define the function $F_0, F_1, F_2, \dots: [0, 1] \to \mathbb{R}$ recursively as follow:\begin{enumerate}[label = \arabic*.]
+    \item Set $F_0(x) := x$ for all $x \in [0, 1]$.
+    \item For each $n = 1, 2, \dots$ in turn, define \[
+    F_n(x) := \begin{cases}
+        \frac{1}{2}F_{n - 1}(3x)    &\text{if}\ x \in [0, 1/3];\\
+        \frac{1}{2} &\text{if}\ x \in (1/3, 2/3);\\
+        \frac{1}{2} + \frac{1}{2}F_{n - 1}(3x - 2)  &\text{if}\ x \in [2/3, 1].
+    \end{cases}
+    \]
+\end{enumerate}
+It's obvious that $F_n (\forall n \geq 0)$ is continuous monotone non-decreasing function with $F_n(0) = 0, F_n(1) = 1$.
+Note that for any $x \in [0, 1]$, one has that $|F_1(x) - F_0(x)| \leq 1$, then 
+by induction\begin{align*}
+&|F_{n + 1}(x) - F_n(x)| = |\frac{1}{2}F_n(3x) - \frac{1}{2}F_{n - 1}(3x)| = \leq \frac{1}{2}2^{-(n - 1)} = 2^{-n}, \forall x \in [0, 1/3],\\
+&|F_{n + 1}(x) - F_n(x)| = |\frac{1}{2} + \frac{1}{2}F_n(3x - 2) - (\frac{1}{2} + \frac{1}{2}F_{n - 1}(3x - 2))|
+\leq  2^{-n}, \forall x \in [2/3, 1].
+\end{align*}
+Therefore $|F_{n + 1}(x) - F_n(x)| \leq 2^{-n}, \forall x \in [0, 1]$. Hence $F_n$ converge uniformly to a limit 
+$F: [0, 1] \to \mathbb{R}$, in particular $F$ is continuous non-decreasing. Further, $F$ satisfies that 
+$$
+F(\sum_{n = 1}^\infty a_n3^{-n}) = \sum_{n = 1}^\infty \frac{a_n}{2}2^{-n}, a_n \in \{0, 2\}.
+$$That is, $F$ converts base three expansions to base two expansions.
+
+Now we let $f(x) := F(x) + x, x \in [0, 1]$, which is a homeomorphism from $[0, 1]$ to $[0, 2]$. Denote $\mathcal{C}$ 
+be Cantor set, then one has that $f(\mathcal{C}) = [0, 1]$. \begin{enumerate}[label = (\alph*)]
+    \item There Exercise a non-Lebesgue measurable subset $F \subset [0, 1]$, one has that $f^{-1}(F)$ measure zero,
+    but is not Borel measurable, since for any Borel measurable set $B$ one has that $f(B)$ is Borel measurable.
+    \item Hence $(X, \mathcal{B}[X], m)$ is not complete.\qedhere
+\end{enumerate}
+\end{proof}
+
+(2)\ {\bfseries Exercise 1.4.2.}\begin{proof}
+We verify if $\mathcal{B} \downharpoonright_Y$ satisfies the three properties: \begin{enumerate}[label = (\roman*)]
+    \item (Empty set) $\emptyset = \emptyset \cap Y \in \mathcal{B} \downharpoonright_Y$.
+    \item (Complement) $\forall E \in \mathcal{B},\ Y \setminus (E \cap Y) = Y \cap (E^c \cup Y^c) = 
+    E^c \cap Y \in \mathcal{B} \downharpoonright_Y$.
+    \item (Finite unions) $\forall E, F \in \mathcal{B}, (E \cup Y) \cup (F \cup Y) = (E \cup F) \cup Y 
+    \in \mathcal{B} \downharpoonright_Y$.
+\end{enumerate}
+Hence $\mathcal{B} \downharpoonright_Y$ is indeed a Boolean Algebra on $Y$. In particular, if $Y$ is 
+$\mathcal{B}$-measurable, the intersection $E \cap Y$ is also $\mathcal{B}$-measurable for any $E \in \mathcal{B}$, thus
+$\mathcal{B} \downharpoonright_Y = \mathcal{B} \cap 2^Y$.
+\end{proof}
+
+(3) {\bfseries Exercise 1.4.4.}\begin{proof}
+Suppose that $\mathcal{B} = \{B_1, \dots, B_k\}$, then by Venn diagram argument $E_1, \dots, E_k$ partition $X$ 
+into $2^k$ sets, each of which is an intersection of $E_1, \dots, E_k$ and their complements. Throw away any sets 
+that are empty and we obtain $n$ non-empty disjoint set $A_1, \dots, A_n$. Then for each $E_i \in \mathcal{B}$, 
+we can write $E_i = \bigcup_{j \in J_i} A_j$ where $J_i \subset \{1, \dots, n\}$. Hence $\mathcal{B}$ is an atomic 
+algebra, and since all of $A_i$ are contained in $\mathcal{B}$ and are pairwisely disjoint, the cardinality of $\mathcal{B}$
+is $2^n$.
+\end{proof}
+
+(4) {\bfseries Exercise 1.4.6.}\begin{proof}
+We verify if $\bigwedge_{\alpha \in I} \mathcal{B}_\alpha$ satisfies the three properties of Boolean algebra:
+\begin{enumerate}[label = (\roman*)]
+    \item (Empty set) $\emptyset \in \mathcal{B}_\alpha, \forall \alpha \in I \Rightarrow \emptyset 
+    \in \bigwedge_{\alpha \in I} \mathcal{B}_\alpha$.
+    \item (Complement) $E \in \bigwedge_{\alpha \in I} \mathcal{B}_\alpha \Rightarrow E \in \mathcal{B}_\alpha, 
+    \forall \alpha \in I \Rightarrow E^c \in \mathcal{B}_\alpha, \forall \alpha \in I \Rightarrow E^c \in 
+    \bigwedge_{\alpha \in I} \mathcal{B}_\alpha$.
+    \item (Finite unions) $E, F \in \bigwedge_{\alpha \in I} \mathcal{B}_\alpha \Rightarrow E, F \in \mathcal{B}_\alpha,
+    \forall \alpha \in I \Rightarrow E \cup F \in \mathcal{B}_\alpha, \forall \alpha \in I \Rightarrow E \cup F \in
+    \bigwedge_{\alpha \in I} \mathcal{B}_\alpha$.
+\end{enumerate}
+Hence $\bigwedge_{\alpha \in I} \mathcal{B}_\alpha$ is still a Boolean algebra. For any Boolean algebra $\mathcal{B} \subset 
+\mathcal{B}_\alpha, \forall \alpha \in I$, one has that $\mathcal{B} \subset \bigwedge_{\alpha \in I} \mathcal{B}_\alpha$,
+thus $\bigwedge_{\alpha \in I} \mathcal{B}_\alpha$ is the finest Boolean algebra that is coarser than all $\mathcal{B}_\alpha$.
+\end{proof}
+
+(5) {\bfseries Exercise 1.4.8.}\begin{proof}
+By Venn diagram argument, the $n$ sets in $\mathcal{F}$ partition $X$ into $2^n$ disjoint sets. Throw away any sets 
+that are empty and we obtain $k$ non-empty disjoint set $A_1, \dots, A_k$, where $0 \leq k \leq 2^n$. Then we have that
+$\langle \mathcal{F} \rangle_{\mathrm{bool}} = \mathcal{A}((A_\alpha)_{1 \leq \alpha \leq k})$, for all of $A_i$'s
+are contained in $\langle \mathcal{F} \rangle_{\mathrm{bool}}$. Further, one has that 
+$|\langle \mathcal{F} \rangle_{\mathrm{bool}}| = 2^k \leq 2^{2^n}$. 
+
+Consider the discrete cube $X = \{0, 1\}^n$, and let $$
+\mathcal{F} = \{\{(1, 0, \dots, 0)\}, \{(0, 1, \dots, 0)\}, \dots, \{(0, \dots, 1)\}\}
+$$and thus $|\mathcal{F}| = n$, it's obvious that $|\langle \mathcal{F} \rangle_{\mathrm{bool}}| = 2^{2^n}$.
+\end{proof}
+
+(6) {\bfseries Exercise 1.4.9} (Recursive discription of a generated Boolean algebra){\bfseries .}\begin{proof}
+First we verify if $\bigcup_{n = 0}^\infty \mathcal{F}_n$ satisfies the three properties of Boolean algebra:
+\begin{enumerate}[label = (\roman*)]
+    \item (Empty set) For each $n \geq 1$, note that the empty union $\emptyset$ of sets in $\mathcal{F}_{n - 1}$
+    is contained in $\mathcal{F}_n$, thus $\emptyset \in \bigcup_{n = 0}^\infty \mathcal{F}_n$.
+    \item (Complement) Note that $\mathcal{F}_{n - 1} \subset \mathcal{F}_n, \forall n \geq 1$, so any 
+    $E \in \bigcup_{n = 0}^\infty \mathcal{F}_n$, there exists $N$ such that $E \in \mathcal{F}_N$, hence $E^c \in \mathcal{F}_N$
+    and thus $E^c \in \bigcup_{n = 0}^\infty \mathcal{F}_n$.
+    \item (Finite unions) For any $E, F \in \bigcup_{n = 0}^\infty \mathcal{F}_n$, there exists $N \in \mathbb{N}$
+    such that $E, F \in \mathcal{F}_N$. Since both $E$ and $F$ are finite unions of sets in $\mathcal{F}_{N - 1}$, 
+    $E \cup F$ is also finite union of sets in $\mathcal{F}_{N - 1}$, $E \cup F \in \bigcup_{n = 0}^\infty \mathcal{F}_n$.
+\end{enumerate}
+Hence $\bigcup_{n = 0}^\infty \mathcal{F}_n$ is exactly a Boolean algebra. For any set $E \in \bigcup_{n = 0}^\infty \mathcal{F}_n$,
+it's the finite union of sets contained in $\mathcal{F}_0$, thus $E \in \langle F \rangle_{\mathrm{bool}}$, that is 
+$\bigcup_{n = 0}^\infty \mathcal{F}_n \subset \langle F \rangle_{\mathrm{bool}}$. By definition, we obtain that
+$\langle F \rangle_{\mathrm{bool}} = \bigcup_{n = 0}^\infty \mathcal{F}_n$.
+\end{proof}
+
+(7) {\bfseries Exercise 1.4.11.}\begin{proof}
+By {\bfseries Lemma 1.2.13.}, Lebesgue algebra is $\sigma$-algebra. Since the countable union of lebesgue null sets 
+is still null set, and thus its complement, one has that null algebra $\mathcal{N}(\mathbb{R}^d)$ is also $\sigma$-algebra.
+
+Let $E_n = [n, n + 1]$ be elementary sets, then $\bigcup_{n = 0}^\infty E_n = [0, +\infty] \not\in \overline
+{\mathcal{E}(\mathbb{R})}$, hence elementary algebra $\overline{\mathcal{E}(\mathbb{R})}$ is not $\sigma$-algebra.
+Now we let $F_n = [n - 2^{-(n + 1)}, n + 2^{-(n + 1)}] \in \overline{\mathcal{J}(\mathbb{R})}$, and set $F = \bigcup_{n = 0}^\infty F_n$.
+Then one has that $m_{*, (J)} = 1, m^{*, (J)} = +\infty$, so $F$ is not Jordan measurable, $\overline{\mathcal{J}(\mathbb{R})}$
+is not $\sigma$-algebra.
+\end{proof}
+
+(8) {\bfseries Exercise 1.4.13.}\begin{proof}
+Similar to {\bfseries Exercise 1.4.6.}, the only remained task is to show that the union of countable sets in 
+$\bigwedge_{\alpha \in I} \mathcal{B}_\alpha$ is still in it. In fact, given $\{E_n\}_{n \geq 1}$ as an sequence of sets in 
+$\bigwedge_{\alpha \in I} \mathcal{B}_\alpha$, one has that $E_n \in \mathcal{B}_\alpha, \forall n \geq 1, \alpha \in I$,
+then $\bigcup_{n = 1}^\infty E_n \in \mathcal{B}_\alpha, \forall \alpha \in I$, thus $\bigcup_{n = 1}^\infty E_n 
+\in \bigwedge_{\alpha \in I} \mathcal{B}_\alpha$.
+\end{proof}
+
+(9) {\bfseries Exercise 1.4.15} (Recursive discription of a generated $\sigma$-algebra){\bfseries .}\begin{proof}
+We verify if $\bigcup_{\alpha \in \omega_1} \mathcal{F}_\alpha$ satisfies the three properties of $\sigma$-algebra:
+\begin{enumerate}[label = (\roman*)]
+    \item (Empty set) By definition it's obvious.
+    \item (Complement) For any $E \in \bigcup_{\alpha \in \omega_1} \mathcal{F}_\alpha$, if $E \in \mathcal{F}_\alpha$,
+    where $\alpha$ is countable ordinal, then there exists a countable ordinal $\beta$ such that $\alpha$ is the successor
+    of $\beta$, i.e., $\alpha = \beta + 1$. Then $E$ is either the union of an at most countable number of sets in
+    $\mathcal{F}_\beta$, or the complement of such a union, which implies that 
+    $E^c \in \mathcal{F}_\alpha \subset \bigcup_{\alpha \in \omega_1} \mathcal{F}_\alpha$.
+    If $E \in \mathcal{F}_\gamma$ where $\gamma$ is countable limit ordinal, we have $\mathcal{F}_\gamma = \bigcup_{\beta \in \gamma}\mathcal{F}_\beta$,
+    thus there exists at least one $\beta$ such that $E \in \mathcal{F}_\beta$ where $\beta$ is countable ordinal,
+    similarly $E^c \in \bigcup_{\alpha \in \omega_1} \mathcal{F}_\alpha$.
+    \item (Countable unions) By argument similar to (ii), for any $\{E_n\}_{n \geq 1}$ in $\bigcup_{\alpha \in \omega_1} \mathcal{F}_\alpha$,
+    there exists $\alpha \in \omega_1$ (maybe countable limit) such that $\mathcal{F}_\alpha \ni E_n, \forall n \geq 1$,
+    hence $\bigcup_{n = 1}^\infty E_n \in \bigcup_{\alpha \in \omega_1} \mathcal{F}_\alpha$.
+\end{enumerate}
+By above argument, we find that any $E \in \bigcup_{\alpha \in \omega_1} \mathcal{F}_\alpha$ is a countable union 
+of sets in $\mathcal{F}$, which implies that $\langle \mathcal{F} \rangle \supset \bigcup_{\alpha \in \omega_1} \mathcal{F}_\alpha$.
+Hence $\langle \mathcal{F} \rangle = \bigcup_{\alpha \in \omega_1} \mathcal{F}_\alpha$.
+\end{proof}
+
+(10) {\bfseries Exercise 1.4.20.}\begin{proof}\ 
+\begin{enumerate}[label = (\roman*)]
+    \item (Monotonicity) Note that $F = E \cup (F \setminus E)$ where $E$ and $F \setminus E$ are disjoint, then
+    one has $\mu(E) \leq \mu(E) + \mu(F \setminus E) = \mu(F)$.
+    \item (Finite additivity) By we assume that the claim follows for $k - 1$ disjoint sets, then $\bigcup_{n = 1}^{k - 1}E_n$
+    and $E_k$ are two disjoint $\mathcal{B}$-measurable sets, by induction$$
+    \mu(E_1 \cup \cdots \cup E_k) = \mu(E_1 \cup \cdots \cup E_{k - 1}) + \mu(E_k) = \mu(E_1) + \cdots \mu(E_k).
+    $$
+    \item (Finite subadditivity) By finite additivity and monotonicity one has $$
+    \mu(E_1 \cup E_2) = \mu((E_1 \setminus E_2) \cup E_2) = \mu(E_1 \setminus E_2) + \mu(E_2) \leq \mu(E_1) + \mu(E_2),
+    $$ and by induction one then has the case of $k$ sets.
+    \item (Inclusion-exclusion for two sets) Directly verify:\[
+    \mu(E \cup F) + \mu(E \cap F) = \mu(E \cap F^c) + m(F) + m(E \cap F) = \mu(E) + \mu(F).\qedhere
+    \]
+\end{enumerate}
+\end{proof}
+
+(11) {\bfseries Exercise 1.4.22} (Countable combinations of measures){\bfseries .}\begin{proof}\ 
+\begin{enumerate}[label = (\roman*)]
+    \item Obvious.
+    \item Denote $\mu = \sum_{n = 1}^\infty \mu_n$, then $\mu(\emptyset) = \sum_{n = 1}^\infty \mu_n(\emptyset) = 0$. 
+    By Tonelli's theorem $$
+    \mu(\bigcup_{k = 1}^\infty E_k) = \sum_{n = 1}^\infty \mu_n(\bigcup_{k = 1}^\infty E_k) = \sum_{n = 1}^\infty
+    \sum_{k = 1}^\infty \mu_n(E_k) = \sum_{k = 1}^\infty \sum_{n = 1}^\infty \mu_n(E_k) = \sum_{k = 1}^\infty \mu(E_k),
+    $$whenever $E_k$'s are $\mathcal{B}$-measurable set.\qedhere
+\end{enumerate}
+\end{proof}
+
+(12) {\bfseries Exercise 1.4.23.}\begin{proof}\ 
+\begin{enumerate}[label = (\roman*)]
+    \item (Countable subadditivity) By similar argument one can easily conclude the monotonicity, hence $$
+    \mu(\bigcup_{n = 1}^\infty E_n) = \mu(E_1 \setminus \bigcup_{n = 2}^\infty E_n)
+    + \mu(\bigcup_{n = 2}^\infty E_n) \leq \mu(E_1) + \mu(\bigcup_{n = 2}^\infty E_n) = \sum_{n = 1}^\infty \mu(E_n).
+    $$
+    \item (Upwards monotone convergence) Express $\bigcup_{n = 1}^\infty E_n$ as the countable union of disjoint sets 
+    $\bigcup_{n = 1}^\infty (E_n \setminus E_{n - 1})$, by countable additivity one has that $$
+    \mu\left( \bigcup_{n = 1}^\infty E_n \right) = \mu\left( \bigcup_{n = 1}^\infty (E_n \setminus E_{n - 1}) \right)
+    = \sum_{n = 1}^\infty \mu(E_n \setminus E_{n - 1}) = \lim_{N \to \infty} \sum_{n = 1}^N \mu(E_n \setminus E_{n - 1}).
+    $$Note that $\bigcup_{n = 1}^N (E_n \setminus E_{n - 1}) = E_N$, thus $$
+    \mu\left( \bigcup_{n = 1}^\infty E_n \right) = \lim_{N \to \infty} \sum_{n = 1}^N \mu(E_n \setminus E_{n - 1})
+    = \lim_{n \to \infty} \mu(E_n) = \sup_n \mu(E_n).
+    $$
+    \item (Downwards monotone convergence) We can write each $E_n$ as a disjoint union $$
+    E_n = \bigcup_{k = n}^\infty (E_k \setminus E_{k + 1}) \cup \bigcap_{k = 1}^\infty E_k.
+    $$Then by additivity,$$
+    \mu(E_n) = \sum_{k = n}^\infty \mu(E_k \setminus E_{k + 1}) + \mu\Big(\bigcap_{k = 1}^\infty E_k \Big)
+    $$The statement that at least one of the $m(E_n)$ is finite ensures that series $\sum_{k = n}^\infty \mu(E_k \setminus E_{k + 1})$ converges
+    and $\mu(\bigcap_{k = 1}^\infty B_k)$ is finite. Thus,\[
+    \inf_n \mu(E_n) = \lim_{n \to \infty} \mu(E_n) = \lim_{n \to \infty} \sum_{k = n}^\infty \mu(E_k \setminus E_{k + 1}) + 
+    \mu\Big(\bigcap_{k = 1}^\infty E_k \Big) = \mu\Big(\bigcap_{k = 1}^\infty E_k \Big).\qedhere
+    \]
+\end{enumerate}
+\end{proof}
+
+(13) {\bfseries Exercise 1.4.26} (Completion){\bfseries .}\begin{proof}
+Let $\mathcal{N}$ be the set of all $\mathcal{B}$-null set. Define $
+\mathcal{\overline{B}} := \{E \cup F : E \in \mathcal{B}, F \subset N \in \mathcal{N}\}.
+$Now we show that $\mathcal{\overline{B}}$ is a $\sigma$-algebra: \begin{enumerate}[label = (\roman*)]
+    \item It's obvious that $\emptyset \in \mathcal{\overline{B}}$.
+    \item For any $E \cup F \in \mathcal{\overline{B}}$, there exists a $\mathcal{B}$-null set $N \supset F$, then \begin{align*}
+    (E \cup F)^c &= E^c \cap F^c = E^c \cap (N \setminus (N \setminus F))^c = E^c \cap (N \cap (N \setminus F)^c)^c \\
+    &= E^c \cap (N^c \cup (N \setminus F)) = (E^c \cap N^c) \cup (E^c \cap (N \setminus F)) \in \mathcal{\overline{B}}.
+    \end{align*}
+    \item Note that $\bigcup_{n = 1}^\infty (E_n \cup F_n) = \bigcup_{n = 1}^\infty E_n \cup \bigcup_{n = 1}^\infty F_n$,
+    where $\bigcup_{n = 1}^\infty E_n \in \mathcal{B}$, and $\bigcup_{n = 1}^\infty F_n \subset \bigcup_{n = 1}^\infty N_n$
+    with $\mu(\bigcup_{n = 1}^\infty N_n) = \sum_{n = 1}^\infty \mu(N_n) = 0$. Hence $\bigcup_{n = 1}^\infty (E_n \cup F_n) 
+    \in \mathcal{\overline{B}}$.
+\end{enumerate}
+Hence $\mathcal{\overline{B}}$ is exactly a $\sigma$-algebra. Now we let $\overline{\mu}(E \cup F) := \mu(E)$,
+we show that $\overline{\mu}$ is well-defined. Let $E \cup F = E' \cup F'$, note that $(E \cup F) \cup (N \cup N')
+= (E' \cup F') \cup (N \cup N')$ i.e., $E \cup N \cup N' = E' \cup N \cup N'$, then $$
+\mu(E) \leq \mu(E \cup N \cup N') = \mu(E' \cup N \cup N') \leq \mu(E') + \mu(N \cup N') = \mu(E'),
+$$and so is the converse inequality one has $\overline{\mu}(E \cup F) = \mu(E) = \mu(E') = \overline{\mu}(E' \cup F')$, 
+$\overline{\mu}$ is well-defined. And it's easy to show that $\overline{\mu}$ is a countable measure, and it's
+obvious that $(X, \mathcal{\overline{B}},\overline{\mu})$ is complete.
+
+Let $(X, \mathcal{\tilde{B}}, \tilde{\mu})$ be another complete refinement of $(X, \mathcal{B}, \mu)$, one has that
+$\tilde{\mu}\downharpoonright_\mathcal{B} = \mu$. For any $E \cup F \in \mathcal{\overline{B}}$, there exists a null
+set $N \supset F$, then $\tilde{\mu}(N) = \mu(N) = 0$. Since $(X, \mathcal{\tilde{B}}, \tilde{\mu})$ is complete, 
+one has $F \in \tilde{\mathcal{B}}$, and $E \in \mathcal{B} \subset \mathcal{\tilde{B}}$, hence $E \cup F \in \mathcal{\tilde{B}}$,
+$\overline{\mathcal{B}} \subset \mathcal{\tilde{B}}$, that is $(X, \mathcal{\overline{B}}, \overline{\mu})$ is the 
+coarsest refinement of $(X, \mathcal{{B}}, {\mu})$. 
+
+Now suppose that $\nu$ is another measure on $\overline{\mathcal{B}}$ satisfying that 
+$\nu \downharpoonright_\mathcal{B} = \mu \downharpoonright_\mathcal{B}$, then one has that \begin{align*}
+\overline{\mu}(E \cup F) = \mu(E) = \nu(E) \leq \nu(E \cup F) \leq \nu(E \cup N) = \mu(E \cup N) = \mu(E) = 
+\overline{\mu}(E \cup F).
+\end{align*}
+Hence $\mu = \nu$, the extension is unique.
+\end{proof}
+
+(14) {\bfseries Exercise 1.4.27.} \begin{proof}
+Given $E \in \mathcal{L}[\mathbb{R}^d]$, for any $n \geq 1$, there exists a compact set $K_n \subset E$ 
+such that $m(E \setminus K_n) \leq \frac{1}{n}$. Let $K = \bigcup_{n = 1}^\infty K_n$ be a $F_\sigma$ set, thus 
+$K \in \mathcal{B}[\mathbb{R}^d]$, then $E = K \cup (E \setminus K)$ where $m(E \setminus K) = 0$. That implies that
+$E \in \overline{\mathcal{B}}[\mathbb{R}^d] \Rightarrow \mathcal{L}[\mathbb{R}^d] \subset \overline
+{\mathcal{B}}[\mathbb{R}^d]$. By {\bfseries Exercise 1.4.26}, $\mathcal{L}[\mathbb{R}^d]$ is the completion of 
+$\overline{\mathcal{B}}[\mathbb{R}^d]$.
+\end{proof}
+
+(15) {\bfseries Exercise 1.4.29}\begin{proof}
+Let $(X, \mathcal{B})$ be a measurable space.\begin{enumerate}[label = (\roman*)]
+    \item Suppose that $\{x \in X : f(x) > \lambda\}$ is measurable, note that\begin{align*}
+    &\{x \in X : f(x) \geq \lambda\} = \bigcap_{\mathbb{Q}^+ \ni \lambda' < \lambda}\{x \in X : f(x) > \lambda'\},
+    \forall \lambda \in (0, +\infty],\\
+    &\{x \in X : f(x) > \lambda\} = \bigcup_{\mathbb{Q}^+ \ni \lambda' > \lambda} \{x \in X : f(x) \geq \lambda'\},
+    \forall \lambda \in [0, +\infty).
+    \end{align*}
+    And by similar argument $\{x \in X : f(x) < \lambda\}, \{x \in X : f(x) \leq \lambda\}$ are $\mathcal{B}$-measurable.
+    Then for any intervals $I \subset [0, \infty)$ which can be expressed as the intersection of two half-intervals,
+    $f^{-1}(I)$ is $\mathcal{B}$-measurable. Since any open sets are the countable unions of open intervals, $f^{-1}(U)$
+    is $\mathcal{B}$-measurable and hence $f$ is $\mathcal{B}$-measurable(Similarly one can prove the complex-valued case).
+    The converse claim is obvious for $(\lambda, \infty]$ is an open set.
+    \item $1_E$ is $\mathcal{B}$-measurable if and only if $E_\lambda := \{x \in X : f(x) > \lambda\}\ (\lambda \in [0, +\infty])$ 
+    is $\mathcal{B}$-measurable. Note that $E_\lambda = E, \forall \lambda \in [0, 1)$ and $E_\lambda = \emptyset, 
+    \forall \lambda \in [1, +\infty]$ is $\mathcal{B}$-measurable. Hence $1_E$ is $\mathcal{B}$-measurable if and 
+    only if $E$ itself is $\mathcal{B}$-measurable.
+    \item Since any Borel-measurable subset $E$ of $[0, +\infty]$ or $\mathbb{C}$ can be generated by open subsets
+     $U$ of $[0, +\infty]$ or $\mathbb{C}$ (By {\bfseries Exercise 1.4.15.}), the claim follows.
+    \item Suppose that $f = u + iv$ is measurable, Let $R = I_1 \times iI_2$ be a rectangle in $\mathbb{C}$ where $I_1, I_2$ are both closed interval in $\mathbb{R}$, 
+    then $f^{-1}(R) = u^{-1}(I_1) \cap v^{-1}(iI_2)$. Both $u^{-1}(I_1)$ and $v^{-1}(iI_2)$ are measurable, 
+    hence $f^{-1}(R)$ is measurable. Note every open set $U \subset \mathbb{C}$ can be written as countable union of such rectangles, 
+    we obtain that $f^{-1}(U)$ is measurable for all open subsets of $\mathbb{C}$. 
+    Now we assume that $f$ is measurable, 
+    let $\mathrm{pr}_i: \mathbb{C} \to \mathbb{R}$ be the projections such that $\mathrm{pr}_1(x) = \Re x, \mathrm{pr}_2(x)
+= \Im x, \forall x \in \mathbb{C}$. Then one has that $u = \mathrm{pr}_1 \circ f, v = \mathrm{pr}_2  \circ f$. Therefore give any 
+open subset $O \subset \mathbb{R}$, $u^{-1}(O) = f^{-1}(\mathrm{pr}_1^{-1}(O))$ is Lebesgue measurable for $\mathrm{pr}_1^{-1}(O)$
+is open in $\mathbb{C}$. And $v^{-1}(O)$ is also measurable. The claim follows.
+    \item By (vi) $f, f_+, f_-$ are measurable if and only if they are pointwise limits of sequences of simple functions.
+    Suppose that $\lim_{n \to \infty} f_n(x) = f(x), \forall x \in X$, where $\{f_n\}$ are sequence of simple function.
+    And the positive and negative parts of $f$
+are controlled by \begin{gather*}
+|f_+(x) - (f_n)_+(x)| = |\frac{f + |f|}{2} - \frac{f_n + |f_n|}{2}| \leq \frac{1}{2}(||f(x)| - |f_n(x)||
++ |f(x) - f_n(x)|),\\
+|f_-(x) - (f_n)_-(x)| = |\frac{|f| - f}{2} - \frac{|f_n| - f_n}{2}| \leq \frac{1}{2}(||f(x)| - |f_n(x)||
++ |f(x) - f_n(x)|).
+\end{gather*}
+Hence both $f_+$ and $f_-$ are measurable. Conversely, assume there exists two
+sequences of unsigned simple functions $\{g_n\}, \{h_n\}$ such that $\lim_{n \to \infty} g_n(x) = f_+(x), 
+\lim_{n \to \infty} h_n(x) = f_-(x), \forall x \in \mathbb{R}^d$. Let $f_n(x) = g_n(x) - h_n(x)$ be simple functions,
+then $$
+|f(x) - f_n(x)| = |f_+(x) - f_-(x) - g_n(x) + h_n(x)| \leq |f_+(x) - g_n(x)| + |f_-(x) - h_n(x)|, \forall x \in X.
+$$Hence $\lim_{n \to \infty} f_n(x) = f(x) ,\forall  x \in X$.
+    \item Suppose that $\lim_{n \to \infty} f_n(x) = f(x)$, then one has $$
+    f(x) = \lim_{n \to \infty} f_n(x) = \limsup_{n \to \infty} f_n(x) = \inf_{N > 0}\sup_{n \geq N} f_n(x).
+    $$This implies that $$
+    \{x \in X : f(x) > \lambda\} = \bigcup_{M > 0}\bigcap_{N > 0}\bigcup_{n \geq N}\{x \in X : 
+    f_n(x) > \lambda + \frac{1}{M}\},
+    $$which is measurable set, hence $f$ is measurable. For complex-valued case, it suffices to show that the real part
+    and the imaginary part of $f$ are measurable, and in turn show that $(\Re f)_+, (\Re f)_-, (\Im f)_+, (\Im f)_-$
+    are measurable, and this could be ensured for $(\Re f_n)_+, (\Re f_n)_-, (\Im f_n)_+, (\Im f_n)_-$ converges to 
+    them respectively.
+    \item Since $\phi$ is continuous, for any open subset $U$ of $\mathbb{C}$ one has $\phi^{-1}(U)$ is open, thus 
+    $(\phi \circ f)^{-1}(U) = f^{-1}(\phi^{-1}(U))$ is measurable.
+    \item Suppose that $f, g$ are measurable, then there exists two sequences of simple functions $\{f_n\}, \{g_n\}$
+    that converge to them respectively. Hence \[
+        \lim_{n \to \infty} (f_n(x) + g_n(x)) = f(x), \lim_{n \to \infty} f_n(x)g_n(x) = f(x)g(x). \]
+\end{enumerate}
+\emph{Note}: One may define simple function $f_n := \min(n, 2^{-n}\lfloor 2^n f \rfloor)$ for measurable function $f$.
+\end{proof}
+
+(16) {\bfseries Exercise 1.4.31} (Egorov's theorem){\bfseries .}\begin{proof}
+Note that $$
+\bigcap_{N = 0}^\infty E_{N,m} = \emptyset,\ \ E_{N,m} := \{x \in X : |f_n(x) - f(x)| > 1 / m\ \text{for some}\ n \geq N\}.
+$$
+And it's clear that $E_{N, m}$ are measurable, and are non-increasing in $N$. Since $\mu(X) < +\infty$, by downwards monotone 
+convergence, one has that$$
+\lim_{N \to \infty} \mu(E_{N, m}) = \mu(\lim_{N \to \infty} E_{N, m}) = \mu(\bigcap_{N = 0}^\infty E_{N, m}) = 0.
+$$In particular, for any $m \geq 1$, we can find $N_m$ such that $$
+\mu(E_{N, m}) \leq \frac{\varepsilon}{2^m},\ \ \ \forall N \geq N_m.
+$$Let $E := \bigcup_{m = 1}^\infty E_{N_m, m}$, then $E$ is measurable and $\mu(E) \leq \varepsilon$. By definition, 
+$f_n$ converge to $f$ uniformly outside of $E$.
+\end{proof}
+
+(17) {\bfseries Exercise 1.4.33.} (Basic properties of the simple integral) \begin{proof}
+    Express $f = \sum_{i = 1}^n a_i1_{E_i}, g = \sum_{j = 1}^m b_j1_{F_j}$.
+\begin{enumerate}[label = (\roman*)]
+    \item (Monotonicity) We decompose $g$ as $g = (g - f) + f$, since one can always express $E_i, F_j$ as the union of 
+    $A_1, \dots, A_m, 0 \leq m \leq 2^{m + n}$, where $\{A_i\}$ are pairwisely disjoint and are the intersections of some 
+    of the $E_1, \dots, E_n, F_1, \dots, F_m$, the function $f - g$ is also an unsigned simple function. 
+    then by finite additivity we establish that $\mathrm{Simp}\int_{\mathbb{R}^d} f(x)\,d\mu \leq \mathrm{Simp}\int_{\mathbb{R}^d} g(x)\,d\mu$.
+    \item (Compatibility with measure) $\mathrm{Simp} \int_X 1_E \,d\mu = 1\cdot \mu(1_E^{-1}(\{1\})) = \mu(E)$.
+    \item (Homogeneity) Directly verify\begin{align*}
+    \mathrm{Simp}\int_X cf\,d\mu = \sum_{i = 1}^n ca_i\mu(f^{-1}(\{ca_i\})) = c\sum_{i = 1}^n a_i\mu(f^{-1}(\{a_i\}))
+    = c\times \mathrm{Simp}\int_X f\,d\mu.
+    \end{align*}
+    \item (Finite additivity) Note $f + g = \sum_{i = 1}^n a_i1_{E_i} + \sum_{j = 1}^m b_j1_{F_j}$ is also simple unsigned function. By the 
+    well-definedness of simple integral, \begin{align*}
+    \mathrm{Simp}\int_X f + g\,d\mu = \sum_{i = 1}^n a_i m(E_i) + \sum_{j = 1}^m b_jm(F_j) =
+    \mathrm{Simp}\int_X f dx + \mathrm{Simp}\int_{\mathbb{R}^d} g\,d\mu.
+    \end{align*}
+    \item (Insensitivity to refinement) Since both $\mathcal{B}$ and $\mathcal{B}'$ are atomic, suppose they partition $X$ into atoms $A_1, \dots, A_n$ and
+    $B_1, \dots, B_m$. Since $f$ is $\mathcal{B}$-measurable, one can write $f = \sum_{i = 1}^n c_i1_{A_i}$. Note that
+    $A_i \in \mathcal{B}'$, so $A_i = \bigcup_{j \in J_i} B_j$, where $J_i$ are pairwisely disjoint. Hence 
+    $f = \sum_{i = 1}^n\sum_{j \in J_i} c_i1_{B_j}$, where index $j$ ranges over $\{1, \dots, m\}$, which implies that
+    $f$ is also $\mathcal{B}'$-measurable. Therefore$$
+    \mathrm{Simp}\int_X f\, \mathrm{d}\mu = \sum_{i = 1}^n c_i\mu(A_i) = \sum_{i = 1}^n c_i\mu'(A_i) = 
+    \sum_{i = 1}^n c_i\sum_{j \in J_i} \mu'(B_j) = \mathrm{Simp}\int_X f\, \mathrm{d}\mu'.
+    $$
+    \item (Almost everywhere equivalence) Since $f$ and $g$ agree almost everywhere, the set $A := \{x \in X \mid f(x) \ne g(x)\}$
+    has measure zero. Let $
+    \tilde{f} := \sum_{i = 1}^n a_i1_{E_i \setminus A}, \tilde{g}:= \sum_{j = 1}^m  b_j1_{F_j \setminus A}
+    $, then one has that $\tilde{f} = \tilde{g}, \forall x \in X$. And we note that $\mu(E_i \setminus A) = \mu(E_i)$,
+    $\mu(F_j \setminus A) = \mu(F_j)$, we have that $\mathrm{Simp}\int_X f(x)\,d\mu = \mathrm{Simp}\int_{\mathbb{R}^d} g(x)\,d\mu$.
+    \item (Finiteness) Since $\mathrm{Simp}\int_X f \,d\mu = \sum_{i = 1}^n a_i\mu(f^{-1}(\{a_i\})) < \infty$, each
+    term $a_i\mu(f^{-1}(\{a_i\})) < \infty$, which implies that either $a_i < \infty, \mu(f^{-1}(\{a_i\})) < \infty$ 
+    or $\mu(f^{-1}(\{\infty\})) = 0$. Hence $f$ is finite almost everywhere, and is supported on a set of finite measure.
+    \item (Vanishing) If $f$ is zero almost everywhere, then $f$ can be expressed as $f = \sum_{i = 1}^n c_i1_{E_i}$,
+    $c_i > 0$
+    where $E_i$ are measurable sets and the union $\bigcup_{i = 1}^n E_i$ has measure zero. Then by the 
+    definition of the simple integral we have $\mathrm{Simp}\int_X f\,d\mu = 0$.  Now we assume that
+    $\mathrm{Simp}\int_X f\,d\mu = 0$, by definition $\sum_{i = 1}^n c_i\mu(E_i) = 0$, if there exists 
+    an $i$ such that $c_i > 0$ and $\mu(E_i) > 0$, then $\mathrm{Simp}\int_X f \,d\mu \geq c_i\mu(E_i) > 0$,
+    this contradiction finish the proof.\qedhere
+\end{enumerate}
+\end{proof}
+
+(18) {\bfseries Exercise 1.4.35.} (Easy properties of the unsigned integral) \begin{proof}\ 
+\begin{enumerate}[label = (\roman*)]
+    \item (Almost everywhere equivalence) The claim implies that $f \leq g$ and $g \leq f$ holds almost everywhere, 
+    thus by monotonicity one has that $\int_X f \,d\mu \leq \int_X g \,d\mu$ and $\int_X f \,d\mu \geq \int_X g \,d\mu$.
+    \item (Monotonicity) Since for every unsigned simple function satisfying $0 \leq h \leq f$, it also satisfies that
+    $0 \leq h \leq g$, hence $\int_X f \,d\mu \leq \int_X g \,d\mu$.
+    \item (Homogeneity) Note that $$
+    c\int_X f \,d\mu = c\sup_{0 \leq g \leq f} \mathrm{Simp}\int_X g\,d\mu
+    = \sup_{0 \leq g \leq f} \mathrm{Simp}\int_X cg\,d\mu,
+    $$Since $0 \leq c\cdot g(x) \leq c\cdot f(x)$, one has that $c\int_X f \,d\mu \leq 
+    \int_X cf \,d\mu$. Now we prove the reverse inequality, if $c = 0$, the case is trivial;
+    we assume that $c > 0$, then for any $g \leq cf$, one has that $\frac{1}{c}g \leq f$, hence \begin{multline*}
+    \int_X cf \,d\mu = \sup_{0 \leq g \leq cf} \mathrm{Simp}\int_X g \,d\mu
+    = c \sup_{0 \leq g \leq cf} \mathrm{Simp}\int_X \frac{1}{c} g \,d\mu \leq
+    c \sup_{0 \leq h \leq f} \mathrm{Simp}\int_X h \,d\mu = c\int_X f \,d\mu.
+    \end{multline*}
+    Thus we have that $\int_X cf \,d\mu = c\int_X f \,d\mu$.
+    \item (Superadditivity) For every $\varepsilon > 0$, there exists two unsigned simple function $f', g'$ such that 
+    $0 \leq f' \leq f, 0 \leq g' \leq g$ a.e., and satisfies that $$
+    \mathrm{Simp}\int_X f'\,d\mu > \int_X f \,d\mu - \frac{\varepsilon}{2},\ \ 
+    \mathrm{Simp}\int_X g'\,d\mu > \int_X g \,d\mu - \frac{\varepsilon}{2}.
+    $$It's clear that $0 \leq f' + g' \leq f + g$ a.e., thus $$
+    \int_X f + g \,d\mu \geq \mathrm{Simp}\int_X f' + g' \,d\mu\geq
+    \int_X f \,d\mu + \int_X g \,d\mu - \varepsilon.
+    $$Send $\varepsilon \to 0$ and the claim follows.
+    \item (Compatibility with the simple integral) Since $0 \leq f \leq f$, then $\mathrm{Simp}\int_X f \,d\mu\leq
+    \int_X f \,d\mu$. Conversely, by the monotonicity of simple integral, one has that 
+    $\mathrm{Simp}\int_X g \,d\mu \leq \mathrm{Simp}\int_{\mathbb{R}^d} f \,d\mu, \forall 0 \leq g \leq f$.
+    Hence $ \int_X f \,d\mu \leq \mathrm{Simp}\int_X f \,d\mu$. Thus
+    $\mathrm{Simp}\int_X f \,d\mu = \int_X f \,d\mu$.
+    \item (Markov's inequality) We have the trivial pointwise inequality $\lambda 1_{\{x \in X : f(x) \geq \lambda\}} \leq f(x)$.
+    From the definition one has that $$
+    \lambda \mu(\{x \in X : f(x) \geq \lambda\}) \leq \int_X f \,d\mu,
+    $$and the claim follows.
+    \item (Finiteness) Denote $E := \{x \in X : f(x) = +\infty\}$, suppose that $\mu(E) > 0$, then one has 
+    $f(x) \geq n\cdot 1_{E}(x)$, therefore $$
+    \int_X f \,d\mu \geq n\mu(E), \forall n \geq 0 \xrightarrow{\text{Send}\ n \to \infty} \int_X f \,d\mu = +\infty.
+    $$This contradiction finishes the proof.
+    \item (Vanishing) Note that $E := \{x \in X : f(x) > 0\} = \bigcup_{n = 0}^\infty \{x \in X : f(x) \geq \frac{1}{n}\}$.
+    Suppose that $\mu(E) > 0$ then there exists at least $n$ such that $E_n := \{x \in X : f(x) \geq \frac{1}{n}\}$
+    measure $\mu(E_n) > 0$. Therefore $$
+    \int_X f \,d\mu \geq \frac{1}{n} \mu(E_n) > 0,
+    $$this contradiction finishes the proof.
+    \item (Vertical truncation) Since $\min(f, n) \leq f, \forall n \in \mathbb{N}$, by monotonicity we have
+    $\int_X \min(f,n) \,d\mu \leq\int_X f(x) \,d\mu$. Note that 
+    $\int_X \min(f,n) \,d\mu \leq \int_X \min(f,n + 1) \,d\mu$, the limit
+    $\lim_{n\to \infty}\int_X \min(f,n) \,d\mu$ exists. Hence $$
+    \lim_{n \to \infty} \int_X \min(f ,n) \,d\mu \leq \int_X f \,d\mu.
+    $$ We establish the reverse inequality, for every $\varepsilon > 0$ there exists an unsigned simple function $g$
+    such that $\mathrm{Simp}\int_X g \,d\mu \geq\int_X f \,d\mu - \varepsilon$.
+    Now we split the proof into two following parts:
+    
+    \emph{Case 1}: $\mathrm{Simp}\int_X g \,d\mu = +\infty$. Since $g$ is unsigned simple, there exists an 
+    measurable subset $E \subset X$ with $\mu(E) > 0$ such that $g(x) = +\infty$ for all $x \in E$. Since $g \leq f$, 
+    in particular we have $f(x) = +\infty, \forall x \in E$.
+    Thus by (vii) $$
+    \int_X \min(f, n) \,d\mu \geq \int_X \min(f,n)1_E \,d\mu \geq 
+    n \cdot \mu(E),
+    $$which implies$$
+    \lim_{n \to \infty} \int_X \min(f,n) \,d\mu = +\infty \geq \int_X f \,d\mu.
+    $$
+    
+    \emph{Case 2}: $\mathrm{Simp}\int_X g \,d\mu < +\infty$. Since $g$ is unsigned simple, by Venn Diagram
+    one can write $g(x) = +\infty \cdot 1_E(x) + \sum_{i = 1}^n c_i 1_{E_i}(x)$ where each $c_i \in [0, +\infty)$ and 
+    $E, \{E_i\}$ are pairwisely disjoint with $\mu(E) = 0$. Thus for large enough $n$ one has that $\sum_{i = 1}^n c_i 1_{E_i}(x)
+    \leq \min(f(x), n), \forall x \in X$. Hence $$
+    \lim_{n \to \infty} \int_X \min(f,n) \,d\mu \geq \mathrm{Simp}\int_X g \,d\mu
+    \geq \int_X f \,d\mu - \varepsilon,
+    $$let $\varepsilon \to 0$ to finish the proof.
+    \item (Horizontal truncation) Note that the sequence $\{f(x)1_{E_n}\}_{n \geq 1}$ is non-decreasing and is bounded
+    by $f$, thus by monotonicity the limit $\lim_{n \to \infty} \int_X f1_{E_n} \,d\mu$ exists
+    and is not greater than $\int_X f \,d\mu$. Let $h$ be unsigned simple function with $0 \leq h \leq f$
+    and satisfies that $\mathrm{Simp}\int_X h(x) dx > \int_X f \,d\mu - \varepsilon / 2$.
+    Note that $h(x)1_{E_n}$ is also unsigned simple function and by upwards monotone convergence $$
+    \mathrm{Simp}\int_X h(x)1_{E_n} dx = \sum_{k = 1}^m a_km(F_k \cap E_n) \to
+    \sum_{k = 1}^m a_k \mu(F_k \cap \bigcup_{i = 1}^\infty E_i) = \mathrm{Simp}\int_X h1_{\bigcup_{i = 1}^\infty E_i}\,d\mu
+    $$as $n \to \infty$. Thus for large enough $n$ one has that $\mathrm{Simp}\int_X h1_{E_n} \,d\mu
+    \geq \mathrm{Simp}\int_X h1_{\bigcup_{i = 1}^\infty E_i}\,d\mu - \varepsilon / 2$. Hence \begin{align*}
+    \int_X f1_{E_n} \,d\mu \geq \mathrm{Simp}\int_X h1_{E_n} \,d\mu
+    \geq \mathrm{Simp}\int_X h1_{\bigcup_{i = 1}^\infty E_i} \,d\mu - \frac{\varepsilon}{2} \geq 
+    \int_X f1_{\bigcup_{i = 1}^\infty E_i}\,d\mu - \varepsilon.
+    \end{align*}
+    Let $\varepsilon$ tends to zero and the claim follows.
+    \item (Restriction) This could be easily verified by restricting the simple function $g \leq f$ to $g\downharpoonright_Y$.\qedhere
+\end{enumerate}
+\end{proof}
+\end{document}
